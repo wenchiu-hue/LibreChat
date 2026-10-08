@@ -67,6 +67,7 @@ jest.mock('@librechat/client', () => ({
   SharePointIcon: () => <span />,
   DropdownPopup: () => null,
   TooltipAnchor: ({ render }: { render: React.ReactElement }) => render,
+  DisabledReason: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   CircleHelpIcon: () => <span />,
   HoverCard: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   HoverCardPortal: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,

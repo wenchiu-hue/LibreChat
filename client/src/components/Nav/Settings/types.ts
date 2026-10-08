@@ -50,6 +50,7 @@ export interface SettingsContextValue {
   isLocalProvider: boolean;
   emailEnabled: boolean;
   allowEmailChange: boolean;
+  passwordChangeEnabled: boolean;
   passkeyLoginEnabled: boolean;
   isTwoFactorPolicyProvider: boolean;
   twoFactorEnabled: boolean;

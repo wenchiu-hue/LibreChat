@@ -43,10 +43,12 @@ const NewChatButton = memo(function NewChatButton({
           data-testid="new-chat-button"
           aria-label={localize('com_ui_new_chat')}
           aria-keyshortcuts={ariaKey}
-          className="hover:bg-surface-hover flex h-9 w-9 items-center justify-center rounded-lg transition-colors"
+          className="flex h-10 w-10 items-center justify-center rounded-lg text-white/85 transition-colors hover:bg-white/15 hover:text-white"
           onClick={handleNewChatClick}
         >
-          <SquarePen className="text-text-primary h-5 w-5" />
+          <span className="nav-rail-icon">
+            <SquarePen className="nav-rail-glyph h-6 w-6" />
+          </span>
         </a>
       }
     />
@@ -110,12 +112,14 @@ const NavIconButton = memo(function NavIconButton({
           disabled={link.disabled}
           data-testid={`nav-panel-${link.id}`}
           className={cn(
-            'h-9 w-9 rounded-lg',
-            isActive ? 'bg-surface-active-alt text-text-primary' : 'text-text-secondary',
+            'h-10 w-10 rounded-lg hover:bg-white/15 hover:text-white',
+            isActive ? 'bg-white/20 text-white' : 'text-white/75',
           )}
           onClick={handleClick}
         >
-          <link.icon className="h-5 w-5" aria-hidden="true" />
+          <span className="nav-rail-icon">
+            <link.icon className="nav-rail-glyph h-6 w-6" aria-hidden="true" />
+          </span>
         </Button>
       }
     />
@@ -151,7 +155,7 @@ function ExpandedPanel({
   const toggleSidebarAriaKey = useShortcutAriaKey('toggleSidebar');
 
   return (
-    <div className="border-border-inset bg-surface-primary-alt flex h-full shrink-0 flex-col gap-2 border-r px-2 py-2">
+    <div className="flex h-full shrink-0 flex-col gap-2 border-r border-white/15 bg-gradient-to-t from-[#071533] via-[#0a4d6e] to-[#0d6b5c] px-2 py-2 text-white">
       <TooltipAnchor
         side="right"
         description={toggleSidebarHint}
@@ -164,16 +168,18 @@ function ExpandedPanel({
             aria-label={localize(toggleLabel)}
             aria-expanded={expanded}
             aria-keyshortcuts={toggleSidebarAriaKey}
-            className="h-9 w-9 rounded-lg"
+            className="h-10 w-10 rounded-lg text-white/85 hover:bg-white/15 hover:text-white"
             onClick={toggleClick}
           >
-            <Sidebar aria-hidden="true" className="text-text-primary h-5 w-5" />
+            <span className="nav-rail-icon">
+              <Sidebar aria-hidden="true" className="nav-rail-glyph h-6 w-6" />
+            </span>
           </Button>
         }
       />
       <NewChatButton setActive={setActive} switchToHistory={switchToHistory} />
       <AgentMarketplaceButton />
-      <div className="border-border-inset mx-2 border-b" />
+      <div className="mx-2 border-b border-white/20" />
       <div className="flex flex-col gap-1 overflow-y-auto">
         {links.map((link) => (
           <NavIconButton
@@ -195,7 +201,7 @@ function ExpandedPanel({
       </div>
 
       <div className="mt-auto">
-        <Suspense fallback={<Skeleton className="h-9 w-9 rounded-lg" />}>
+        <Suspense fallback={<Skeleton className="h-10 w-10 rounded-lg" />}>
           <AccountSettings collapsed />
         </Suspense>
       </div>

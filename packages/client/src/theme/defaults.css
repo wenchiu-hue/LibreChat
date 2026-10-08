@@ -41,7 +41,7 @@
   --green-950: 2 44 34;
   --red-50: 254 242 242;
   --red-100: 254 226 226;
-  --red-200: 254 202 202;
+  --red-200: 97 255 132; /* #61ff84 */
   --red-300: 252 165 165;
   --red-400: 248 113 113;
   --red-500: 239 68 68;
@@ -128,6 +128,7 @@ html {
   --surface-secondary: var(--gray-50);
   --surface-secondary-alt: var(--gray-200);
   --surface-tertiary: var(--gray-100);
+  --surface-tertiary-alpha: 1;
   --surface-tertiary-alt: var(--white);
   --surface-dialog: var(--white);
   --dialog-title: var(--text-primary);
@@ -178,7 +179,7 @@ html {
   --border-menu: var(--border-light);
   --surface-composer: var(--surface-chat);
   --surface-search: var(--surface-secondary);
-  --focus-control: var(--gray-800);
+  --focus-control: 8 145 178; /* #0891b2 — green-blue (3:1 on light canvases) */
   --border-disabled: var(--gray-200);
   --status-success: var(--green-700);
   --status-success-subtle: var(--green-50);
@@ -272,7 +273,7 @@ html {
   --theme-field-height: 2.5rem;
   --theme-field-height-lg: 3rem;
   --theme-field-padding-y: 0.5rem;
-  --theme-field-focus-style: ring;
+  --theme-field-focus-style: border;
   --theme-field-fill-style: transparent;
   --theme-focus-ring-width: 2px;
   --theme-focus-ring-offset: 2px;
@@ -373,9 +374,10 @@ html {
   --presentation: var(--gray-800);
   --text-primary: var(--gray-100);
   --focus-outline: 255 255 255;
+  --ring-primary: var(--focus-control); /* keyboard focus matches the brand-teal field edge */
   --text-secondary: var(--gray-300);
-  --text-secondary-alt: var(--gray-400);
-  --text-tertiary: var(--gray-400);
+  --text-secondary-alt: 166 163 163; /* #a6a3a3 — 4.74:1 on the #33383c slate side panel */
+  --text-tertiary: 180 180 180; /* #b4b4b4 — lifted so panel icons read against the #2a2a2a side panel */
   --text-muted: 179 182 189; /* Click UI global.color.text.muted #b3b6bd */
   --badge-label: var(--text-primary);
   --shimmer-base: 255 255 255;
@@ -383,7 +385,7 @@ html {
   --shimmer-dip: 179 179 179;
   --shimmer-dip-alpha: 0.25;
   --text-warning: var(--amber-500);
-  --text-destructive: var(--red-400);
+  --text-destructive: 251 130 130; /* #fb8282 — 4.86:1 on the #33383c slate side panel */
   --link: var(--blue-400);
   --link-hover: var(--blue-300);
   --link-visited: 192 132 252;
@@ -395,19 +397,24 @@ html {
   --header-button-hover: var(--gray-700);
   --surface-active: var(--gray-500);
   --surface-active-alt: var(--gray-700);
-  --surface-hover: var(--gray-650);
+  --surface-hover: var(--gray-600); /* one step above the #2a2a2a side panel */
   --surface-hover-alt: var(--gray-600);
-  --surface-pressed: var(--gray-650);
+  --surface-pressed: 82 82 82; /* #525252 — a step past hover so a click visibly lands */
   --surface-composer-hover: var(--gray-600);
   --surface-primary: var(--gray-900);
   --chart-widget-surface: 40 40 40; /* Click UI dashboards.chartWidget.color.background.default #282828 */
   --chart-widget-stroke: 50 50 50; /* Click UI dashboards.chartWidget.color.stroke.default #323232 */
-  --surface-primary-alt: var(--gray-850);
+  --surface-primary-alt: 51 56 60; /* #33383c — slate side panel, lifted from gray-850 so panels read less black */
   --surface-primary-contrast: var(--gray-850);
   --surface-secondary: var(--gray-800);
   --surface-secondary-alt: var(--gray-800);
   --surface-tertiary: var(--gray-700);
   --surface-tertiary-alt: var(--gray-700);
+  /** Frosted fill for `bg-surface-tertiary` only; channel aliases stay opaque gray-700. */
+  --color-surface-tertiary: rgb(255 255 255 / 6%);
+  /** Brand edge for `border-border-medium` only; channel aliases stay gray-650.
+   *  `@theme inline` 會把顏色直接寫進 utility，覆寫 `--color-*` 無效，所以走 tokens.css 的 edge 變數。 */
+  --border-medium-edge: 97 191 158;
   --surface-dialog: var(--gray-875);
   --dialog-title: var(--text-primary);
   --surface-overlay: 0 0 0;
@@ -419,7 +426,7 @@ html {
   --surface-destructive-hover: var(--red-900);
   --surface-chat: var(--gray-700);
   --surface-code: var(--presentation);
-  --surface-code-body: var(--surface-primary-alt);
+  --surface-code-body: 42 42 42; /* #2a2a2a, held while the side panel moved to slate */
   --surface-code-inline: var(--surface-hover-alt);
   --prose-bullet: var(--border-medium);
   --prose-quote-bar: var(--border-medium);
@@ -434,15 +441,15 @@ html {
   /* Dark draws a visible edge: the scrim and the drawer are both near-black. */
   --drawer-edge: var(--border-xheavy);
   --border-destructive: var(--red-500);
-  --border-control: var(--gray-800);
+  --border-control: var(--gray-500); /* visible field edge on the #2a2a2a side panel */
   --border-field-focus: var(--focus-control);
-  --field-fill: var(--surface-primary);
+  --field-fill: 63 68 71; /* #3f4447 — a step above the #33383c slate side panel */
   --field-text: var(--text-primary);
   --surface-tooltip: var(--surface-primary);
   --text-tooltip: var(--text-primary);
   --alert-error-fill: var(--status-error-subtle);
   --alert-error-border: var(--status-error-border);
-  --surface-canvas: var(--surface-primary-alt);
+  --surface-canvas: 42 42 42; /* #2a2a2a, held while the side panel moved to slate */
   --surface-user-message: var(--surface-tertiary);
   --surface-card: var(--surface-secondary);
   --surface-card-hover: var(--surface-tertiary);
@@ -454,7 +461,7 @@ html {
   --border-menu: var(--border-light);
   --surface-composer: var(--surface-chat);
   --surface-search: var(--surface-secondary);
-  --focus-control: var(--gray-100);
+  --focus-control: 103 187 173; /* #67bbad — brand teal */
   --border-disabled: var(--gray-650);
   --status-success: var(--green-300);
   --status-success-subtle: var(--green-950);

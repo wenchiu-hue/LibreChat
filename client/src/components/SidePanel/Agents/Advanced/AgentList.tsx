@@ -143,7 +143,7 @@ export function RemoveButton({ onClick, label }: RemoveButtonProps) {
     <Button
       variant="ghost"
       size="icon"
-      className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary size-auto shrink-0 p-1"
+      className="text-text-secondary hover:text-text-primary size-auto shrink-0 p-1"
       onClick={onClick}
       aria-label={label}
     >
@@ -178,7 +178,7 @@ interface StaticAgentRowProps {
 /** Borderless display row for a selected agent (avatar, name, remove). */
 export function StaticAgentRow({ agent, name, onRemove, removeLabel }: StaticAgentRowProps) {
   return (
-    <div className="hover:bg-surface-secondary flex items-center gap-2 rounded-lg px-1 py-1 transition">
+    <div className="hover:bg-surface-hover flex items-center gap-2 rounded-lg px-1 py-1 transition">
       <AgentGlyph agent={agent} />
       <span className="text-text-primary min-w-0 flex-1 truncate text-sm">{name}</span>
       <RemoveButton onClick={onRemove} label={removeLabel} />

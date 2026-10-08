@@ -63,10 +63,10 @@ const buttonVariantRecipe = cva(
         destructive:
           'bg-surface-destructive text-text-on-status hover:bg-surface-destructive-hover theme-destructive-soft:bg-surface-destructive/10 theme-destructive-soft:text-text-destructive theme-destructive-soft:hover:bg-surface-destructive/14 theme-destructive-soft:hover:active:bg-surface-destructive/17',
         outline:
-          'text-text-primary border border-border-light bg-transparent hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
+          'hover:border-focus-control text-text-primary border border-border-light bg-transparent hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
         /** An outlined filter whose pressed state stays visible between activations. */
         'outline-toggle':
-          'text-text-primary border border-border-control bg-transparent transition-none hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary aria-pressed:border-border-heavy aria-pressed:bg-surface-active-alt aria-pressed:hover:bg-surface-active-alt',
+          'hover:border-focus-control text-text-primary border border-border-control bg-transparent transition-none hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary aria-pressed:border-border-heavy aria-pressed:bg-surface-active-alt aria-pressed:hover:bg-surface-active-alt',
         /**
          * A selectable answer inside a question card. `outline` is wrong here:
          * its `border-light` edge measures ~1.2:1 against the panel these sit
@@ -76,9 +76,9 @@ const buttonVariantRecipe = cva(
          * and drops to `font-normal` so the question above stays the heading.
          */
         choice:
-          'border border-border-xheavy bg-surface-tertiary font-normal text-text-primary hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
+          'hover:border-focus-control border border-border-xheavy bg-surface-tertiary font-normal text-text-primary hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
         subtle:
-          'border border-border-light bg-transparent text-text-primary hover:bg-surface-secondary focus-visible:ring-focus-control focus-visible:ring-offset-0',
+          'hover:border-focus-control border border-border-light bg-transparent text-text-primary hover:bg-surface-secondary focus-visible:ring-focus-control focus-visible:ring-offset-0',
         secondary:
           'bg-surface-secondary text-text-primary hover:bg-surface-hover hover:active:bg-surface-pressed',
         ghost: 'hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
@@ -135,7 +135,7 @@ const buttonVariantRecipe = cva(
          * lag rather than polish.
          */
         'header-action':
-          'rounded-xl border border-border-chrome bg-presentation text-text-primary duration-0 hover:bg-surface-active-alt hover:text-text-primary',
+          'hover:border-focus-control rounded-xl border border-border-chrome bg-presentation text-text-primary duration-0 hover:bg-surface-active-alt hover:text-text-primary',
         /**
          * Text that turns into its own editor when activated, such as a workspace
          * title or description. It reads as the text it stands for, so the caller

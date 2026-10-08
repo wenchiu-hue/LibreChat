@@ -28,7 +28,7 @@ export const defaultTheme: IThemeRGB = {
   // Ring colors
   'rgb-ring-primary': '89 89 89', // #595959 (gray-500)
   'rgb-focus-outline': '0 0 0', // #000000
-  'rgb-focus-control': '33 33 33', // #212121 (gray-800)
+  'rgb-focus-control': '8 145 178', // #0891b2 — green-blue (3:1 on light canvases)
 
   // Header colors
   'rgb-header-primary': '255 255 255', // #fff (white)
@@ -86,7 +86,7 @@ export const defaultTheme: IThemeRGB = {
   'rgb-drawer-edge': '247 247 248', // #f7f7f8 (gray-50, the drawer's own fill)
   'rgb-border-destructive': '220 38 38', // #dc2626 (red-600)
   'rgb-border-control': '227 227 227', // #e3e3e3 (gray-200), the stock field edge
-  'rgb-border-field-focus': '33 33 33', // #212121 (gray-800, matching focus-control)
+  'rgb-border-field-focus': '8 145 178', // #0891b2 — matching focus-control
   'rgb-focus-subtle': '153 150 150', // #999696 (gray-400, matching border-heavy)
   'rgb-field-fill': '255 255 255', // #fff (white, matching surface-primary)
   'rgb-field-text': '33 33 33', // #212121 (gray-800, matching text-primary)

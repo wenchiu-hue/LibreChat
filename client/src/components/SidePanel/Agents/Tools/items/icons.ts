@@ -77,7 +77,7 @@ const KIND_FALLBACK_ICONS: Record<AgentItem['kind'], ItemIcon> = {
   },
   skill: {
     Icon: Zap,
-    colorClass: 'bg-series-4/15 text-series-4',
+    colorClass: 'bg-series-3/15 text-series-3',
   },
   action: {
     Icon: Workflow,

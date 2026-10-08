@@ -88,15 +88,11 @@ export const applyFontSize = (val: string): void => {
 export const getInitialTheme = (): string => {
   if (typeof window !== 'undefined' && window.localStorage) {
     const storedPrefs = window.localStorage.getItem('color-theme');
-    if (typeof storedPrefs === 'string') {
+    if (typeof storedPrefs === 'string' && storedPrefs.length > 0) {
       return storedPrefs;
-    }
-
-    const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
-    if (userMedia.matches) {
-      return 'dark';
     }
   }
 
-  return 'light';
+  /** Match ThemeProvider: an unset preference follows the OS via `system`. */
+  return 'system';
 };

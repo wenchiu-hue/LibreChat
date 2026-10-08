@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, useEffect, useRef, useState } from 'react';
 import { Plus } from 'lucide-react';
 import isEqual from 'lodash/isEqual';
-import { Button, useToastContext } from '@librechat/client';
+import { Button, DisabledReason, useToastContext } from '@librechat/client';
 import { useWatch, useForm, FormProvider } from 'react-hook-form';
 import { useGetModelsQuery } from 'librechat-data-provider/react-query';
 import {
@@ -995,31 +995,46 @@ export default function AgentPanel() {
             </div>
             {agent_id && (
               <div className="flex w-full gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="w-full justify-center"
-                  onClick={() => {
-                    reset(getDefaultAgentFormValues(defaultStatefulCodeEnvironment));
-                    setCurrentAgentId(undefined);
-                  }}
+                <DisabledReason
                   disabled={agentQuery.isInitialLoading}
-                  aria-label={localize('com_ui_create_new_agent')}
+                  reason={localize('com_ui_loading')}
+                  className="w-full"
                 >
-                  <Plus className="mr-1 h-4 w-4" aria-hidden="true" />
-                  {localize('com_ui_create_new_agent')}
-                </Button>
-                <Button
-                  variant="submit"
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full justify-center"
+                    onClick={() => {
+                      reset(getDefaultAgentFormValues(defaultStatefulCodeEnvironment));
+                      setCurrentAgentId(undefined);
+                    }}
+                    disabled={agentQuery.isInitialLoading}
+                    aria-label={localize('com_ui_create_new_agent')}
+                  >
+                    <Plus className="mr-1 h-4 w-4" aria-hidden="true" />
+                    {localize('com_ui_create_new_agent')}
+                  </Button>
+                </DisabledReason>
+                <DisabledReason
                   disabled={isEphemeralAgent(agent_id) || agentQuery.isInitialLoading}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleSelectAgent();
-                  }}
-                  aria-label={localize('com_ui_select_agent')}
+                  reason={
+                    agentQuery.isInitialLoading
+                      ? localize('com_ui_loading')
+                      : localize('com_agents_no_agent_id_error')
+                  }
                 >
-                  {localize('com_ui_select')}
-                </Button>
+                  <Button
+                    variant="submit"
+                    disabled={isEphemeralAgent(agent_id) || agentQuery.isInitialLoading}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleSelectAgent();
+                    }}
+                    aria-label={localize('com_ui_select_agent')}
+                  >
+                    {localize('com_ui_select')}
+                  </Button>
+                </DisabledReason>
               </div>
             )}
           </div>

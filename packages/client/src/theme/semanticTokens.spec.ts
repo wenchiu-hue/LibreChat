@@ -81,12 +81,12 @@ describe('dark dialog surface', () => {
 });
 
 describe('dark hover surface', () => {
-  it('uses the gray-650 midpoint in both CSS and the runtime theme', () => {
+  /** 側邊面板提亮到 #2a2a2a 後，hover 要再往上一階（gray-600）才看得出來。 */
+  it('uses gray-600, one step above the lifted side panel, in both CSS and the runtime theme', () => {
     const stockStyles = readFileSync(join(__dirname, 'defaults.css'), 'utf8');
 
-    expect(stockStyles).toMatch(/--gray-650:\s*57 57 57;/);
-    expect(stockStyles).toMatch(/--surface-hover:\s*var\(--gray-650\);/);
-    expect(darkTheme['rgb-surface-hover']).toBe('57 57 57');
+    expect(stockStyles).toMatch(/--surface-hover:\s*var\(--gray-600\);/);
+    expect(darkTheme['rgb-surface-hover']).toBe('66 66 66');
   });
 });
 
@@ -102,11 +102,12 @@ describe('composer hover surface', () => {
 });
 
 describe('dark destructive text', () => {
-  it('uses red-400 without changing the status error token', () => {
+  /** red-400 在 #33383c slate 側邊面板上只有 4.29:1，改用 #fb8282 過 AA。 */
+  it('uses a lifted red without changing the status error token', () => {
     const stockStyles = readFileSync(join(__dirname, 'defaults.css'), 'utf8');
 
-    expect(stockStyles).toMatch(/--text-destructive:\s*var\(--red-400\);/);
-    expect(darkTheme['rgb-text-destructive']).toBe('248 113 113');
+    expect(stockStyles).toMatch(/--text-destructive:\s*251 130 130;/);
+    expect(darkTheme['rgb-text-destructive']).toBe('251 130 130');
     expect(darkTheme['rgb-status-error']).toBe('252 165 165');
   });
 });
@@ -779,8 +780,8 @@ describe('focus role defaults', () => {
       '255 255 255',
     ]);
     expect([defaultTheme['rgb-focus-control'], darkTheme['rgb-focus-control']]).toEqual([
-      defaultTheme['rgb-text-primary'],
-      darkTheme['rgb-text-primary'],
+      '8 145 178',
+      '103 187 173',
     ]);
   });
 });
@@ -790,12 +791,18 @@ describe('state role defaults', () => {
    *  hover fill it always did; only a theme that names a pressed fill changes it. */
   it.each([
     ['default light', defaultTheme],
-    ['default dark', darkTheme],
     ['high contrast light', highContrastLightTheme],
     ['high contrast dark', highContrastDarkTheme],
   ])('presses %s controls in their hover fills', (_name, theme: IThemeRGB) => {
     expect(theme['rgb-surface-pressed']).toBe(theme['rgb-surface-hover']);
     expect(theme['rgb-surface-inverted-pressed']).toBe(theme['rgb-surface-inverted-hover']);
+  });
+
+  /** 深色預設主題把按下狀態拉得比 hover 更亮，點擊時才有明確回饋。 */
+  it('presses default dark controls one step past their hover fill', () => {
+    expect(darkTheme['rgb-surface-hover']).toBe('66 66 66');
+    expect(darkTheme['rgb-surface-pressed']).toBe('82 82 82');
+    expect(darkTheme['rgb-surface-inverted-pressed']).toBe(darkTheme['rgb-surface-inverted-hover']);
   });
 
   it.each([

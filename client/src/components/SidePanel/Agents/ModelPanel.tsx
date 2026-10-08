@@ -126,7 +126,7 @@ export default function ModelPanel({
           size="icon"
           onClick={() => setActivePanel(Panel.builder)}
           aria-label={localize('com_ui_back_to_builder')}
-          className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary shrink-0 rounded-xl"
+          className="text-text-secondary hover:text-text-primary shrink-0 rounded-xl"
         >
           <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
         </Button>
@@ -310,7 +310,7 @@ export default function ModelPanel({
       <Button
         variant="outline"
         onClick={handleResetParameters}
-        className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary mt-2 h-9 w-full rounded-xl px-4 font-medium"
+        className="text-text-secondary hover:text-text-primary mt-2 h-9 w-full rounded-xl px-4 font-medium"
       >
         <RotateCcw className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
         {localize('com_ui_reset_var', { 0: localize('com_ui_model_parameters') })}

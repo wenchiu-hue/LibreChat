@@ -40,7 +40,7 @@ export default function AdvancedPanel() {
           size="icon"
           onClick={() => setActivePanel(Panel.builder)}
           aria-label={localize('com_ui_back_to_builder')}
-          className="border-border-light text-text-secondary hover:bg-surface-secondary hover:text-text-primary focus-visible:ring-text-primary shrink-0 rounded-xl border focus-visible:ring-2"
+          className="border-border-light text-text-secondary hover:text-text-primary focus-visible:ring-text-primary shrink-0 rounded-xl border focus-visible:ring-2"
         >
           <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
         </Button>
@@ -80,7 +80,7 @@ export default function AdvancedPanel() {
                   variant="ghost"
                   onClick={handleCopyAgentId}
                   aria-label={localize('com_ui_agent_id_copy')}
-                  className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary focus-visible:ring-text-primary h-auto gap-1.5 rounded-lg px-2 py-1 focus-visible:ring-2"
+                  className="text-text-secondary hover:text-text-primary focus-visible:ring-text-primary h-auto gap-1.5 rounded-lg px-2 py-1 focus-visible:ring-2"
                 >
                   <code className="max-w-[9.375rem] truncate font-mono text-xs">
                     {currentAgentId}

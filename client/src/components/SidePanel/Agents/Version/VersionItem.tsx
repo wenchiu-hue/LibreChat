@@ -122,7 +122,7 @@ export default function VersionItem({
           'group relative mb-2 ml-2 flex flex-1 flex-col rounded-xl border p-3 transition-colors',
           isActive
             ? 'border-status-success-border bg-status-success-subtle'
-            : 'border-border-light hover:border-border-medium hover:bg-surface-secondary bg-transparent',
+            : 'border-border-light hover:border-focus-control hover:bg-surface-hover bg-transparent',
         )}
       >
         <div className="flex items-start justify-between gap-2">
@@ -152,9 +152,14 @@ export default function VersionItem({
               )}
             </div>
             {versionName && (
-              <span className="text-text-secondary mt-0.5 truncate text-xs" title={versionName}>
+              <TooltipAnchor
+                description={versionName}
+                render={
+                  <span className="text-text-secondary mt-0.5 cursor-default truncate text-xs" />
+                }
+              >
                 {versionName}
-              </span>
+              </TooltipAnchor>
             )}
           </div>
           {!isActive && (
@@ -168,7 +173,7 @@ export default function VersionItem({
                       variant="ghost"
                       size="icon"
                       aria-label={localize('com_ui_agent_version_restore')}
-                      className="border-border-light text-text-secondary hover:border-border-medium size-7 shrink-0 rounded-lg border opacity-0 transition-all group-hover:opacity-100 focus-visible:opacity-100"
+                      className="border-border-light text-text-secondary hover:border-focus-control size-7 shrink-0 rounded-lg border opacity-0 transition-all group-hover:opacity-100 focus-visible:opacity-100"
                     >
                       <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                     </Button>

@@ -19,6 +19,9 @@ html[data-input-modality='pointer'] .lc-field:focus-visible {
   html[data-input-modality='pointer'] .lc-field:is(:root *):focus,
   html[data-input-modality='pointer'] .lc-field:is(:root *):focus-visible {
     border-color: rgb(var(--border-field-focus, var(--focus-control)));
+    /* Soft halo in the outline ink (~#ffffff61 on dark); keeps pointer focus
+       visible after the modality reset clears the keyboard ring. */
+    box-shadow: 0 0 3px rgb(var(--focus-outline) / 0.38);
   }
 }
 

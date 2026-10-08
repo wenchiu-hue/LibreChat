@@ -1,7 +1,7 @@
 // ThemeSelector.spec.tsx
 import 'test/matchMedia.mock';
 import React from 'react';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { clickDropdown, flushDropdownEffects } from 'test/dropdown';
 import '@testing-library/jest-dom/extend-expect';
 import { RecoilRoot } from 'recoil';
@@ -59,29 +59,25 @@ describe('ThemeSelector', () => {
     });
   });
 
-  it('offers both high contrast options and reports the selected one', async () => {
+  it('does not offer high contrast options', async () => {
     global.ResizeObserver = class MockedResizeObserver {
       observe = jest.fn();
       unobserve = jest.fn();
       disconnect = jest.fn();
     };
-    const { getByText, getByTestId } = render(
+    const { queryByText, getByTestId } = render(
       <RecoilRoot>
         <ThemeSelector theme="system" onChange={mockOnChange} />
       </RecoilRoot>,
     );
 
-    fireEvent.click(getByTestId('theme-selector'));
+    await clickDropdown(getByTestId('theme-selector'));
 
-    expect(getByText('High contrast light')).toBeInTheDocument();
-    fireEvent.click(getByText('High contrast dark'));
-
-    await waitFor(() => {
-      expect(mockOnChange).toHaveBeenCalledWith('high-contrast-dark');
-    });
+    expect(queryByText('High contrast light')).not.toBeInTheDocument();
+    expect(queryByText('High contrast dark')).not.toBeInTheDocument();
   });
 
-  it('shows the active high contrast mode as the current value', () => {
+  it('maps a stored high contrast mode onto its plain scheme in the control', () => {
     global.ResizeObserver = class MockedResizeObserver {
       observe = jest.fn();
       unobserve = jest.fn();
@@ -93,6 +89,6 @@ describe('ThemeSelector', () => {
       </RecoilRoot>,
     );
 
-    expect(getByRole('combobox')).toHaveTextContent('High contrast light');
+    expect(getByRole('combobox')).toHaveTextContent('Light');
   });
 });

@@ -7,6 +7,14 @@ import { useRegisterUserMutation } from 'librechat-data-provider/react-query';
 import { ThemeContext, SecretInput, Spinner, Button, Input, isDark } from '@librechat/client';
 import type { TRegisterUser, TError } from 'librechat-data-provider';
 import type { TLoginLayoutContext } from '~/common';
+import {
+  authGlassInputClassName,
+  authGlassSubmitClassName,
+  authGlassSecretInputClassName,
+  authGlassSecretButtonClassName,
+  authGlassSecretControlsClassName,
+  authGlassTextLinkClassName,
+} from './authStyles';
 import { useLocalize, TranslationKeys } from '~/hooks';
 import { ErrorMessage } from './ErrorMessage';
 import LegalConsent from './LegalConsent';
@@ -37,13 +45,11 @@ const Registration: React.FC = () => {
 
   // only require captcha if we have a siteKey
   const requireCaptcha = Boolean(startupConfig?.turnstile?.siteKey);
-  const authInputClassName =
-    'webkit-dark-styles peer h-auto w-full rounded-2xl border px-3.5 pb-2.5 pt-3 text-text-primary duration-200 focus:border-accent-primary focus-visible:border-accent-primary';
-  const authSecretInputClassName = `${authInputClassName} pr-12`;
+  const authInputClassName = `${authGlassInputClassName} peer pb-2.5 pt-3`;
+  const authSecretInputClassName = `${authGlassSecretInputClassName} peer pb-2.5 pt-3`;
   const authLabelClassName =
-    'absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-accent-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4';
-  const authSecretButtonClassName =
-    'size-9 rounded-xl text-text-secondary-alt hover:bg-transparent hover:text-text-primary';
+    'absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-transparent px-2 text-sm text-white/70 duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-white rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4';
+  const authSecretButtonClassName = authGlassSecretButtonClassName;
 
   const registerUser = useRegisterUserMutation({
     onMutate: () => {
@@ -95,7 +101,7 @@ const Registration: React.FC = () => {
               data-testid={id}
               label={fieldLabel}
               labelClassName={authLabelClassName}
-              controlsClassName="right-2"
+              controlsClassName={authGlassSecretControlsClassName}
               buttonClassName={authSecretButtonClassName}
             />
           ) : (
@@ -119,7 +125,7 @@ const Registration: React.FC = () => {
           )}
         </div>
         {errors[id] && (
-          <span role="alert" className="text-text-destructive mt-1 text-sm">
+          <span role="alert" className="mt-1 text-sm text-red-200">
             {String(errors[id]?.message) ?? ''}
           </span>
         )}
@@ -235,7 +241,7 @@ const Registration: React.FC = () => {
                 type="submit"
                 aria-label="Submit registration"
                 variant="submit"
-                className="h-12 w-full rounded-2xl"
+                className={authGlassSubmitClassName}
               >
                 {isSubmitting ? <Spinner /> : localize('com_auth_continue')}
               </Button>
@@ -246,13 +252,9 @@ const Registration: React.FC = () => {
             <LegalConsent startupConfig={startupConfig} />
           </form>
 
-          <p className="text-text-secondary my-4 text-center text-sm font-light">
+          <p className="my-4 text-center text-sm font-light text-white/70">
             {localize('com_auth_already_have_account')}{' '}
-            <a
-              href={loginPage()}
-              aria-label="Login"
-              className="text-accent-primary hover:text-accent-primary-hover inline-flex p-1 text-sm font-medium transition-colors"
-            >
+            <a href={loginPage()} aria-label="Login" className={authGlassTextLinkClassName}>
               {localize('com_auth_login')}
             </a>
           </p>

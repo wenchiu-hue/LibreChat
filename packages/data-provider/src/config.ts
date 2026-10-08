@@ -2425,6 +2425,13 @@ export const rateLimitSchema = z.object({
       userWindowInMinutes: z.number().optional(),
     })
     .optional(),
+  /** Changing the account password while authenticated; keyed by the authenticated user. */
+  passwordChange: z
+    .object({
+      userMax: z.number().optional(),
+      userWindowInMinutes: z.number().optional(),
+    })
+    .optional(),
 });
 
 export function resolveMCPAppRateLimits(
@@ -3190,6 +3197,8 @@ export type TStartupConfig = {
   twoFactorAuthenticationRequired?: boolean;
   emailEnabled: boolean;
   allowEmailChange: boolean;
+  /** Local accounts may change their password from Settings → Account when enabled. */
+  passwordChangeEnabled: boolean;
   showBirthdayIcon: boolean;
   helpAndFaqURL: string;
   /** Admin panel link, only present for users with admin access */
@@ -4043,6 +4052,14 @@ export const configSchema = z.object({
       enabled: z.boolean().optional(),
       /** Lifetime of a verification link. */
       tokenTTLSeconds: z.number().int().min(60).max(86_400).optional(),
+    })
+    .optional(),
+  /** Changing the account password while authenticated. An unset field falls back to its env
+   *  var, then the documented default, so an existing deployment keeps the behavior it has today. */
+  passwordChange: z
+    .object({
+      /** `ALLOW_PASSWORD_CHANGE` when unset; enabled when neither is given. */
+      enabled: z.boolean().optional(),
     })
     .optional(),
   /** WebAuthn passkey enrollment. An unset field falls back to its env var, then the

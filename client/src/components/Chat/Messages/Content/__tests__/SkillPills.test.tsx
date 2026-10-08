@@ -64,7 +64,7 @@ describe('SkillPills', () => {
     // same semantic informational color.
     expect(alwaysApplySvg?.getAttribute('class')).toContain('lucide-pin');
     expect(manualSvg?.getAttribute('class')).not.toContain('lucide-pin');
-    expect(alwaysApplySvg).toHaveClass('text-status-info');
-    expect(manualSvg).toHaveClass('text-status-info');
+    expect(alwaysApplySvg).toHaveClass('text-series-3');
+    expect(manualSvg).toHaveClass('text-series-3');
   });
 });

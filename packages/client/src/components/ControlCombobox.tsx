@@ -41,8 +41,8 @@ interface ControlComboboxProps {
   /** Renders at most this many options while the search field is empty.
    * Typing lifts the cap so search reaches every option. */
   unsearchedLimit?: number;
-  /** `field` matches the `Input` primitive so this can sit in a form row. */
-  variant?: 'default' | 'field';
+  /** `field` matches the `Input` primitive so this can sit in a form row; `filled` matches its `filled` variant. */
+  variant?: 'default' | 'field' | 'filled';
   gutter?: number;
   /**
    * Radix dialogs trap focus, so a portaled popover rendered outside the dialog
@@ -192,7 +192,7 @@ function ControlCombobox({
     <div
       className={cn(
         'flex w-full items-center justify-center px-1',
-        variant === 'field' && 'px-0',
+        (variant === 'field' || variant === 'filled') && 'px-0',
         containerClassName,
       )}
     >
@@ -207,12 +207,18 @@ function ControlCombobox({
         onBlur={onBlur}
         aria-invalid={ariaInvalid || undefined}
         aria-describedby={ariaDescribedBy}
+        title={(displayValue != null ? displayValue : selectedValue) || undefined}
         className={cn(
           'bg-surface-secondary flex items-center justify-center gap-2 rounded-full',
           'text-text-primary hover:bg-surface-tertiary',
           'border-border-control border',
           isCollapsed ? 'h-9 w-9' : 'h-9 w-full rounded-xl px-3 py-2 text-sm',
           variant === 'field' && cn(fieldControl, 'hover:bg-surface-hover justify-start'),
+          variant === 'filled' &&
+            cn(
+              fieldControl,
+              'bg-field-fill hover:bg-field-fill hover:border-focus-control justify-start border-transparent',
+            ),
           className,
         )}
       >
@@ -221,10 +227,7 @@ function ControlCombobox({
         )}
         {!isCollapsed && (
           <>
-            <span
-              className="grow truncate text-left"
-              title={(displayValue != null ? displayValue : selectedValue) || undefined}
-            >
+            <span className="grow truncate text-left">
               {displayValue != null
                 ? displayValue || selectPlaceholder
                 : selectedValue || selectPlaceholder}

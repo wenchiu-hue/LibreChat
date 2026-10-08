@@ -178,7 +178,7 @@ const Radio: React.NamedExoticComponent<RadioProps> = memo(function Radio({
     >
       {selectedIndex >= 0 && isMounted && (
         <div
-          className={`border-border-light bg-surface-primary pointer-events-none absolute left-0 rounded-md border shadow-xs transition-all duration-300 ease-out ${
+          className={`bg-series-3 pointer-events-none absolute left-0 rounded-md transition-all duration-300 ease-out ${
             wrap ? 'top-0' : 'inset-y-1'
           }`}
           style={backgroundStyle}
@@ -198,7 +198,7 @@ const Radio: React.NamedExoticComponent<RadioProps> = memo(function Radio({
           onKeyDown={(event) => handleKeyDown(event, index)}
           disabled={disabled}
           className={`focus-visible:ring-focus-control relative z-10 flex items-center justify-center gap-2 rounded-md font-medium ${segmentSizeClasses[size]} transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-hidden ${
-            currentValue === option.value ? 'text-text-primary' : 'text-text-secondary'
+            currentValue === option.value ? 'text-text-on-status' : 'text-text-secondary'
           } ${disabled ? 'cursor-not-allowed opacity-50' : ''} ${disabledInkClasses} ${fullWidth ? 'flex-1' : ''} ${buttonClassName}`}
         >
           {option.icon && (

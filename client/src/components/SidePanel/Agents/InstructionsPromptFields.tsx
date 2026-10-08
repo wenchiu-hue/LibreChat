@@ -13,7 +13,7 @@ import { useGetAllPromptGroups, useGetPrompts } from '~/data-provider';
 import { useLocalize } from '~/hooks';
 
 export const fieldWrapperClass =
-  'flex h-9 items-center rounded-lg border border-border-light bg-surface-secondary px-3 text-sm text-text-secondary';
+  'flex h-9 items-center rounded-lg border border-transparent bg-field-fill px-3 text-sm text-text-secondary';
 
 export function LoadError({ forbidden, onRetry }: { forbidden: boolean; onRetry: () => void }) {
   const localize = useLocalize();

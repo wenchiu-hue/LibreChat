@@ -19,6 +19,8 @@ interface TooltipAnchorProps extends Ariakit.TooltipAnchorProps {
   focusOutline?: FocusOutline;
   role?: string;
   className?: string;
+  /** Extra classes on the floating popup (e.g. `tooltip-inverse`). */
+  popupClassName?: string;
   description: string;
   enableHTML?: boolean;
   portalElement?: Ariakit.TooltipProps['portalElement'];
@@ -37,12 +39,14 @@ const TooltipPopup = memo(function TooltipPopup({
   enableHTML,
   portalElement,
   zIndex,
+  popupClassName,
 }: {
   store: Ariakit.TooltipStore;
   description: string;
   enableHTML: boolean;
   portalElement?: Ariakit.TooltipProps['portalElement'];
   zIndex?: number;
+  popupClassName?: string;
 }) {
   const mounted = Ariakit.useStoreState(store, (state) => state.mounted);
   const placement = Ariakit.useStoreState(store, (state) => state.placement);
@@ -104,7 +108,7 @@ const TooltipPopup = memo(function TooltipPopup({
           gutter={4}
           alwaysVisible
           portalElement={portalElement}
-          className="tooltip"
+          className={cn('tooltip', popupClassName)}
           render={
             <motion.div
               style={resolvedZIndex != null ? { zIndex: resolvedZIndex } : undefined}
@@ -137,6 +141,7 @@ export const TooltipAnchor: ForwardRefExoticComponent<
     description,
     side = 'top',
     className,
+    popupClassName,
     focusOutline,
     role,
     enableHTML = false,
@@ -195,6 +200,7 @@ export const TooltipAnchor: ForwardRefExoticComponent<
         enableHTML={enableHTML}
         portalElement={portalElement}
         zIndex={zIndex}
+        popupClassName={popupClassName}
       />
     </Ariakit.TooltipProvider>
   );

@@ -7,7 +7,7 @@ import { useLocalize } from '~/hooks';
  *  colour alone would be the only thing telling them apart from the text
  *  around them. No `target`, like the rest of the auth screens. */
 const linkClassName =
-  'font-medium text-accent-primary underline underline-offset-2 transition-colors hover:text-accent-primary-hover focus-visible:text-accent-primary-hover';
+  'font-medium text-white underline underline-offset-2 transition-colors hover:text-white/80 focus-visible:text-white/80';
 
 /** Worded for whichever policies the deployment published, so one it never
  *  wrote is never claimed to have been agreed to. */
@@ -40,7 +40,7 @@ function LegalConsent({ startupConfig }: { startupConfig: TStartupConfig | null 
   }
 
   return (
-    <p className="text-text-secondary mt-4 text-center text-sm font-light">
+    <p className="mt-4 text-center text-sm font-light text-white/80">
       <Trans
         i18nKey={consentKey(privacyPolicyUrl, termsOfServiceUrl)}
         components={{

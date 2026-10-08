@@ -346,6 +346,10 @@ export const confirmEmailChange = (
   return request.post(endpoints.confirmEmailChange(), payload);
 };
 
+export const changePassword = (payload: t.TChangePassword): Promise<t.TChangePasswordResponse> => {
+  return request.post(endpoints.changePassword(), payload);
+};
+
 export const resendVerificationEmail = (
   payload: t.TResendVerificationEmail,
 ): Promise<t.VerifyEmailResponse> => {

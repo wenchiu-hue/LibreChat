@@ -25,9 +25,12 @@ export const ThemeSelector = ({
     { value: 'system', label: localize('com_nav_theme_system') },
     { value: 'dark', label: localize('com_nav_theme_dark') },
     { value: 'light', label: localize('com_nav_theme_light') },
-    { value: 'high-contrast-light', label: localize('com_nav_theme_high_contrast_light') },
-    { value: 'high-contrast-dark', label: localize('com_nav_theme_high_contrast_dark') },
   ];
+
+  /** High-contrast modes are no longer offered here; map a stored one onto its
+   *  plain scheme so the dropdown still shows a real option. */
+  const dropdownValue =
+    theme === 'high-contrast-dark' ? 'dark' : theme === 'high-contrast-light' ? 'light' : theme;
 
   const labelId = 'theme-selector-label';
 
@@ -36,7 +39,7 @@ export const ThemeSelector = ({
       <div id={labelId}>{localize('com_nav_theme')}</div>
 
       <Dropdown
-        value={theme}
+        value={dropdownValue}
         onChange={onChange}
         options={themeOptions}
         sizeClasses={cn('z-50 w-[min(11.25rem,90vw)]', popoverClassName)}

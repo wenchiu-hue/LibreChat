@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { VerifiedIcon } from '@librechat/client';
+import { VerifiedIcon, TooltipAnchor } from '@librechat/client';
 import { Check, Globe, Info, Settings, Star, User } from 'lucide-react';
 import type { TranslationKeys } from '~/hooks/useLocalize';
 import type { AgentItem, ItemStatus } from './items/types';
@@ -118,7 +118,7 @@ function ToolCardImpl({
         'group touch:h-36 relative flex h-32 w-full flex-col overflow-hidden rounded-2xl border',
         selected
           ? 'border-status-success bg-status-success/10 shadow-xs'
-          : 'border-border-light hover:border-border-medium hover:bg-surface-tertiary bg-transparent hover:shadow-xs',
+          : 'border-border-light hover:border-focus-control hover:bg-surface-tertiary bg-transparent hover:shadow-xs',
       )}
     >
       <button
@@ -187,23 +187,27 @@ function ToolCardImpl({
               </span>
             )}
             {isSharedSkill && skill && (
-              <span
-                className="bg-surface-tertiary text-text-tertiary inline-flex max-w-[60%] items-center gap-1 rounded-full px-2 py-0.5 text-[10px]"
-                title={localize('com_ui_tools_shared_by', { name: skill.authorName })}
+              <TooltipAnchor
+                description={localize('com_ui_tools_shared_by', { name: skill.authorName })}
                 aria-label={localize('com_ui_tools_shared_by', { name: skill.authorName })}
+                render={
+                  <span className="bg-surface-tertiary text-text-tertiary inline-flex max-w-[60%] cursor-default items-center gap-1 rounded-full px-2 py-0.5 text-[10px]" />
+                }
               >
                 <User className="size-2.5 shrink-0" aria-hidden="true" />
                 <span className="truncate">{skill.authorName}</span>
-              </span>
+              </TooltipAnchor>
             )}
             {isPublicSkill && (
-              <span
-                className="bg-surface-tertiary text-text-tertiary inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px]"
-                title={localize('com_ui_sr_public_skill')}
+              <TooltipAnchor
+                description={localize('com_ui_sr_public_skill')}
                 aria-label={localize('com_ui_sr_public_skill')}
+                render={
+                  <span className="bg-surface-tertiary text-text-tertiary inline-flex cursor-default items-center gap-1 rounded-full px-1.5 py-0.5 text-[10px]" />
+                }
               >
                 <Globe className="size-2.5" aria-hidden="true" />
-              </span>
+              </TooltipAnchor>
             )}
           </div>
         ) : null}

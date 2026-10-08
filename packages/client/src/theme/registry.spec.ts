@@ -1034,7 +1034,8 @@ describe('theme registry', () => {
     expect(defaultAppearance).toMatchObject({
       fieldHeight: '2.5rem',
       fieldPaddingY: '0.5rem',
-      fieldFocusStyle: 'ring',
+      /** 品牌預設以框線表示欄位焦點。 */
+      fieldFocusStyle: 'border',
       labelSize: defaultAppearance.textSm,
       labelLeading: '1',
       labelFontWeight: 'inherit',
@@ -1062,7 +1063,7 @@ describe('theme registry', () => {
     expect(colors['rgb-focus-control']).toBe('10 20 30');
     expect(colors['rgb-border-field-focus']).toBe('10 20 30');
     expect(appearance.labelSize).toBe('0.95rem');
-    expect(appearance.fieldFocusStyle).toBe('ring');
+    expect(appearance.fieldFocusStyle).toBe('border');
   });
 
   it('draws fields and labels from their own roles apart from the focus ring and type scale', () => {
@@ -1111,6 +1112,11 @@ describe('theme registry', () => {
       for (const mode of ['light', 'dark'] as const) {
         const { colors } = resolveTheme(layerTheme({}), mode);
         layerRoleSources.forEach(([role, light, dark]) => {
+          /** 深色側邊面板改為 slate 後，聊天 canvas 刻意維持原本的 #2a2a2a。 */
+          if (mode === 'dark' && role === 'rgb-surface-canvas') {
+            expect(colors[role]).toBe('42 42 42');
+            return;
+          }
           expect([role, colors[role]]).toEqual([role, colors[mode === 'dark' ? dark : light]]);
         });
       }
@@ -1169,7 +1175,10 @@ describe('theme registry', () => {
         const base = mode === 'dark' ? darkTheme : defaultTheme;
         expect(appearance.fieldFillStyle).toBe('transparent');
         expect(colors['rgb-field-text']).toBe(base['rgb-text-primary']);
-        expect(colors['rgb-field-fill']).toBe(base['rgb-surface-primary']);
+        /** 深色欄位底色改為 #3f4447，搭配 slate 側邊面板。 */
+        expect(colors['rgb-field-fill']).toBe(
+          mode === 'dark' ? '63 68 71' : base['rgb-surface-primary'],
+        );
       }
     });
 
@@ -1559,7 +1568,7 @@ describe('theme registry', () => {
     );
 
     expect(light.colors['rgb-focus-outline']).toBe('0 0 0');
-    expect(light.colors['rgb-focus-control']).toBe(defaultTheme['rgb-text-primary']);
+    expect(light.colors['rgb-focus-control']).toBe(defaultTheme['rgb-focus-control']);
   });
 
   it('preserves explicit focus roles over the ring and ink they would follow', () => {

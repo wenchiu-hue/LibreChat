@@ -36,6 +36,7 @@ import { EngineSTTSetting, EngineTTSSetting } from './SpeechControls';
 import UiScaleSelector from '../SettingsTabs/General/UiScaleSelector';
 import FontSizeSelector from '../SettingsTabs/Chat/FontSizeSelector';
 import ChatTitleInTab from '../SettingsTabs/General/ChatTitleInTab';
+import ChangePassword from '../SettingsTabs/Account/ChangePassword';
 import AdvancedPrompts from '../SettingsTabs/Chat/AdvancedPrompts';
 import DuringRunAction from '../SettingsTabs/Chat/DuringRunAction';
 import DeleteAccount from '../SettingsTabs/Account/DeleteAccount';
@@ -778,6 +779,15 @@ export const registry: SettingEntry[] = [
     Component: ChangeEmail,
   },
   // Account · Security
+  {
+    id: 'changePassword',
+    tab: ACCOUNT,
+    section: 'security',
+    labelKey: 'com_ui_settings_label_change_password',
+    keywords: ['password', 'security', 'credentials'],
+    show: (ctx) => ctx.isLocalProvider && ctx.passwordChangeEnabled,
+    Component: ChangePassword,
+  },
   {
     id: 'twoFactor',
     tab: ACCOUNT,

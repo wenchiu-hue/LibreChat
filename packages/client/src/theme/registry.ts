@@ -346,7 +346,8 @@ export const defaultAppearance: IThemeAppearance = Object.freeze({
   fieldHeight: '2.5rem',
   fieldHeightLg: '3rem',
   fieldPaddingY: '0.5rem',
-  fieldFocusStyle: 'ring',
+  /** 預設主題不經 ThemeProvider 在執行期覆寫，實際生效的是 defaults.css，所以預設外觀直接用 border。 */
+  fieldFocusStyle: 'border',
   fieldFillStyle: 'transparent',
   focusRingWidth: '2px',
   focusRingOffset: '2px',

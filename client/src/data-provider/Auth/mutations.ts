@@ -138,6 +138,15 @@ export const useRequestEmailChangeMutation = (
   });
 };
 
+export const useChangePasswordMutation = (
+  options?: t.MutationOptions<t.TChangePasswordResponse, t.TChangePassword>,
+): UseMutationResult<t.TChangePasswordResponse, unknown, t.TChangePassword, unknown> => {
+  return useMutation({
+    mutationFn: (payload: t.TChangePassword) => dataService.changePassword(payload),
+    ...(options ?? {}),
+  });
+};
+
 export const useConfirmEmailChangeMutation = (
   options?: t.MutationOptions<t.TEmailChangeResponse, t.TConfirmEmailChange>,
 ): UseMutationResult<t.TEmailChangeResponse, unknown, t.TConfirmEmailChange, unknown> => {

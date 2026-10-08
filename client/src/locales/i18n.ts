@@ -216,9 +216,8 @@ export function normalizeLocale(locale?: string | null): SupportedLocale {
 }
 
 export function detectInitialLanguage() {
-  const cookieLang = readCookie('lang');
-  const storedLang = readStoredLanguage();
-  return normalizeLocale(cookieLang || storedLang || getNavigatorLanguage());
+  /** TYNESYS: keep the product UI in English regardless of browser / stored locale. */
+  return 'en';
 }
 
 export async function ensureLocale(locale?: string | null): Promise<SupportedLocale> {

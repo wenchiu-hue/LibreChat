@@ -253,7 +253,7 @@ export default function ActionsInput({
                 type="button"
                 onClick={() => setIsSchemaDialogOpen(true)}
                 aria-label={localize('com_ui_expand_editor')}
-                className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary focus-visible:ring-text-primary inline-flex h-7 w-7 items-center justify-center rounded-lg transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
+                className="text-text-secondary hover:bg-surface-hover active:bg-surface-pressed hover:text-text-primary focus-visible:ring-text-primary inline-flex h-7 w-7 items-center justify-center rounded-lg transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
               >
                 <Maximize2 className="h-4 w-4" strokeWidth={1.75} aria-hidden={true} />
               </button>

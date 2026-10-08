@@ -51,7 +51,7 @@ function setup({
   interfaceConfig,
 }: Options) {
   const startupConfig = {
-    appTitle: 'LibreChat',
+    appTitle: 'TYNE AI',
     socialLoginEnabled,
     socialLogins: providers ?? (socialLoginEnabled ? ['google'] : []),
     googleLoginEnabled: googleLoginEnabled ?? socialLoginEnabled,
@@ -125,14 +125,17 @@ describe('AuthLayout legal placement', () => {
     expect(footerBar()).not.toBeNull();
   });
 
-  /** The consent and the footer bar read policy urls the same way, so a blank
-   *  one is not a policy on one screen and a link to nowhere on the other. */
-  test('a blank policy url leaves neither a consent nor a link in the footer bar', () => {
+  /** A blank policy is not published, so the consent stays off; the footer bar
+   *  still offers the company site link instead of privacy / terms. */
+  test('a blank policy url leaves no consent and shows the company site in the footer', () => {
     setup({ pathname: 'login', interfaceConfig: { privacyPolicy: { externalUrl: '  ' } } });
 
     expect(consent()).not.toBeInTheDocument();
     expect(footerBar()).not.toBeNull();
-    expect(document.querySelector('[role="contentinfo"] a')).toBeNull();
+    expect(document.querySelector('[role="contentinfo"] a')).toHaveAttribute(
+      'href',
+      'https://www.tynesys.com',
+    );
   });
 
   /** Registration renders its form, and with it the consent, only once the
@@ -166,8 +169,9 @@ describe('AuthLayout legal placement', () => {
   });
 
   /** A deployment that asks for explicit acceptance in a modal after sign-in
-   *  must not be told it already agreed by continuing. */
-  test('a modal-acceptance deployment keeps the bare links instead', () => {
+   *  must not be told it already agreed by continuing; the footer shows the
+   *  company site instead of privacy / terms labels. */
+  test('a modal-acceptance deployment keeps the footer without a continue-consent', () => {
     setup({
       pathname: 'register',
       interfaceConfig: {
@@ -178,7 +182,10 @@ describe('AuthLayout legal placement', () => {
 
     expect(consent()).not.toBeInTheDocument();
     expect(footerBar()).not.toBeNull();
-    expect(document.querySelectorAll(`a[href="${TERMS_URL}"]`)).toHaveLength(1);
+    expect(document.querySelector('[role="contentinfo"] a')).toHaveAttribute(
+      'href',
+      'https://www.tynesys.com',
+    );
   });
 
   test('a deployment with no policies keeps the footer bar it always had', () => {
@@ -186,5 +193,22 @@ describe('AuthLayout legal placement', () => {
 
     expect(consent()).not.toBeInTheDocument();
     expect(footerBar()).not.toBeNull();
+    expect(document.querySelector('[role="contentinfo"] a')).toHaveAttribute(
+      'href',
+      'https://www.tynesys.com',
+    );
+  });
+
+  test('the glass shell shows the welcome panel on auth routes', () => {
+    setup({ pathname: 'login', interfaceConfig: policies });
+
+    expect(screen.getByText(/Hello, welcome!/i)).toBeInTheDocument();
+    expect(screen.getByText('TYNE AI')).toBeInTheDocument();
+  });
+
+  test('two-factor setup keeps a single-column card without the welcome panel', () => {
+    setup({ pathname: '/login/2fa/setup', interfaceConfig: policies });
+
+    expect(screen.queryByText(/Hello, welcome!/i)).not.toBeInTheDocument();
   });
 });

@@ -4,7 +4,7 @@ import { ErrorMessage } from '~/components/Auth/ErrorMessage';
 import { hasPublishedPolicies } from '~/utils/policies';
 import { TranslationKeys, useLocalize } from '~/hooks';
 import SocialLoginRender from './SocialLoginRender';
-import { BlinkAnimation } from './BlinkAnimation';
+import WelcomePanel from './WelcomePanel';
 import LegalConsent from './LegalConsent';
 import { Banner } from '../Banners';
 import Footer from './Footer';
@@ -55,20 +55,22 @@ function AuthLayout({
    *  reader never meets both and never meets neither. */
   const statesConsent = registrationStatesConsent || statesConsentBelowProviders;
   const isTwoFactorSetup = pathname === '/login/2fa/setup';
+  const showWelcomePanel = !isTwoFactorSetup;
+
   const DisplayError = () => {
     if (hasStartupConfigError) {
       return (
-        <div className="mx-auto sm:max-w-sm">
+        <div className="relative z-20 mx-auto w-full max-w-md px-4 pt-4">
           <ErrorMessage>{localize('com_auth_error_login_server')}</ErrorMessage>
         </div>
       );
     } else if (error === 'com_auth_error_invalid_reset_token') {
       return (
-        <div className="mx-auto sm:max-w-sm">
+        <div className="relative z-20 mx-auto w-full max-w-md px-4 pt-4">
           <ErrorMessage>
             {localize('com_auth_error_invalid_reset_token')}{' '}
             <a
-              className="text-accent-primary font-semibold hover:underline"
+              className="font-semibold text-white underline hover:text-white/90"
               href="/forgot-password"
             >
               {localize('com_auth_click_here')}
@@ -79,7 +81,7 @@ function AuthLayout({
       );
     } else if (error != null && error) {
       return (
-        <div className="mx-auto sm:max-w-sm">
+        <div className="relative z-20 mx-auto w-full max-w-md px-4 pt-4">
           <ErrorMessage>{localize(error)}</ErrorMessage>
         </div>
       );
@@ -88,45 +90,74 @@ function AuthLayout({
   };
 
   return (
-    <div className="bg-surface-primary relative flex min-h-screen flex-col">
-      <Banner />
-      <BlinkAnimation active={isFetching}>
-        <div className="mt-6 h-10 w-full bg-cover">
-          <img
-            src="assets/logo.svg"
-            className="h-full w-full object-contain"
-            alt={localize('com_ui_logo', { 0: startupConfig?.appTitle ?? 'LibreChat' })}
-          />
-        </div>
-      </BlinkAnimation>
+    <div className="relative flex min-h-screen flex-col overflow-hidden text-white">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#071533] via-[#0a4d6e] to-[#0d6b5c]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 -left-16 h-80 w-80 rounded-full bg-sky-400/30 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-teal-400/25 blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{
+          backgroundImage:
+            'radial-gradient(rgba(255,255,255,0.35) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px)',
+          backgroundSize: '28px 28px, 48px 48px',
+          backgroundPosition: '0 0, 12px 18px',
+        }}
+      />
+
+      <div className="relative z-10">
+        <Banner />
+      </div>
       <DisplayError />
-      <div className="absolute bottom-0 left-0 md:m-4">
-        <ThemeSelector />
+
+      <div className="absolute bottom-0 left-0 z-20 m-4">
+        <ThemeSelector onDarkSurface />
       </div>
 
-      <main className="flex grow items-center justify-center">
+      <main className="relative z-10 flex grow items-center justify-center px-4 py-10">
         <div
           className={cn(
-            'bg-surface-primary overflow-hidden px-6 py-4 sm:rounded-lg',
-            isTwoFactorSetup ? 'w-11/12 max-w-lg' : 'w-authPageWidth sm:max-w-md',
+            'w-full overflow-hidden rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl',
+            isTwoFactorSetup ? 'max-w-lg' : 'max-w-5xl md:grid md:grid-cols-2',
           )}
         >
-          {!hasStartupConfigError && !isFetching && header && (
-            <h1
-              className="text-text-primary mb-4 text-center text-3xl font-semibold"
-              style={{ userSelect: 'none' }}
-            >
-              {header}
-            </h1>
-          )}
-          {children}
-          {showsSocialLogin && (
-            <SocialLoginRender startupConfig={startupConfig} showPasskey={isLogin} />
-          )}
-          {statesConsentBelowProviders && <LegalConsent startupConfig={startupConfig} />}
+          {showWelcomePanel && <WelcomePanel startupConfig={startupConfig} />}
+          <div
+            className={cn(
+              'flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10',
+              isTwoFactorSetup ? 'w-full' : '',
+            )}
+          >
+            {!hasStartupConfigError && !isFetching && header && (
+              <h1
+                className="mb-4 text-center text-2xl font-semibold text-white"
+                style={{ userSelect: 'none' }}
+              >
+                {header}
+              </h1>
+            )}
+            {children}
+            {showsSocialLogin && (
+              <SocialLoginRender startupConfig={startupConfig} showPasskey={isLogin} />
+            )}
+            {statesConsentBelowProviders && <LegalConsent startupConfig={startupConfig} />}
+          </div>
         </div>
       </main>
-      {!statesConsent && <Footer startupConfig={startupConfig} />}
+      {!statesConsent && (
+        <div className="relative z-10">
+          <Footer />
+        </div>
+      )}
     </div>
   );
 }

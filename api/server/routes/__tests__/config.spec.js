@@ -105,6 +105,7 @@ afterEach(() => {
   delete process.env.SAML_SESSION_SECRET;
   delete process.env.ALLOW_ACCOUNT_DELETION;
   delete process.env.ALLOW_EMAIL_CHANGE;
+  delete process.env.ALLOW_PASSWORD_CHANGE;
   delete process.env.RAG_API_URL;
   delete process.env.ADMIN_PANEL_URL;
   delete process.env.ENABLE_INSIGHTS;
@@ -895,6 +896,25 @@ describe('GET /api/config', () => {
       const response = await request(app).get('/api/config');
 
       expect(response.body.allowEmailChange).toBe(false);
+    });
+
+    it('should enable password changes by default for authenticated users', async () => {
+      mockGetAppConfig.mockResolvedValue(baseAppConfig);
+      const app = createApp(mockUser);
+
+      const response = await request(app).get('/api/config');
+
+      expect(response.body.passwordChangeEnabled).toBe(true);
+    });
+
+    it('should disable password changes when ALLOW_PASSWORD_CHANGE is false', async () => {
+      process.env.ALLOW_PASSWORD_CHANGE = 'false';
+      mockGetAppConfig.mockResolvedValue(baseAppConfig);
+      const app = createApp(mockUser);
+
+      const response = await request(app).get('/api/config');
+
+      expect(response.body.passwordChangeEnabled).toBe(false);
     });
 
     it('should override allowAccountDeletion to true for users with ACCESS_ADMIN capability', async () => {

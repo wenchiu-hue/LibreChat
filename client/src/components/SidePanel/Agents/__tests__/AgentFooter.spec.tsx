@@ -157,6 +157,8 @@ jest.mock('../DuplicateAgent', () => ({
 
 jest.mock('@librechat/client', () => ({
   Spinner: () => <div data-testid="spinner" />,
+  TooltipAnchor: ({ render }: { render: React.ReactElement }) => render,
+  DisabledReason: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   Button: ({
     children,
     variant: _variant,

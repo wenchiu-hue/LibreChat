@@ -15,6 +15,7 @@ const verifyEmailLimiter = require('./verifyEmailLimiter');
 const emailChangeLimiter = require('./emailChangeLimiter');
 const emailChangeSubmissionLimiter = require('./emailChangeSubmissionLimiter');
 const emailChangeSubmissionIpLimiter = require('./emailChangeSubmissionIpLimiter');
+const passwordChangeLimiter = require('./passwordChangeLimiter');
 const resetPasswordLimiter = require('./resetPasswordLimiter');
 const twoFactorTempLimiter = require('./twoFactorTempLimiter');
 const passkeyStepUpLimiter = require('./passkeyStepUpLimiter');
@@ -41,6 +42,7 @@ module.exports = {
   emailChangeLimiter,
   emailChangeSubmissionLimiter,
   emailChangeSubmissionIpLimiter,
+  passwordChangeLimiter,
   resetPasswordLimiter,
   verifyEmailSubmissionLimiter,
   resetPasswordSubmissionLimiter,

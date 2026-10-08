@@ -8,6 +8,7 @@ const {
   verifyEmailController,
   requestEmailChangeController,
   confirmEmailChangeController,
+  changePasswordController,
   deleteUserController,
   getUserController,
 } = require('~/server/controllers/UserController');
@@ -16,6 +17,7 @@ const {
   emailChangeLimiter,
   emailChangeSubmissionLimiter,
   emailChangeSubmissionIpLimiter,
+  passwordChangeLimiter,
   verifyEmailSubmissionLimiter,
   configMiddleware,
   strictConfigMiddleware,
@@ -51,6 +53,13 @@ router.post(
   emailChangeSubmissionIpLimiter,
   emailChangeSubmissionLimiter,
   confirmEmailChangeController,
+);
+router.post(
+  '/password/change',
+  requireJwtAuth,
+  passwordChangeLimiter,
+  strictConfigMiddleware,
+  changePasswordController,
 );
 router.post('/verify', verifyEmailSubmissionLimiter, verifyEmailController);
 router.post('/verify/resend', verifyEmailLimiter, resendVerificationController);

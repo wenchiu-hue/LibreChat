@@ -38,6 +38,7 @@ export function useSettingsContext(): SettingsContextValue {
   const isLocalProvider = user?.provider === 'local';
   const emailEnabled = startupConfig?.emailEnabled === true;
   const allowEmailChange = startupConfig?.allowEmailChange === true;
+  const passwordChangeEnabled = startupConfig?.passwordChangeEnabled === true;
   const passkeyLoginEnabled = startupConfig?.passkeyLoginEnabled === true;
   const twoFactorPolicyProvider = user != null && isTwoFactorPolicyProvider(user.provider);
   const twoFactorEnabled = user?.twoFactorEnabled === true;
@@ -74,6 +75,7 @@ export function useSettingsContext(): SettingsContextValue {
       isLocalProvider,
       emailEnabled,
       allowEmailChange,
+      passwordChangeEnabled,
       passkeyLoginEnabled,
       isTwoFactorPolicyProvider: twoFactorPolicyProvider,
       twoFactorEnabled,
@@ -98,6 +100,7 @@ export function useSettingsContext(): SettingsContextValue {
       isLocalProvider,
       emailEnabled,
       allowEmailChange,
+      passwordChangeEnabled,
       passkeyLoginEnabled,
       twoFactorPolicyProvider,
       twoFactorEnabled,

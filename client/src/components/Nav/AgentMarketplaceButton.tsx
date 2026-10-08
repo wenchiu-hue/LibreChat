@@ -46,7 +46,12 @@ export default function AgentMarketplaceButton({
       asChild
       variant="ghost"
       size={isRow ? 'row' : 'icon'}
-      className={cn('shrink-0', isRow ? 'w-full justify-start' : 'h-9 w-9')}
+      className={cn(
+        'shrink-0',
+        isRow
+          ? 'w-full justify-start'
+          : 'h-10 w-10 text-white/85 hover:bg-white/15 hover:text-white',
+      )}
     >
       <Link
         to="/agents"
@@ -59,7 +64,12 @@ export default function AgentMarketplaceButton({
           onNavigate?.();
         }}
       >
-        <LayoutGrid className="text-text-primary h-5 w-5 shrink-0" aria-hidden="true" />
+        <span className="nav-rail-icon shrink-0">
+          <LayoutGrid
+            className={cn('nav-rail-glyph h-6 w-6', isRow && 'text-text-primary')}
+            aria-hidden="true"
+          />
+        </span>
         {isRow && (
           <span className="text-text-primary min-w-0 truncate text-sm font-medium">
             {localize('com_agents_marketplace')}

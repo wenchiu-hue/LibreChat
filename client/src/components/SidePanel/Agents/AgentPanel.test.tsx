@@ -93,6 +93,7 @@ jest.mock('@librechat/client', () => ({
       {children}
     </button>
   ),
+  DisabledReason: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   useToastContext: () => ({
     get showToast() {
       return mockShowToast || jest.fn();

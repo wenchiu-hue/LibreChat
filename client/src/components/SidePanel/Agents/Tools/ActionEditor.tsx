@@ -10,6 +10,8 @@ import {
   Button,
   OGDialog,
   TrashIcon,
+  TooltipAnchor,
+  DisabledReason,
   OGDialogTrigger,
   useToastContext,
   OGDialogTemplate,
@@ -95,20 +97,34 @@ export default function ActionEditor({
     }
   }, [action, reset]);
 
+  const deleteDisabled = isEphemeralAgent(agentId) || !action?.action_id;
+  const deleteDisabledReason = isEphemeralAgent(agentId)
+    ? localize('com_agents_no_agent_id_error')
+    : localize('com_agents_action_delete_unsaved_reason');
+  const deleteTrigger = (
+    <Button
+      type="button"
+      variant="destructive"
+      size="icon"
+      disabled={deleteDisabled}
+      aria-label={localize('com_ui_delete_action')}
+    >
+      <TrashIcon className="h-4 w-4" />
+    </Button>
+  );
+
+  /** disabled 時不放進 OGDialogTrigger，避免點到外層提示區也開出確認對話框。 */
   const deleteButton = action ? (
     <OGDialog>
-      <OGDialogTrigger asChild>
-        <Button
-          type="button"
-          variant="destructive"
-          size="icon"
-          disabled={isEphemeralAgent(agentId) || !action.action_id}
-          aria-label={localize('com_ui_delete_action')}
-          title={localize('com_ui_delete_action')}
-        >
-          <TrashIcon className="h-4 w-4" />
-        </Button>
-      </OGDialogTrigger>
+      {deleteDisabled ? (
+        <DisabledReason disabled={true} reason={deleteDisabledReason}>
+          {deleteTrigger}
+        </DisabledReason>
+      ) : (
+        <OGDialogTrigger asChild>
+          <TooltipAnchor description={localize('com_ui_delete_action')} render={deleteTrigger} />
+        </OGDialogTrigger>
+      )}
       <OGDialogTemplate
         showCloseButton={false}
         title={localize('com_ui_delete_action')}

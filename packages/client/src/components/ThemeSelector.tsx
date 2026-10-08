@@ -3,9 +3,11 @@ import { JSX } from 'react/jsx-runtime';
 import { Sun, Moon, Monitor, Contrast } from 'lucide';
 import type { IconNode } from './MorphIcon';
 import { ThemeContext, isDark, isHighContrast } from '../theme';
+import { TooltipAnchor } from './Tooltip';
 import { MorphIcon } from './MorphIcon';
 import { useLocalize } from '../hooks';
 import { Button } from './Button';
+import { cn } from '~/utils';
 
 declare global {
   interface Window {
@@ -38,10 +40,12 @@ const Theme = ({
   theme,
   highContrast,
   onChange,
+  buttonClassName,
 }: {
   theme: string;
   highContrast: boolean;
   onChange: (value: string) => void;
+  buttonClassName?: string;
 }) => {
   const localize = useLocalize();
 
@@ -63,20 +67,31 @@ const Theme = ({
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [nextTheme, onChange]);
 
+  const themeLabel = localize('com_ui_toggle_theme');
+
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="h-auto w-auto p-2 text-text-primary"
-      aria-label={localize('com_ui_toggle_theme')}
-      aria-keyshortcuts="Ctrl+Shift+T"
-      onClick={(e) => {
-        e.preventDefault();
-        onChange(nextTheme);
-      }}
-    >
-      <MorphIcon icon={themeIcons[theme as ThemeType]} size={24} />
-    </Button>
+    <TooltipAnchor
+      side="right"
+      description={themeLabel}
+      popupClassName="tooltip-inverse"
+      render={
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className={cn('text-text-primary h-auto w-auto p-2', buttonClassName)}
+          aria-label={themeLabel}
+          aria-keyshortcuts="Ctrl+Shift+T"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onChange(nextTheme);
+          }}
+        >
+          <MorphIcon icon={themeIcons[theme as ThemeType]} size={24} />
+        </Button>
+      }
+    />
   );
 };
 
@@ -93,10 +108,12 @@ const ContrastToggle = ({
   theme,
   highContrast,
   onChange,
+  buttonClassName,
 }: {
   theme: string;
   highContrast: boolean;
   onChange: (value: string) => void;
+  buttonClassName?: string;
 }) => {
   const localize = useLocalize();
 
@@ -106,27 +123,48 @@ const ContrastToggle = ({
    *  opt-out rather than silently snapping back on. */
   const nextTheme = highContrast ? scheme : `high-contrast-${scheme}`;
 
+  const contrastLabel = localize('com_ui_toggle_high_contrast');
+
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="h-auto w-auto p-2 text-text-primary"
-      aria-label={localize('com_ui_toggle_high_contrast')}
-      aria-pressed={highContrast}
-      onClick={(e) => {
-        e.preventDefault();
-        onChange(nextTheme);
-      }}
-    >
-      <MorphIcon icon={Contrast} size={24} />
-    </Button>
+    <TooltipAnchor
+      side="right"
+      description={contrastLabel}
+      popupClassName="tooltip-inverse"
+      render={
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className={cn('text-text-primary h-auto w-auto p-2', buttonClassName)}
+          aria-label={contrastLabel}
+          aria-pressed={highContrast}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onChange(nextTheme);
+          }}
+        >
+          <MorphIcon icon={Contrast} size={24} />
+        </Button>
+      }
+    />
   );
 };
 
-const ThemeSelector = ({ returnThemeOnly }: { returnThemeOnly?: boolean }): JSX.Element => {
+const ThemeSelector = ({
+  returnThemeOnly,
+  /** Light glyphs + hover fill for chromatic shells such as the auth glass page. */
+  onDarkSurface = false,
+}: {
+  returnThemeOnly?: boolean;
+  onDarkSurface?: boolean;
+}): JSX.Element => {
   const { theme, highContrast, setTheme } = useContext(ThemeContext);
   const [announcement, setAnnouncement] = useState('');
   const localize = useLocalize();
+  const buttonClassName = onDarkSurface
+    ? 'text-white hover:!bg-white/20 hover:!text-white hover:active:!bg-white/25'
+    : undefined;
 
   const changeTheme = useCallback(
     (value: string, control: string) => {
@@ -164,22 +202,46 @@ const ThemeSelector = ({ returnThemeOnly }: { returnThemeOnly?: boolean }): JSX.
 
   useEffect(() => {
     if (announcement) {
-      const timeout = setTimeout(() => setAnnouncement(''), 1000);
+      const timeout = setTimeout(() => setAnnouncement(''), 1600);
       return () => clearTimeout(timeout);
     }
   }, [announcement]);
 
   if (returnThemeOnly === true) {
-    return <Theme theme={theme} highContrast={highContrast} onChange={changeScheme} />;
+    return (
+      <Theme
+        theme={theme}
+        highContrast={highContrast}
+        onChange={changeScheme}
+        buttonClassName={buttonClassName}
+      />
+    );
   }
 
   return (
-    <div className="flex flex-col items-center justify-center bg-surface-primary pt-6 sm:pt-0">
-      <div className="absolute bottom-0 left-0 m-4 flex items-center">
-        <Theme theme={theme} highContrast={highContrast} onChange={changeScheme} />
-        <ContrastToggle theme={theme} highContrast={highContrast} onChange={changeContrast} />
-      </div>
-      <div role="alert" aria-live="assertive" aria-atomic="true" className="sr-only">
+    <div className="relative flex items-center">
+      <Theme
+        theme={theme}
+        highContrast={highContrast}
+        onChange={changeScheme}
+        buttonClassName={buttonClassName}
+      />
+      <ContrastToggle
+        theme={theme}
+        highContrast={highContrast}
+        onChange={changeContrast}
+        buttonClassName={buttonClassName}
+      />
+      <div
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+        className={cn(
+          announcement
+            ? 'pointer-events-none absolute bottom-full left-0 mb-2 rounded bg-black px-2 py-1 text-xs whitespace-nowrap text-white shadow'
+            : 'sr-only',
+        )}
+      >
         {announcement}
       </div>
     </div>

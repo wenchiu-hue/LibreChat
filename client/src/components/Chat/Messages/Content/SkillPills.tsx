@@ -50,12 +50,12 @@ function SkillPills({
           key={name}
           role="listitem"
           data-skill-source={source}
-          className="border-border-chrome bg-surface-secondary text-text-secondary inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs"
+          className="border-series-3/40 bg-series-3/10 text-series-3 inline-flex items-center gap-1 rounded-full border px-2 py-1 text-xs"
         >
           {source === 'always-apply' ? (
-            <Pin className="text-status-info h-3 w-3" aria-hidden="true" />
+            <Pin className="text-series-3 h-3 w-3" aria-hidden="true" />
           ) : (
-            <ScrollText className="text-status-info h-3 w-3" aria-hidden="true" />
+            <ScrollText className="text-series-3 h-3 w-3" aria-hidden="true" />
           )}
           <span className="max-w-[12rem] truncate">{name}</span>
         </span>

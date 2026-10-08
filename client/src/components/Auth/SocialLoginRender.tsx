@@ -131,8 +131,8 @@ function SocialLoginRender({
     <>
       {startupConfig.emailLoginEnabled && (
         <>
-          <div className="border-border-medium relative mt-6 flex w-full items-center justify-center border border-t uppercase">
-            <div className="bg-surface-primary text-text-primary absolute px-3 text-xs">
+          <div className="relative mt-6 flex w-full items-center justify-center border border-t border-white/25 uppercase">
+            <div className="absolute bg-transparent px-3 text-xs text-white/80 backdrop-blur-sm">
               {localize('com_auth_or')}
             </div>
           </div>

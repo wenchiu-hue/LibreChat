@@ -1,7 +1,7 @@
 import { Upload } from 'lucide-react';
 
 export const dropzoneClassName =
-  'group flex w-full flex-col items-center justify-center gap-2.5 rounded-xl border border-dashed border-border-medium bg-surface-secondary px-4 py-7 text-sm font-medium text-text-secondary transition-colors hover:border-border-heavy hover:bg-surface-hover hover:text-text-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-border-medium disabled:hover:bg-surface-secondary disabled:hover:text-text-secondary';
+  'group flex w-full flex-col items-center justify-center gap-2.5 rounded-xl border border-dashed border-border-medium bg-surface-secondary px-4 py-7 text-sm font-medium text-text-secondary transition-colors hover:border-focus-control hover:bg-surface-hover hover:text-text-primary focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring-primary disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-border-medium disabled:hover:bg-surface-hover active:bg-surface-pressed disabled:hover:text-text-secondary';
 
 function DropzoneContent({ label, hint }: { label: string; hint?: string }) {
   return (

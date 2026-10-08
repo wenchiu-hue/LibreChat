@@ -2,6 +2,7 @@ const express = require('express');
 const {
   isEnabled,
   resolveEmailChangeSettings,
+  resolvePasswordChangeSettings,
   checkEmailConfig,
   isLangfuseConnectionAvailable,
   isLangfuseFanoutEnabled,
@@ -86,7 +87,7 @@ function buildPreLoginPayload() {
 
   /** @type {Partial<TStartupConfig>} */
   const payload = {
-    appTitle: process.env.APP_TITLE || 'LibreChat',
+    appTitle: process.env.APP_TITLE || 'TYNE AI',
     discordLoginEnabled: !!process.env.DISCORD_CLIENT_ID && !!process.env.DISCORD_CLIENT_SECRET,
     facebookLoginEnabled: !!process.env.FACEBOOK_CLIENT_ID && !!process.env.FACEBOOK_CLIENT_SECRET,
     githubLoginEnabled: !!process.env.GITHUB_CLIENT_ID && !!process.env.GITHUB_CLIENT_SECRET,
@@ -166,6 +167,7 @@ function buildPostLoginPayload(appConfig) {
       process.env.ALLOW_ACCOUNT_DELETION === undefined ||
       isEnabled(process.env.ALLOW_ACCOUNT_DELETION),
     allowEmailChange: resolveEmailChangeSettings(appConfig?.emailChange).enabled,
+    passwordChangeEnabled: resolvePasswordChangeSettings(appConfig?.passwordChange).enabled,
     maxPasskeysPerUser: resolveMaxPasskeysPerUser(appConfig?.passkeys),
   };
 

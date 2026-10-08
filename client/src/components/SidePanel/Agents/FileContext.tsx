@@ -2,7 +2,13 @@ import { memo, useMemo, useRef, useState } from 'react';
 import * as Ariakit from '@ariakit/react';
 import { Folder, Plus, Info } from 'lucide-react';
 import { EModelEndpoint, EToolResources } from 'librechat-data-provider';
-import { Button, DropdownPopup, SharePointIcon, TooltipAnchor } from '@librechat/client';
+import {
+  Button,
+  DropdownPopup,
+  TooltipAnchor,
+  SharePointIcon,
+  DisabledReason,
+} from '@librechat/client';
 import type { ExtendedFile } from '~/common';
 import { useSharePointFileHandlingNoChatContext } from '~/hooks/Files/useSharePointFileHandling';
 import { useFileHandlingNoChatContext } from '~/hooks/Files/useFileHandling';
@@ -15,7 +21,7 @@ import { cn } from '~/utils';
 
 const addButtonClassName = cn(
   'inline-flex h-7 shrink-0 items-center gap-1.5 rounded-lg px-2 text-xs font-medium text-text-secondary transition-colors',
-  'hover:bg-surface-secondary hover:text-text-primary focus-visible:ring-2 focus-visible:ring-ring-primary',
+  'hover:text-text-primary focus-visible:ring-2 focus-visible:ring-ring-primary',
   'disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-text-secondary',
 );
 
@@ -114,7 +120,11 @@ function FileContext({
         <Ariakit.MenuButton
           disabled={disabledUploadButton}
           aria-label={addLabel}
-          className={cn(addButtonClassName, 'focus:outline-hidden')}
+          className={cn(
+            addButtonClassName,
+            /** 原生 MenuButton 沒有 ghost variant，自己補 hover 與按下底色。 */
+            'hover:bg-surface-hover active:bg-surface-pressed focus:outline-hidden',
+          )}
         >
           <Plus className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
           {localize('com_ui_add')}
@@ -167,7 +177,12 @@ function FileContext({
         ) : (
           <span />
         )}
-        {addControl}
+        <DisabledReason
+          disabled={disabledUploadButton}
+          reason={localize('com_agents_file_context_disabled')}
+        >
+          {addControl}
+        </DisabledReason>
       </div>
       {fileCount > 0 && (
         <FileRow

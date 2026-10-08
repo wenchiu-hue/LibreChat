@@ -8,12 +8,12 @@ export const darkTheme: IThemeRGB = {
   // Text colors
   'rgb-text-primary': '236 236 236', // #ececec (gray-100)
   'rgb-text-secondary': '205 205 205', // #cdcdcd (gray-300)
-  'rgb-text-secondary-alt': '153 150 150', // #999696 (gray-400)
-  'rgb-text-tertiary': '153 150 150', // #999696 (gray-400)
+  'rgb-text-secondary-alt': '166 163 163', // #a6a3a3 — 4.74:1 on the #33383c slate side panel
+  'rgb-text-tertiary': '180 180 180', // #b4b4b4 — lifted so panel icons read against the #2a2a2a side panel
   'rgb-text-muted': '179 182 189', // #b3b6bd (Click UI text.muted)
   'rgb-badge-label': '236 236 236', // #ececec (gray-100, matching text-primary)
   'rgb-text-warning': '245 158 11', // #f59e0b (amber-500)
-  'rgb-text-destructive': '248 113 113', // #f87171 (red-400)
+  'rgb-text-destructive': '251 130 130', // #fb8282 — 4.86:1 on the #33383c slate side panel
   'rgb-shimmer-base': '255 255 255', // #ffffff, carried at 0.8 alpha
   'rgb-shimmer-dip': '179 179 179', // #b3b3b3
 
@@ -26,9 +26,9 @@ export const darkTheme: IThemeRGB = {
   'rgb-accent-primary-hover': '109 200 185', // #6dc8b9
 
   // Ring colors (not defined in dark mode, using default)
-  'rgb-ring-primary': '89 89 89', // #595959 (gray-500)
+  'rgb-ring-primary': '103 187 173', // #67bbad — matching focus-control so keyboard focus is unmistakable
   'rgb-focus-outline': '255 255 255', // #ffffff
-  'rgb-focus-control': '236 236 236', // #ececec (gray-100)
+  'rgb-focus-control': '103 187 173', // #67bbad — brand teal
 
   // Header colors
   'rgb-header-primary': '47 47 47', // #2f2f2f (gray-700)
@@ -38,18 +38,18 @@ export const darkTheme: IThemeRGB = {
   // Surface colors
   'rgb-surface-active': '89 89 89', // #595959 (gray-500)
   'rgb-surface-active-alt': '47 47 47', // #2f2f2f (gray-700)
-  'rgb-surface-hover': '57 57 57', // #393939 (gray-650)
+  'rgb-surface-hover': '66 66 66', // #424242 (gray-600) — one step above the #2a2a2a side panel
   'rgb-surface-hover-alt': '66 66 66', // #424242 (gray-600)
-  'rgb-surface-pressed': '57 57 57', // #393939 (gray-650), the hover fill
+  'rgb-surface-pressed': '82 82 82', // #525252 — a step past hover so a click visibly lands
   'rgb-surface-composer-hover': '66 66 66', // #424242 (gray-600)
   'rgb-surface-primary': '13 13 13', // #0d0d0d (gray-900)
   'rgb-chart-widget-surface': '40 40 40', // #282828 (Click UI chart widget)
   'rgb-chart-widget-stroke': '50 50 50', // #323232 (Click UI chart widget)
-  'rgb-surface-primary-alt': '23 23 23', // #171717 (gray-850)
+  'rgb-surface-primary-alt': '51 56 60', // #33383c — slate side panel, lifted from gray-850 so panels read less black
   'rgb-surface-primary-contrast': '23 23 23', // #171717 (gray-850)
   'rgb-surface-secondary': '33 33 33', // #212121 (gray-800)
   'rgb-surface-secondary-alt': '33 33 33', // #212121 (gray-800)
-  'rgb-surface-tertiary': '47 47 47', // #2f2f2f (gray-700)
+  'rgb-surface-tertiary': '47 47 47', // #2f2f2f (gray-700); visual tint via --color-surface-tertiary
   'rgb-surface-tertiary-alt': '47 47 47', // #2f2f2f (gray-700)
   'rgb-surface-dialog': '18 18 18', // #121212 (legacy dark dialog)
   'rgb-dialog-title': '236 236 236', // #ececec (gray-100, matching text-primary)
@@ -62,7 +62,7 @@ export const darkTheme: IThemeRGB = {
   'rgb-surface-destructive-hover': '127 29 29', // #7f1d1d (red-900)
   'rgb-surface-chat': '47 47 47', // #2f2f2f (gray-700)
   'rgb-surface-code': '33 33 33', // #212121 (gray-800)
-  'rgb-surface-code-body': '23 23 23', // #171717 (gray-850)
+  'rgb-surface-code-body': '42 42 42', // #2a2a2a, held while the side panel moved to slate
   'rgb-surface-code-inline': '66 66 66', // #424242 (gray-600)
   'rgb-prose-bullet': '57 57 57', // #393939 (gray-650)
   'rgb-prose-quote-bar': '57 57 57', // #393939 (gray-650)
@@ -85,16 +85,16 @@ export const darkTheme: IThemeRGB = {
   'rgb-border-xheavy': '153 150 150', // #999696 (gray-400)
   'rgb-drawer-edge': '153 150 150', // #999696 (gray-400, matching border-xheavy)
   'rgb-border-destructive': '239 68 68', // #ef4444 (red-500)
-  'rgb-border-control': '33 33 33', // #212121 (gray-800), the stock field edge
-  'rgb-border-field-focus': '236 236 236', // #ececec (gray-100, matching focus-control)
+  'rgb-border-control': '89 89 89', // #595959 (gray-500) — visible field edge on the #2a2a2a side panel
+  'rgb-border-field-focus': '103 187 173', // #67bbad — matching focus-control
   'rgb-focus-subtle': '89 89 89', // #595959 (gray-500, matching border-heavy)
-  'rgb-field-fill': '13 13 13', // #0d0d0d (gray-900, matching surface-primary)
+  'rgb-field-fill': '63 68 71', // #3f4447 — a step above the #33383c slate side panel
   'rgb-field-text': '236 236 236', // #ececec (gray-100, matching text-primary)
   'rgb-surface-tooltip': '13 13 13', // matching surface-primary
   'rgb-text-tooltip': '236 236 236', // matching text-primary
   'rgb-alert-error-fill': '69 10 10', // matching status-error-subtle
   'rgb-alert-error-border': '153 27 27', // matching status-error-border
-  'rgb-surface-canvas': '23 23 23', // matching surface-primary-alt
+  'rgb-surface-canvas': '42 42 42', // #2a2a2a, held while the side panel moved to slate
   'rgb-surface-user-message': '47 47 47', // matching surface-tertiary
   'rgb-surface-card': '33 33 33', // matching surface-secondary
   'rgb-surface-card-hover': '47 47 47', // matching surface-tertiary

@@ -12,4 +12,5 @@
 @theme inline {
   --color-gray-*: initial;
   --color-green-*: initial;
+  --color-red-200: #61ff84;
 }

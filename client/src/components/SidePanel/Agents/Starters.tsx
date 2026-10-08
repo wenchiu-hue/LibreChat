@@ -1,7 +1,7 @@
 import { Plus, X } from 'lucide-react';
 import { Constants } from 'librechat-data-provider';
 import { Controller, useFormContext } from 'react-hook-form';
-import { Input, Label, Button, TooltipAnchor } from '@librechat/client';
+import { Input, Label, Button, TooltipAnchor, DisabledReason } from '@librechat/client';
 import type { AgentForm } from '~/common';
 import { useLocalize } from '~/hooks';
 
@@ -22,6 +22,9 @@ function StartersField({
   const addLabel = hasReachedMax
     ? localize('com_assistants_max_starters_reached')
     : localize('com_ui_add');
+  const disabledReason = hasReachedMax
+    ? localize('com_assistants_max_starters_reached')
+    : localize('com_agents_starter_empty_reason');
 
   const addStarter = () => {
     if (!canAdd) {
@@ -38,6 +41,7 @@ function StartersField({
           id="conversation-starters"
           value={draft}
           disabled={hasReachedMax}
+          variant="filled"
           className="h-9 flex-1"
           type="text"
           placeholder={
@@ -59,22 +63,29 @@ function StartersField({
             addStarter();
           }}
         />
-        <TooltipAnchor
-          side="top"
-          description={addLabel}
-          render={
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon-sm"
-              aria-label={addLabel}
-              onClick={addStarter}
-              disabled={!canAdd}
-            >
+        {canAdd ? (
+          <TooltipAnchor
+            side="top"
+            description={addLabel}
+            render={
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon-sm"
+                aria-label={addLabel}
+                onClick={addStarter}
+              >
+                <Plus className="size-4" aria-hidden="true" />
+              </Button>
+            }
+          />
+        ) : (
+          <DisabledReason disabled={true} reason={disabledReason}>
+            <Button type="button" variant="ghost" size="icon-sm" aria-label={addLabel} disabled>
               <Plus className="size-4" aria-hidden="true" />
             </Button>
-          }
-        />
+          </DisabledReason>
+        )}
       </div>
       {value.map((starter, index) => {
         const deleteLabel = `${localize('com_ui_delete')}: ${starter}`;
@@ -82,6 +93,7 @@ function StartersField({
           <div key={index} className="flex items-center gap-1">
             <Input
               value={starter}
+              variant="filled"
               className="h-9 flex-1"
               type="text"
               aria-label={`${localize('com_assistants_conversation_starters')} ${index + 1}`}

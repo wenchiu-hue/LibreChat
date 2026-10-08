@@ -35,7 +35,7 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
         {table.getRowModel().rows.map((row) => (
           <tr
             key={row.id}
-            className="border-border-light hover:bg-surface-secondary border-b transition-colors last:border-0"
+            className="border-border-light hover:bg-surface-hover border-b transition-colors last:border-0"
           >
             {row.getVisibleCells().map((cell) => (
               <td key={cell.id} className="py-2 pr-3 align-middle">

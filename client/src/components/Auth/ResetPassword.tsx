@@ -5,6 +5,7 @@ import { Spinner, Button, SecretInput, Alert } from '@librechat/client';
 import { useResetPasswordMutation } from 'librechat-data-provider/react-query';
 import type { TResetPassword } from 'librechat-data-provider';
 import type { TLoginLayoutContext } from '~/common';
+import { authGlassSubmitClassName, authGlassSecretControlsClassName } from './authStyles';
 import { useLocalize } from '~/hooks';
 
 function ResetPassword() {
@@ -21,11 +22,11 @@ function ResetPassword() {
   const resetPassword = useResetPasswordMutation();
   const { setError, setHeaderText, startupConfig } = useOutletContext<TLoginLayoutContext>();
   const authInputClassName =
-    'webkit-dark-styles peer h-auto w-full rounded-2xl border px-3.5 pb-2.5 pr-12 pt-3 text-text-primary duration-200 focus:border-accent-primary focus-visible:border-accent-primary';
+    'auth-glass-input peer h-auto w-full rounded-xl border border-white/30 bg-white/10 px-3.5 pb-2.5 pr-12 pt-3 text-white duration-200 focus:bg-white/15 focus-visible:bg-white/15';
   const authLabelClassName =
-    'absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-accent-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4';
+    'absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-transparent px-2 text-sm text-white/70 duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-white rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4';
   const authSecretButtonClassName =
-    'size-9 rounded-xl text-text-secondary-alt hover:bg-transparent hover:text-text-primary';
+    'size-9 rounded-xl text-white/70 hover:bg-transparent hover:text-white';
 
   const onSubmit = (data: TResetPassword) => {
     resetPassword.mutate(data, {
@@ -53,6 +54,7 @@ function ResetPassword() {
               onClick={() => navigate('/login')}
               aria-label={localize('com_auth_sign_in')}
               variant="submit"
+              className={authGlassSubmitClassName}
             >
               {localize('com_auth_continue')}
             </Button>
@@ -104,7 +106,7 @@ function ResetPassword() {
             placeholder=" "
             label={localize('com_auth_password')}
             labelClassName={authLabelClassName}
-            controlsClassName="right-2"
+            controlsClassName={authGlassSecretControlsClassName}
             buttonClassName={authSecretButtonClassName}
           />
         </div>
@@ -129,7 +131,7 @@ function ResetPassword() {
             placeholder=" "
             label={localize('com_auth_password_confirm')}
             labelClassName={authLabelClassName}
-            controlsClassName="right-2"
+            controlsClassName={authGlassSecretControlsClassName}
             buttonClassName={authSecretButtonClassName}
           />
         </div>
@@ -155,7 +157,7 @@ function ResetPassword() {
           aria-label={localize('com_auth_submit_registration')}
           disabled={!!errors.password || !!errors.confirm_password || isSubmitting}
           variant="submit"
-          className="h-12 w-full rounded-2xl"
+          className={authGlassSubmitClassName}
         >
           {isSubmitting ? <Spinner /> : localize('com_auth_continue')}
         </Button>

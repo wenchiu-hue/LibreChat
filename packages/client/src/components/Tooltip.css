@@ -18,6 +18,21 @@
   text-align: left;
 }
 
+/** Inverse chip for light or chromatic surfaces (e.g. the auth glass shell). */
+.tooltip-inverse {
+  background-color: #000;
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.35);
+  /** Never steal the click meant for the control underneath. */
+  pointer-events: none;
+}
+
+.tooltip-inverse svg {
+  fill: #000;
+}
+
 @media (max-width: 640px) {
   .tooltip {
     max-width: 200px;

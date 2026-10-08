@@ -271,7 +271,7 @@ const sendVerificationEmail = async (user) => {
     email,
     subject: 'Verify your email',
     payload: {
-      appName: process.env.APP_TITLE || 'LibreChat',
+      appName: process.env.APP_TITLE || 'TYNE AI',
       name: user.name || user.username || email,
       verificationLink: verificationLink,
       year: new Date().getFullYear(),
@@ -468,7 +468,7 @@ const registerUser = async (user, additionalData = {}) => {
  * re-check with tenant-scoped config after user lookup so tenant-specific
  * restrictions are enforced.
  *
- * Phase 1 (base check) returns an Error (HTTP 400) — this intentionally reveals
+ * Phase 1 (base check) returns an Error (HTTP 400) ??this intentionally reveals
  * that the domain is globally blocked, but fires before any DB lookup so it
  * cannot confirm user existence. Phase 2 (tenant check) returns the generic
  * success message (HTTP 200) to prevent user-enumeration via status codes.
@@ -541,7 +541,7 @@ const requestPasswordReset = async (req) => {
       email: user.email,
       subject: 'Password Reset Request',
       payload: {
-        appName: process.env.APP_TITLE || 'LibreChat',
+        appName: process.env.APP_TITLE || 'TYNE AI',
         name: user.name || user.username || user.email,
         link: link,
         year: new Date().getFullYear(),
@@ -595,7 +595,7 @@ const resetPassword = async (userId, token, password) => {
       email: user.email,
       subject: 'Password Reset Successfully',
       payload: {
-        appName: process.env.APP_TITLE || 'LibreChat',
+        appName: process.env.APP_TITLE || 'TYNE AI',
         name: user.name || user.username || user.email,
         year: new Date().getFullYear(),
       },
@@ -900,8 +900,8 @@ const setOpenIDAuthTokens = (
       applyOpenIDSessionIdentity(sessionOpenidTokens, sessionIdentity);
       /**
        * Capture the access-token's own expiry (unix seconds) when the IdP
-       * advertises one. Lets downstream consumers — notably the OBO inline-
-       * refresh path in `OpenIDSessionRefresh.js` — reuse opaque (non-JWT)
+       * advertises one. Lets downstream consumers ??notably the OBO inline-
+       * refresh path in `OpenIDSessionRefresh.js` ??reuse opaque (non-JWT)
        * access tokens without burning an IdP refresh on the first tool call.
        * Without this, the very first OBO call after login or SPA refresh would
        * always trigger a redundant inline refresh whenever the IdP issues
@@ -984,7 +984,7 @@ const resendVerificationEmail = async (req) => {
       email: user.email,
       subject: 'Verify your email',
       payload: {
-        appName: process.env.APP_TITLE || 'LibreChat',
+        appName: process.env.APP_TITLE || 'TYNE AI',
         name: user.name || user.username || user.email,
         verificationLink: verificationLink,
         year: new Date().getFullYear(),

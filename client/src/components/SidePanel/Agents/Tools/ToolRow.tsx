@@ -58,7 +58,7 @@ function ToolRowImpl({ item, onInfo, onRemove }: Props) {
   const DetailIcon = configurable ? Settings : Info;
 
   return (
-    <div className="group hover:bg-surface-secondary relative flex w-full items-center gap-2 rounded-lg px-2 py-1.5">
+    <div className="group hover:bg-surface-hover relative flex w-full items-center gap-2 rounded-lg px-2 py-1.5">
       <div className="flex min-w-0 flex-1 items-center gap-2.5">
         <RowIcon item={item} />
         <span className="text-text-primary flex min-w-0 items-center gap-1 truncate text-sm">

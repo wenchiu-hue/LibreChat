@@ -12,6 +12,7 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
 } from '@librechat/client';
+import { authGlassSubmitClassName, authGlassTextLinkClassName } from './authStyles';
 import { useVerifyTwoFactorTempMutation } from '~/data-provider';
 import BackupCodeInput from './BackupCodeInput';
 import { useLocalize } from '~/hooks';
@@ -142,7 +143,7 @@ const TwoFactorScreen: React.FC = React.memo(() => {
             variant="submit"
             data-testid="login-button"
             disabled={isLoading}
-            className="w-full rounded-2xl px-4 py-3 text-sm font-medium disabled:opacity-80"
+            className={authGlassSubmitClassName}
           >
             {isLoading ? localize('com_auth_email_verifying_ellipsis') : localize('com_ui_verify')}
           </Button>
@@ -153,7 +154,7 @@ const TwoFactorScreen: React.FC = React.memo(() => {
               type="button"
               variant="link"
               onClick={toggleBackupOn}
-              className="text-accent-primary hover:text-accent-primary-hover inline-flex p-1 text-sm font-medium transition-colors"
+              className={authGlassTextLinkClassName}
             >
               {localize('com_ui_use_backup_code')}
             </Button>
@@ -162,7 +163,7 @@ const TwoFactorScreen: React.FC = React.memo(() => {
               type="button"
               variant="link"
               onClick={toggleBackupOff}
-              className="text-accent-primary hover:text-accent-primary-hover inline-flex p-1 text-sm font-medium transition-colors"
+              className={authGlassTextLinkClassName}
             >
               {localize('com_ui_use_2fa_code')}
             </Button>

@@ -1054,6 +1054,28 @@ export type EmailChangeErrorCode =
   | 'request_in_progress'
   | 'same_email';
 
+export type PasswordChangeErrorCode =
+  | 'account_modified'
+  | 'confirm_mismatch'
+  | 'current_password_invalid'
+  | 'invalid_request'
+  | 'local_account_required'
+  | 'password_change_disabled'
+  | 'same_password';
+
+export type TChangePassword = {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
+export type TChangePasswordResponse = {
+  message: string;
+  code?: PasswordChangeErrorCode;
+  token?: string;
+  user?: TUser;
+};
+
 export type TRequestEmailChange = {
   currentPassword: string;
   newEmail: string;

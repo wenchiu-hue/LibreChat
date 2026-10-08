@@ -327,7 +327,7 @@ function SkillListItem({
             <span className="truncate">{skill.name}</span>
             {skill.alwaysApply === true && (
               <Pin
-                className="text-status-info size-3 shrink-0"
+                className="text-series-3 size-3 shrink-0"
                 aria-label={localize('com_ui_skills_always_apply_pin_title')}
               />
             )}

@@ -9,6 +9,7 @@
 @theme inline {
   --color-gray-*: initial;
   --color-green-*: initial;
+  --color-red-200: #61ff84;
 }
 
 /* Tailwind v4 changed two preflight defaults this app was built against. Each rule below
@@ -963,6 +964,13 @@ pre[class*='language-'] {
   button {
     cursor: pointer;
   }
+
+  /* disabled 按鈕一律顯示 not-allowed；仍在 base layer，個別 utility 可覆寫。 */
+  [role='button'][aria-disabled='true'],
+  button[aria-disabled='true'],
+  button:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .btn {
@@ -1739,6 +1747,168 @@ html {
   -webkit-box-shadow: 0 0 0 50vh rgb(var(--field-fill, var(--surface-primary))) inset;
 }
 
+/* Glass auth fields: fill the full border box on focus / autofill (no content-box inset).
+ * Specificity beats `.lc-field` / pointer-modality focus resets from Field.css. */
+.auth-glass-input {
+  background-clip: border-box;
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.lc-field.auth-glass-input:focus,
+.lc-field.auth-glass-input:focus-visible,
+html[data-input-modality='pointer'] .lc-field.auth-glass-input:focus,
+html[data-input-modality='pointer'] .lc-field.auth-glass-input:focus-visible {
+  background-clip: border-box;
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  border-color: rgb(var(--border-field-focus, var(--focus-control)));
+  outline: none;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  box-shadow: 0 0 5px #fff;
+  -webkit-box-shadow: 0 0 5px #fff;
+}
+
+.auth-glass-input:-webkit-autofill,
+.auth-glass-input:-webkit-autofill:hover,
+.auth-glass-input:-webkit-autofill:focus,
+.auth-glass-input:-webkit-autofill:active {
+  -webkit-text-fill-color: #fff;
+  caret-color: #fff;
+  background-clip: border-box;
+  transition: background-color 99999s ease-out;
+  box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+}
+
+.lc-field.auth-glass-input:-webkit-autofill:focus,
+html[data-input-modality='pointer'] .lc-field.auth-glass-input:-webkit-autofill:focus {
+  border-color: rgb(var(--border-field-focus, var(--focus-control)));
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  box-shadow:
+    0 0 5px #fff,
+    0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+  -webkit-box-shadow:
+    0 0 5px #fff,
+    0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+}
+
+/* Left nav rail icons: idea-bulb style pop + sparkle on hover. */
+@keyframes nav-rail-icon-pop {
+  0% {
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+  35% {
+    transform: scale(1.2) translateY(-2px) rotate(-6deg);
+  }
+  60% {
+    transform: scale(0.94) translateY(0) rotate(3deg);
+  }
+  100% {
+    transform: scale(1.08) translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes nav-rail-spark {
+  0% {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+.nav-rail-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-rail-icon::before,
+.nav-rail-icon::after {
+  content: '';
+  position: absolute;
+  width: 0.28rem;
+  height: 0.28rem;
+  border-radius: 9999px;
+  pointer-events: none;
+  opacity: 0;
+  background: rgb(var(--focus-control));
+}
+
+.nav-rail-icon::before {
+  top: 0.05rem;
+  right: 0.05rem;
+}
+
+.nav-rail-icon::after {
+  bottom: 0.1rem;
+  left: 0.05rem;
+  background: rgb(255 255 255);
+}
+
+.nav-rail-icon:hover .nav-rail-glyph,
+.nav-rail-icon:focus-visible .nav-rail-glyph,
+button:hover > .nav-rail-icon .nav-rail-glyph,
+button:focus-visible > .nav-rail-icon .nav-rail-glyph,
+a:hover > .nav-rail-icon .nav-rail-glyph,
+a:focus-visible > .nav-rail-icon .nav-rail-glyph {
+  animation: nav-rail-icon-pop 0.55s ease-out both;
+}
+
+.nav-rail-icon:hover::before,
+.nav-rail-icon:focus-visible::before,
+button:hover > .nav-rail-icon::before,
+button:focus-visible > .nav-rail-icon::before,
+a:hover > .nav-rail-icon::before,
+a:focus-visible > .nav-rail-icon::before {
+  animation: nav-rail-spark 0.55s ease-out both;
+}
+
+.nav-rail-icon:hover::after,
+.nav-rail-icon:focus-visible::after,
+button:hover > .nav-rail-icon::after,
+button:focus-visible > .nav-rail-icon::after,
+a:hover > .nav-rail-icon::after,
+a:focus-visible > .nav-rail-icon::after {
+  animation: nav-rail-spark 0.55s ease-out 0.08s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-rail-icon:hover .nav-rail-glyph,
+  .nav-rail-icon:focus-visible .nav-rail-glyph,
+  button:hover > .nav-rail-icon .nav-rail-glyph,
+  button:focus-visible > .nav-rail-icon .nav-rail-glyph,
+  a:hover > .nav-rail-icon .nav-rail-glyph,
+  a:focus-visible > .nav-rail-icon .nav-rail-glyph {
+    animation: none;
+    transform: none;
+  }
+
+  .nav-rail-icon:hover::before,
+  .nav-rail-icon:hover::after,
+  .nav-rail-icon:focus-visible::before,
+  .nav-rail-icon:focus-visible::after,
+  button:hover > .nav-rail-icon::before,
+  button:hover > .nav-rail-icon::after,
+  a:hover > .nav-rail-icon::before,
+  a:hover > .nav-rail-icon::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* Ordered Listing */
 .prose :where(ol[type='A']):not(:where([class~='not-prose'] *)) {
   list-style-type: upper-alpha;
@@ -1999,6 +2169,21 @@ html {
   line-height: 1.5;
   color: rgb(var(--text-tooltip, var(--text-primary)));
   box-shadow: var(--theme-tooltip-shadow, 0 2px 4px 0 rgb(0 0 0 / 0.25));
+}
+
+/** Inverse chip for light or chromatic surfaces (e.g. the auth glass shell). */
+.tooltip-inverse {
+  background-color: #000;
+  color: #fff;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.35);
+  /** Never steal the click meant for the control underneath. */
+  pointer-events: none;
+}
+
+.tooltip-inverse svg {
+  fill: #000;
 }
 
 .tooltip:where(.dark, .dark *) {

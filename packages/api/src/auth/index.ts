@@ -29,6 +29,7 @@ export * from './user';
 export * from './localRefresh';
 export * from './openid/reuseCredential';
 export * from './passwordResetUpdate';
+export * from './passwordChange';
 export * from './login';
 export * from './enrollment';
 export * from './gates';

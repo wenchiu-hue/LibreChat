@@ -62,11 +62,6 @@ module.exports = {
           '25%': { transform: 'translateX(-3px)' },
           '75%': { transform: 'translateX(3px)' },
         },
-        /** Named distinctly: `blink` is already taken by keyframes in style.css. */
-        'logo-blink': {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        },
         'refresh-link-spin': {
           from: { transform: 'rotate(0deg)' },
           to: { transform: 'rotate(360deg)' },
@@ -87,7 +82,6 @@ module.exports = {
         'slide-out-left': 'slide-out-left 300ms cubic-bezier(0.25, 0.1, 0.25, 1)',
         'slide-out-right': 'slide-out-right 300ms cubic-bezier(0.25, 0.1, 0.25, 1)',
         'shortcut-shake': 'shortcut-shake 0.25s ease-in-out',
-        'logo-blink': 'logo-blink 3s infinite',
         'refresh-link-spin': 'refresh-link-spin 650ms cubic-bezier(0.42, 0, 0.58, 1)',
         'reset-spin': 'reset-spin 500ms cubic-bezier(0.22, 1, 0.36, 1)',
       },

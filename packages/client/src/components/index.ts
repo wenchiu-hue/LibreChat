@@ -34,6 +34,7 @@ export * from './Textarea';
 export * from './TextareaAutosize';
 export * from './Toast';
 export * from './Tooltip';
+export * from './DisabledReason';
 export * from './Pagination';
 export * from './Progress';
 export * from './SegmentedMeter';

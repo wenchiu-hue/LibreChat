@@ -8,6 +8,8 @@ const TEXTAREA_VARIANTS = {
   default: 'bg-surface-secondary',
   transparent: 'bg-transparent',
   document: 'bg-transparent text-base leading-relaxed',
+  /** 與 `Input` 的 `filled` 相同的無框填色。 */
+  filled: 'border-transparent bg-field-fill',
 } as const;
 
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {

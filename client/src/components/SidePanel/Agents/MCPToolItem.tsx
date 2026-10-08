@@ -68,7 +68,7 @@ export default function MCPToolItem({
 
   return (
     <div className="overflow-hidden rounded-lg">
-      <div className="hover:bg-surface-secondary flex items-center gap-1 rounded-lg pr-1 transition-colors">
+      <div className="hover:bg-surface-hover flex items-center gap-1 rounded-lg pr-1 transition-colors">
         <button
           type="button"
           onClick={onToggleSelect}

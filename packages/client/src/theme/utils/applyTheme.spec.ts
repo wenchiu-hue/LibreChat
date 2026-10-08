@@ -454,7 +454,13 @@ describe('applyTheme', () => {
     applyResolvedTheme(resolveTheme(border, 'light'), root);
     expect(root.getAttribute(THEME_FIELD_FOCUS_ATTRIBUTE)).toBe('border');
 
-    applyResolvedTheme(resolveTheme({ ...border, modes: {} }, 'light'), root);
+    applyResolvedTheme(
+      resolveTheme(
+        { ...border, modes: { light: { appearance: { fieldFocusStyle: 'ring' } } } },
+        'light',
+      ),
+      root,
+    );
     expect(root.hasAttribute(THEME_FIELD_FOCUS_ATTRIBUTE)).toBe(false);
 
     applyResolvedTheme(resolveTheme(border, 'light'), root);
@@ -470,16 +476,16 @@ describe('applyTheme', () => {
     const edge: ThemeDefinition = {
       version: 1,
       name: 'edge-fill-reference',
-      modes: { light: { appearance: { fieldFocusStyle: 'border', disabledStyle: 'fill' } } },
+      modes: { light: { appearance: { fieldFocusStyle: 'ring', disabledStyle: 'fill' } } },
     };
     try {
       applyResolvedTheme(resolveTheme(edge, 'light'), outer);
       applyResolvedTheme(resolveTheme({ ...edge, modes: {} }, 'light'), inner);
 
       /** The style queries read these inherited properties, so the nearest root decides. */
-      expect(outer.style.getPropertyValue('--theme-field-focus-style')).toBe('border');
+      expect(outer.style.getPropertyValue('--theme-field-focus-style')).toBe('ring');
       expect(outer.style.getPropertyValue('--theme-disabled-style')).toBe('fill');
-      expect(inner.style.getPropertyValue('--theme-field-focus-style')).toBe('ring');
+      expect(inner.style.getPropertyValue('--theme-field-focus-style')).toBe('border');
       expect(inner.style.getPropertyValue('--theme-disabled-style')).toBe('dim');
 
       clearAppliedTheme(inner);

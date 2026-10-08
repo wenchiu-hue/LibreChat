@@ -9,6 +9,8 @@ const {
   createEmailChangeService,
   createEmailChangeDeps,
   resolveEmailChangeSettings,
+  createPasswordChangeService,
+  resolvePasswordChangeSettings,
   GenerationJobManager,
   getAppConfigOptionsFromUser,
   normalizeHttpError,
@@ -24,7 +26,11 @@ const {
 const { Tools, Constants, FileSources, ResourceType } = require('librechat-data-provider');
 const { updateUserPluginAuth, deleteUserPluginAuth } = require('~/server/services/PluginService');
 const { verifyOTPOrBackupCode } = require('~/server/services/twoFactorService');
-const { verifyEmail, resendVerificationEmail } = require('~/server/services/AuthService');
+const {
+  verifyEmail,
+  resendVerificationEmail,
+  setAuthTokens,
+} = require('~/server/services/AuthService');
 const { getMCPManager } = require('~/config');
 const { maybeUninstallOAuthMCP } = require('~/server/services/MCP/oauthCleanup');
 const { invalidateCachedTools } = require('~/server/services/Config/getCachedTools');
@@ -66,9 +72,17 @@ const emailChangeService = createEmailChangeService(
     sendEmail,
     getAppConfig,
     clientDomain: process.env.DOMAIN_CLIENT ?? 'http://localhost:3080',
-    appName: process.env.APP_TITLE || 'LibreChat',
+    appName: process.env.APP_TITLE || 'TYNE AI',
   }),
 );
+
+const passwordChangeService = createPasswordChangeService({
+  getUserById: db.getUserById,
+  updateUser: db.updateUser,
+  deleteTokens: db.deleteTokens,
+  comparePassword: (user, password) => comparePassword(user, password, { compare: bcrypt.compare }),
+  hashPassword: (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
+});
 
 const PUBLIC_USER_RESPONSE_FIELDS = [
   '_id',
@@ -691,6 +705,56 @@ const confirmEmailChangeController = async (req, res) => {
   }
 };
 
+const changePasswordController = async (req, res) => {
+  try {
+    const userId = req.user?._id?.toString?.() ?? req.user?.id?.toString?.();
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const result = await passwordChangeService.changePassword({
+      body: req.body,
+      userId,
+      settings: resolvePasswordChangeSettings(req.config?.passwordChange),
+    });
+
+    if (!result.ok) {
+      return res
+        .status(result.status)
+        .json({ message: result.error.message, code: result.error.code });
+    }
+
+    const [sessions, passkeys] = await Promise.allSettled([
+      Promise.resolve().then(() => db.deleteAllUserSessions({ userId })),
+      Promise.resolve().then(() => db.deletePasskeysByUser(userId)),
+    ]);
+    if (sessions.status === 'rejected') {
+      logger.error(
+        `[changePasswordController] Failed to revoke sessions for user ${userId}`,
+        sessions.reason,
+      );
+    }
+    if (passkeys.status === 'rejected') {
+      logger.error(
+        `[changePasswordController] Failed to revoke passkeys for user ${userId}`,
+        passkeys.reason,
+      );
+    }
+    await db.awaitAuthUserDocEviction(userId);
+
+    const token = await setAuthTokens(userId, res, null, req);
+    const user = await db.getUserById(userId);
+    return res.status(200).json({
+      message: 'Password updated successfully.',
+      token,
+      user: user ? sanitizeUserForResponse(user) : undefined,
+    });
+  } catch (error) {
+    logger.error('[changePasswordController]', error);
+    return res.status(500).json({ message: 'Something went wrong.' });
+  }
+};
+
 module.exports = {
   getUserController,
   getTermsStatusController,
@@ -699,6 +763,7 @@ module.exports = {
   verifyEmailController,
   requestEmailChangeController,
   confirmEmailChangeController,
+  changePasswordController,
   updateUserPluginsController,
   resendVerificationController,
   deleteUserMcpServers,

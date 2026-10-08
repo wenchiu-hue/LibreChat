@@ -19,6 +19,7 @@ const settingsContext: SettingsContextValue = {
   isLocalProvider: true,
   emailEnabled: true,
   allowEmailChange: true,
+  passwordChangeEnabled: true,
   passkeyLoginEnabled: false,
   isTwoFactorPolicyProvider: true,
   twoFactorEnabled: false,
@@ -183,6 +184,26 @@ describe('settings registry', () => {
 
     it('hides email changes when administrators disable them', () => {
       expect(emailChangeEntry?.show?.({ ...settingsContext, allowEmailChange: false })).toBe(false);
+    });
+  });
+
+  describe('changePassword', () => {
+    const changePasswordEntry = registry.find((entry) => entry.id === 'changePassword');
+
+    it('shows password changes for local accounts when enabled', () => {
+      expect(changePasswordEntry?.show?.(settingsContext)).toBe(true);
+    });
+
+    it('hides password changes for federated accounts', () => {
+      expect(changePasswordEntry?.show?.({ ...settingsContext, isLocalProvider: false })).toBe(
+        false,
+      );
+    });
+
+    it('hides password changes when administrators disable them', () => {
+      expect(
+        changePasswordEntry?.show?.({ ...settingsContext, passwordChangeEnabled: false }),
+      ).toBe(false);
     });
   });
 });

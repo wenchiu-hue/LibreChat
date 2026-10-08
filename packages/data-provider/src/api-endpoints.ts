@@ -252,6 +252,8 @@ export const requestEmailChange = () => `${BASE_URL}/api/user/email/change`;
 
 export const confirmEmailChange = () => `${BASE_URL}/api/user/email/verify`;
 
+export const changePassword = () => `${BASE_URL}/api/user/password/change`;
+
 // Auth page URLs (for client-side navigation and redirects)
 export const loginPage = () => `${BASE_URL}/login`;
 export const registerPage = () => `${BASE_URL}/register`;

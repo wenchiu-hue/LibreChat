@@ -1,5 +1,5 @@
 import { useId, useMemo } from 'react';
-import { Label, Radio } from '@librechat/client';
+import { Label, Radio, DisabledReason } from '@librechat/client';
 import { Controller, useWatch, useFormContext } from 'react-hook-form';
 import type { AgentForm } from '~/common';
 import InstructionsPromptFields, { fieldWrapperClass, LoadError } from './InstructionsPromptFields';
@@ -38,14 +38,16 @@ function SourceToggle({ disabled = false }: { disabled?: boolean }) {
           <span id={labelId} className="sr-only">
             {localize('com_agents_instructions_source_toggle_aria')}
           </span>
-          <Radio
-            options={options}
-            value={field.value}
-            onChange={field.onChange}
-            disabled={disabled}
-            size="sm"
-            aria-labelledby={labelId}
-          />
+          <DisabledReason disabled={disabled} reason={localize('com_ui_loading')}>
+            <Radio
+              options={options}
+              value={field.value}
+              onChange={field.onChange}
+              disabled={disabled}
+              size="sm"
+              aria-labelledby={labelId}
+            />
+          </DisabledReason>
         </>
       )}
     />
@@ -111,6 +113,7 @@ export default function Instructions({
                 onBlur={field.onBlur}
                 inputRef={field.ref}
                 placeholder={localize('com_agents_instructions_placeholder')}
+                variant="filled"
                 className="min-h-[5.5rem] resize-y"
                 labelClassName="sr-only"
                 rows={3}

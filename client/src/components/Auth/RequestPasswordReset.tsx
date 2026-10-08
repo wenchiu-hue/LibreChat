@@ -7,6 +7,7 @@ import { useRequestPasswordResetMutation } from 'librechat-data-provider/react-q
 import type { TRequestPasswordReset, TRequestPasswordResetResponse } from 'librechat-data-provider';
 import type { FC } from 'react';
 import type { TLoginLayoutContext } from '~/common';
+import { authGlassSubmitClassName, authGlassTextLinkClassName } from './authStyles';
 import { useLocalize } from '~/hooks';
 
 const BodyTextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
@@ -111,18 +112,18 @@ function RequestPasswordReset() {
               },
             })}
             aria-invalid={!!errors.email}
-            className="webkit-dark-styles peer text-text-primary focus:border-accent-primary h-auto w-full rounded-2xl border px-3.5 pt-3 pb-2.5 duration-200"
+            className="auth-glass-input peer h-auto w-full rounded-xl border border-white/30 bg-white/10 px-3.5 pt-3 pb-2.5 text-white duration-200 focus:bg-white/15"
             placeholder=" "
           />
           <label
             htmlFor="email"
-            className="bg-surface-primary text-text-secondary peer-placeholder-shown:text-text-tertiary peer-focus:text-accent-primary absolute -top-2 left-2 z-10 px-2 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-2 peer-focus:text-sm"
+            className="absolute -top-2 left-2 z-10 bg-transparent px-2 text-sm text-white/70 transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-white/50 peer-focus:-top-2 peer-focus:text-sm peer-focus:text-white"
           >
             {localize('com_auth_email_address')}
           </label>
         </div>
         {errors.email && (
-          <p role="alert" className="text-text-destructive text-sm font-medium">
+          <p role="alert" className="text-sm font-medium text-red-200">
             {errors.email.message}
           </p>
         )}
@@ -133,14 +134,11 @@ function RequestPasswordReset() {
           type="submit"
           disabled={!!errors.email || isLoading}
           variant="submit"
-          className="h-12 w-full rounded-2xl"
+          className={authGlassSubmitClassName}
         >
           {isLoading ? <Spinner /> : localize('com_auth_continue')}
         </Button>
-        <a
-          href={loginPage()}
-          className="text-accent-primary hover:text-accent-primary-hover block text-center text-sm font-medium transition-colors"
-        >
+        <a href={loginPage()} className={`${authGlassTextLinkClassName} mx-auto block text-center`}>
           {localize('com_auth_back_to_login')}
         </a>
       </div>

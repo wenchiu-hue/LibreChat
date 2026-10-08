@@ -1,4 +1,4 @@
-import { useContext, useCallback } from 'react';
+import { useContext, useCallback, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useRecoilState } from 'recoil';
 import { ThemeContext } from '@librechat/client';
@@ -31,6 +31,17 @@ export function toggleControl(opts: {
 export function ThemeSetting() {
   const { theme, setTheme } = useContext(ThemeContext);
   const onChange = useCallback((value: string) => setTheme(value), [setTheme]);
+
+  /** High-contrast choices were removed from Settings; fold a stored one back
+   *  onto its plain scheme so the control and the page stay in sync. */
+  useEffect(() => {
+    if (theme === 'high-contrast-dark') {
+      setTheme('dark');
+    } else if (theme === 'high-contrast-light') {
+      setTheme('light');
+    }
+  }, [theme, setTheme]);
+
   return <ThemeSelector theme={theme} onChange={onChange} />;
 }
 

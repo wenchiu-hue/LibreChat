@@ -82,7 +82,6 @@ const SecretInput: React.ForwardRefExoticComponent<
       <div className={cn('group/secret-input relative', containerClassName)}>
         <input
           id={id}
-          type={isVisible ? 'text' : 'password'}
           className={cn(
             fieldControl,
             colorTransition && 'transition-colors',
@@ -95,6 +94,9 @@ const SecretInput: React.ForwardRefExoticComponent<
           autoComplete="off"
           spellCheck={false}
           {...props}
+          /** After `{...props}` so a caller-supplied `type` cannot freeze the field as
+           *  `password` and make the visibility toggle appear to do nothing. */
+          type={isVisible ? 'text' : 'password'}
         />
         {label != null && (
           <label htmlFor={id} className={cn(labelClassName ?? '')}>
@@ -103,7 +105,7 @@ const SecretInput: React.ForwardRefExoticComponent<
         )}
         <div
           className={cn(
-            'pointer-events-none absolute inset-y-0 right-1.5 flex items-center gap-0.5 [&_button]:pointer-events-auto',
+            'pointer-events-none absolute inset-y-0 right-1.5 z-10 flex items-center gap-0.5 [&_button]:pointer-events-auto',
             controlsOnHover &&
               'opacity-0 transition-opacity duration-150 group-focus-within/secret-input:opacity-100 group-hover/secret-input:opacity-100',
             controlsClassName,

@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { ControlCombobox } from '@librechat/client';
+import { ControlCombobox, TooltipAnchor } from '@librechat/client';
 import {
   useWatch,
   FieldPath,
@@ -33,7 +33,10 @@ const useCategorySync = (agent_id: string | null) => {
 /**
  * A component for selecting agent categories with form validation
  */
-const AgentCategorySelector: React.FC<{ className?: string }> = ({ className }) => {
+const AgentCategorySelector: React.FC<{
+  className?: string;
+  variant?: 'default' | 'field' | 'filled';
+}> = ({ className, variant }) => {
   const localize = useLocalize();
   const formContext = useFormContext();
   const { categories } = useAgentCategories();
@@ -74,8 +77,7 @@ const AgentCategorySelector: React.FC<{ className?: string }> = ({ className }) 
         syncCategory(field);
 
         const displayValue = getCategoryDisplayValue(field.value);
-
-        return (
+        const combobox = (
           <ControlCombobox
             selectId="category-selector"
             selectedValue={field.value}
@@ -86,9 +88,24 @@ const AgentCategorySelector: React.FC<{ className?: string }> = ({ className }) 
             }}
             items={comboboxItems}
             className={cn(className)}
+            variant={variant}
             ariaLabel={ariaLabel}
             isCollapsed={false}
             showCarat={true}
+          />
+        );
+
+        if (displayValue == null || displayValue === '') {
+          return combobox;
+        }
+
+        return (
+          <TooltipAnchor
+            side="top"
+            description={displayValue}
+            popupClassName="tooltip-inverse"
+            className="block w-full min-w-0"
+            render={<div className="w-full min-w-0">{combobox}</div>}
           />
         );
       }}
@@ -98,7 +115,8 @@ const AgentCategorySelector: React.FC<{ className?: string }> = ({ className }) 
 
 const MemoizedAgentCategorySelector = memo(
   AgentCategorySelector,
-  (prevProps, nextProps) => prevProps.className === nextProps.className,
+  (prevProps, nextProps) =>
+    prevProps.className === nextProps.className && prevProps.variant === nextProps.variant,
 );
 MemoizedAgentCategorySelector.displayName = 'AgentCategorySelector';
 

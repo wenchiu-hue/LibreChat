@@ -4,6 +4,20 @@ import { Turnstile } from '@marsidev/react-turnstile';
 import { ThemeContext, SecretInput, Spinner, Button, Input, isDark } from '@librechat/client';
 import type { TLoginUser, TStartupConfig } from 'librechat-data-provider';
 import type { TAuthContext } from '~/common';
+import {
+  authGlassInputClassName,
+  authGlassLabelClassName,
+  authGlassSubmitClassName,
+  authGlassSecretInputClassName,
+  authGlassSecretButtonClassName,
+  authGlassSecretControlsClassName,
+  authGlassTextLinkClassName,
+} from './authStyles';
+import {
+  getRememberedLoginEmail,
+  setRememberedLoginEmail,
+  clearRememberedLoginEmail,
+} from '~/utils/rememberLoginEmail';
 import { useResendVerificationEmail, useGetStartupConfig } from '~/data-provider';
 import { validateEmail } from '~/utils';
 import { useLocalize } from '~/hooks';
@@ -18,14 +32,22 @@ type TLoginFormProps = {
 const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, setError }) => {
   const localize = useLocalize();
   const { theme } = useContext(ThemeContext);
+  const rememberedEmail = getRememberedLoginEmail();
   const {
     register,
     getValues,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<TLoginUser>();
+  } = useForm<TLoginUser>({
+    defaultValues: {
+      email: rememberedEmail ?? '',
+      password: '',
+    },
+  });
   const [showResendLink, setShowResendLink] = useState<boolean>(false);
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [rememberMe, setRememberMe] = useState<boolean>(rememberedEmail != null);
 
   const { data: config } = useGetStartupConfig();
   const useUsernameLogin = config?.ldap?.username;
@@ -36,19 +58,18 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
   const emailAutoComplete = startupConfig.passkeyLoginEnabled
     ? `${baseAutoComplete} webauthn`
     : baseAutoComplete;
-  const authInputClassName =
-    'webkit-dark-styles peer h-auto w-full rounded-2xl border px-3.5 pb-2.5 pt-3 text-text-primary duration-200 focus:border-accent-primary focus-visible:border-accent-primary';
-  const authSecretInputClassName = `${authInputClassName} pr-12`;
-  const authLabelClassName =
-    'absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-surface-primary px-2 text-sm text-text-secondary-alt duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-accent-primary rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4';
-  const authSecretButtonClassName =
-    'size-9 rounded-xl text-text-secondary-alt hover:bg-transparent hover:text-text-primary';
 
   useEffect(() => {
     if (error && error.includes('422') && !showResendLink) {
       setShowResendLink(true);
     }
   }, [error, showResendLink]);
+
+  useEffect(() => {
+    if (rememberedEmail) {
+      setValue('email', rememberedEmail);
+    }
+  }, [rememberedEmail, setValue]);
 
   const resendLinkMutation = useResendVerificationEmail({
     onMutate: () => {
@@ -64,7 +85,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
   const renderError = (fieldName: string) => {
     const errorMessage = errors[fieldName]?.message;
     return errorMessage ? (
-      <span role="alert" className="text-text-destructive mt-1 text-sm">
+      <span role="alert" className="mt-1 text-sm text-red-200">
         {String(errorMessage)}
       </span>
     ) : null;
@@ -78,14 +99,23 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
     resendLinkMutation.mutate({ email });
   };
 
+  const handleFormSubmit = (data: TLoginUser) => {
+    if (rememberMe) {
+      setRememberedLoginEmail(data.email);
+    } else {
+      clearRememberedLoginEmail();
+    }
+    onSubmit(data);
+  };
+
   return (
     <>
       {showResendLink && (
-        <div className="border-status-success-border bg-status-success-subtle text-text-secondary mt-2 rounded-md border px-3 py-2 text-sm">
+        <div className="mt-2 rounded-md border border-emerald-300/40 bg-emerald-500/15 px-3 py-2 text-sm text-white/90">
           {localize('com_auth_email_verification_resend_prompt')}
           <button
             type="button"
-            className="text-link ml-2 hover:underline"
+            className={`${authGlassTextLinkClassName} ml-2 disabled:cursor-not-allowed disabled:opacity-60`}
             onClick={handleResendEmail}
             disabled={resendLinkMutation.isLoading}
           >
@@ -94,72 +124,85 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
         </div>
       )}
       <form
-        className="mt-6"
+        className="mt-2"
         aria-label="Login form"
         method="POST"
-        onSubmit={handleSubmit((data) => onSubmit(data))}
+        onSubmit={handleSubmit(handleFormSubmit)}
       >
         <div className="mb-4">
-          <div className="relative">
-            <Input
-              colorTransition
-              type="text"
-              id="email"
-              autoComplete={emailAutoComplete}
-              aria-label={localize('com_auth_email')}
-              {...register('email', {
-                required: localize('com_auth_email_required'),
-                maxLength: { value: 120, message: localize('com_auth_email_max_length') },
-                validate: useUsernameLogin
-                  ? undefined
-                  : (value) => validateEmail(value, localize('com_auth_email_pattern')),
-              })}
-              aria-invalid={!!errors.email}
-              className={authInputClassName}
-              placeholder=" "
-            />
-            <label htmlFor="email" className={authLabelClassName}>
-              {useUsernameLogin
-                ? localize('com_auth_username').replace(/ \(.*$/, '')
-                : localize('com_auth_email_address')}
-            </label>
-          </div>
+          <label htmlFor="email" className={authGlassLabelClassName}>
+            {useUsernameLogin
+              ? localize('com_auth_username').replace(/ \(.*$/, '')
+              : localize('com_auth_email_address')}
+          </label>
+          <Input
+            colorTransition
+            type="text"
+            id="email"
+            autoComplete={emailAutoComplete}
+            aria-label={localize('com_auth_email')}
+            {...register('email', {
+              required: localize('com_auth_email_required'),
+              maxLength: { value: 120, message: localize('com_auth_email_max_length') },
+              validate: useUsernameLogin
+                ? undefined
+                : (value) => validateEmail(value, localize('com_auth_email_pattern')),
+            })}
+            aria-invalid={!!errors.email}
+            className={authGlassInputClassName}
+            placeholder={useUsernameLogin ? '' : 'name@mail.com'}
+          />
           {renderError('email')}
         </div>
         <div className="mb-2">
-          <div className="relative">
-            <SecretInput
-              colorTransition
-              id="password"
-              autoComplete="current-password"
-              aria-label={localize('com_auth_password')}
-              {...register('password', {
-                required: localize('com_auth_password_required'),
-                minLength: {
-                  value: startupConfig?.minPasswordLength || 8,
-                  message: localize('com_auth_password_min_length'),
-                },
-                maxLength: { value: 128, message: localize('com_auth_password_max_length') },
-              })}
-              aria-invalid={!!errors.password}
-              className={authSecretInputClassName}
-              placeholder=" "
-              label={localize('com_auth_password')}
-              labelClassName={authLabelClassName}
-              controlsClassName="right-2"
-              buttonClassName={authSecretButtonClassName}
-            />
-          </div>
+          <label htmlFor="password" className={authGlassLabelClassName}>
+            {localize('com_auth_password')}
+          </label>
+          <SecretInput
+            colorTransition
+            id="password"
+            autoComplete="current-password"
+            aria-label={localize('com_auth_password')}
+            {...register('password', {
+              required: localize('com_auth_password_required'),
+              minLength: {
+                value: startupConfig?.minPasswordLength || 8,
+                message: localize('com_auth_password_min_length'),
+              },
+              maxLength: { value: 128, message: localize('com_auth_password_max_length') },
+            })}
+            aria-invalid={!!errors.password}
+            className={authGlassSecretInputClassName}
+            placeholder="********"
+            controlsClassName={authGlassSecretControlsClassName}
+            buttonClassName={authGlassSecretButtonClassName}
+          />
           {renderError('password')}
         </div>
-        {startupConfig.passwordResetEnabled && (
-          <a
-            href="/forgot-password"
-            className="text-accent-primary hover:text-accent-primary-hover hover:decoration-accent-primary-hover focus:text-accent-primary-hover focus:decoration-accent-primary-hover inline-flex p-1 text-sm font-medium underline decoration-transparent transition-all duration-200"
-          >
-            {localize('com_auth_password_forgot')}
-          </a>
-        )}
+
+        <div className="mb-4 flex items-center justify-between gap-3 text-sm">
+          <label className="flex cursor-pointer items-center gap-2 text-white/90">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(event) => {
+                const checked = event.target.checked;
+                setRememberMe(checked);
+                if (!checked) {
+                  clearRememberedLoginEmail();
+                }
+              }}
+              className="size-4 rounded border-white/40 bg-white/10 text-white focus:ring-white/40"
+              data-testid="remember-me"
+            />
+            {localize('com_auth_remember_me')}
+          </label>
+          {startupConfig.passwordResetEnabled && (
+            <a href="/forgot-password" className={authGlassTextLinkClassName}>
+              {localize('com_auth_password_forgot')}
+            </a>
+          )}
+        </div>
 
         {requireCaptcha && (
           <div className="my-4 flex justify-center">
@@ -176,14 +219,14 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
           </div>
         )}
 
-        <div className="mt-6">
+        <div className="mt-2">
           <Button
             aria-label={localize('com_auth_continue')}
             data-testid="login-button"
             type="submit"
             disabled={(requireCaptcha && !turnstileToken) || isSubmitting}
             variant="submit"
-            className="h-12 w-full rounded-2xl"
+            className={authGlassSubmitClassName}
           >
             {isSubmitting ? <Spinner /> : localize('com_auth_continue')}
           </Button>

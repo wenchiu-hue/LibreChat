@@ -107,7 +107,6 @@ const colorAliases: Array<[string, string]> = [
   ['--badge-label', '--text-primary'],
   ['--border-field-focus', '--focus-control'],
   ['--focus-subtle', '--border-heavy'],
-  ['--field-fill', '--surface-primary'],
   ['--field-text', '--text-primary'],
 ];
 
@@ -115,6 +114,12 @@ describe('the stock color aliases', () => {
   it.each(colorAliases)('declares %s as the %s it split from', (property, source) => {
     expect(light.get(property)).toBe(`var(${source})`);
     expect(dark.get(property) ?? light.get(property)).toBe(`var(${source})`);
+  });
+
+  /** 深色欄位底色與 #33383c slate 側邊面板搭配，不再跟 surface-primary 同色。 */
+  it('declares --field-fill as --surface-primary in light and the slate field fill in dark', () => {
+    expect(light.get('--field-fill')).toBe('var(--surface-primary)');
+    expect(dark.get('--field-fill')).toBe('63 68 71');
   });
 });
 

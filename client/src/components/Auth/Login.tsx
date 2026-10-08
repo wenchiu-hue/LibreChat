@@ -9,6 +9,7 @@ import { ErrorMessage } from '~/components/Auth/ErrorMessage';
 import SocialButton from '~/components/Auth/SocialButton';
 import { useAuthContext } from '~/hooks/AuthContext';
 import { useLocalize } from '~/hooks';
+import { authGlassOutlineClassName } from './authStyles';
 import LoginForm from './LoginForm';
 
 interface LoginLocationState {
@@ -123,16 +124,14 @@ function Login() {
         />
       )}
       {startupConfig?.registrationEnabled === true && (
-        <p className="text-text-secondary my-4 text-center text-sm font-light">
-          {' '}
-          {localize('com_auth_no_account')}{' '}
-          <a
-            href={registerPage()}
-            className="text-accent-primary hover:text-accent-primary-hover hover:decoration-accent-primary-hover focus:text-accent-primary-hover focus:decoration-accent-primary-hover inline-flex p-1 text-sm font-medium underline decoration-transparent transition-all duration-200"
-          >
+        <div className="mt-3 space-y-2">
+          <p className="text-center text-sm font-light text-white/70">
+            {localize('com_auth_no_account')}
+          </p>
+          <a href={registerPage()} className={authGlassOutlineClassName}>
             {localize('com_auth_sign_up')}
           </a>
-        </p>
+        </div>
       )}
     </>
   );

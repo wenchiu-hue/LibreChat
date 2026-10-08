@@ -1,11 +1,13 @@
 import React, { useEffect, memo } from 'react';
 import TagManager from 'react-gtm-module';
 import ReactMarkdown from 'react-markdown';
-import { Constants, hasConfiguredFooter } from 'librechat-data-provider';
+import { hasConfiguredFooter } from 'librechat-data-provider';
 import type { TStartupConfig } from 'librechat-data-provider';
 import { useGetStartupConfig } from '~/data-provider';
-import { policyUrls } from '~/utils/policies';
+import { DEFAULT_APP_TITLE } from '~/utils';
 import { useLocalize } from '~/hooks';
+
+const COMPANY_SITE_URL = 'https://www.tynesys.com';
 
 type FooterProps = {
   className?: string;
@@ -19,7 +21,10 @@ type FooterProps = {
   configuredOnly?: boolean;
 };
 
-type FooterStartupConfig = Pick<Partial<TStartupConfig>, 'analyticsGtmId' | 'customFooter'> & {
+type FooterStartupConfig = Pick<
+  Partial<TStartupConfig>,
+  'analyticsGtmId' | 'customFooter' | 'appTitle'
+> & {
   interface?: Pick<NonNullable<TStartupConfig['interface']>, 'privacyPolicy' | 'termsOfService'>;
 };
 
@@ -60,32 +65,8 @@ function Footer({ className, startupConfig, configuredOnly = false }: FooterProp
   const config = shouldFetchConfig ? fetchedConfig : startupConfig;
   const localize = useLocalize();
 
-  /** The same reading the consent and the auth footer use: a blank url is not
-   *  a published policy. */
-  const { privacyPolicyUrl, termsOfServiceUrl } = policyUrls(configuredOnly ? undefined : config);
-
-  const privacyPolicyRender = privacyPolicyUrl != null && (
-    <a className="text-text-muted underline" href={privacyPolicyUrl} rel="noreferrer">
-      {localize('com_ui_privacy_policy')}
-    </a>
-  );
-
-  const termsOfServiceRender = termsOfServiceUrl != null && (
-    <a className="text-text-muted underline" href={termsOfServiceUrl} rel="noreferrer">
-      {localize('com_ui_terms_of_service')}
-    </a>
-  );
-
   const configuredFooter = typeof config?.customFooter === 'string' ? config.customFooter : null;
-  /** The generic disclaimer is the part a conversation drops; the operator's own footer is not. */
-  const genericFooter = configuredOnly
-    ? ''
-    : '[LibreChat ' +
-      Constants.VERSION +
-      '](https://librechat.ai) - ' +
-      localize('com_ui_latest_footer');
-  const mainContent = configuredFooter ?? genericFooter;
-  const mainContentParts = mainContent === '' ? [] : mainContent.split('|');
+  const appTitle = config?.appTitle?.trim() || DEFAULT_APP_TITLE;
 
   useEffect(() => {
     if (config?.analyticsGtmId != null && typeof window.google_tag_manager === 'undefined') {
@@ -96,73 +77,80 @@ function Footer({ className, startupConfig, configuredOnly = false }: FooterProp
     }
   }, [config?.analyticsGtmId]);
 
-  const mainContentRender = mainContentParts.map((text, index) => (
-    <React.Fragment key={`main-content-part-${index}`}>
-      <ReactMarkdown
-        components={{
-          a: ({ node: _n, href, children, ...otherProps }) => {
+  const defaultClassName =
+    'absolute right-0 bottom-0 left-0 hidden items-center justify-center gap-2 px-2 py-2 text-center sm:flex md:px-15';
+
+  /** A conversation with no configured footer has nothing to place. */
+  if (configuredOnly) {
+    if (configuredFooter == null || configuredFooter === '') {
+      return null;
+    }
+
+    const mainContentParts = configuredFooter.split('|');
+    const mainContentRender = mainContentParts.map((text, index) => (
+      <React.Fragment key={`main-content-part-${index}`}>
+        <ReactMarkdown
+          components={{
+            a: ({ node: _n, href, children, ...otherProps }) => {
+              return (
+                <a
+                  className="text-text-muted underline"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  {...otherProps}
+                >
+                  {children}
+                </a>
+              );
+            },
+            p: ({ node: _n, ...props }) => <span {...props} />,
+          }}
+        >
+          {text.trim()}
+        </ReactMarkdown>
+      </React.Fragment>
+    ));
+
+    return (
+      <div className="relative w-full">
+        <div className={className ?? `${defaultClassName} text-text-muted text-xs`}>
+          {mainContentRender.map((contentRender, index) => {
+            const isLastElement = index === mainContentRender.length - 1;
             return (
-              <a
-                className="text-text-muted underline"
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                {...otherProps}
-              >
-                {children}
-              </a>
+              <React.Fragment key={`footer-element-${index}`}>
+                {contentRender}
+                {!isLastElement && (
+                  <div
+                    key={`separator-${index}`}
+                    className="border-border-medium h-2 border-r-[1px]"
+                  />
+                )}
+              </React.Fragment>
             );
-          },
-
-          p: ({ node: _n, ...props }) => <span {...props} />,
-        }}
-      >
-        {text.trim()}
-      </ReactMarkdown>
-    </React.Fragment>
-  ));
-
-  const footerElements = [...mainContentRender, privacyPolicyRender, termsOfServiceRender].filter(
-    Boolean,
-  );
-
-  /** A conversation with no configured footer has nothing to place, so it does
-   *  not place an empty bar over the bottom of the thread. */
-  if (footerElements.length === 0) {
-    return null;
+          })}
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="relative w-full">
-      <div
-        className={
-          className ??
-          /* The disclaimer is the least important text on the landing page and
-             sat in `text-primary`, the same weight as the greeting above it.
-             `text-muted` is the quietest text token that still clears AA for
-             12px copy on `bg-presentation` — 5.11:1 on white, 7.93:1 on the dark
-             canvas — and the contrast modes collapse every text token to pure
-             black or white, so they stay at 21:1. The links keep the same colour
-             rather than the brighter `text-secondary`: the underline carries the
-             affordance, and a link that outshines its own sentence puts the
-             emphasis back where this change takes it from. */
-          'text-text-muted absolute right-0 bottom-0 left-0 hidden items-center justify-center gap-2 px-2 py-2 text-center text-xs sm:flex md:px-15'
-        }
-      >
-        {footerElements.map((contentRender, index) => {
-          const isLastElement = index === footerElements.length - 1;
-          return (
-            <React.Fragment key={`footer-element-${index}`}>
-              {contentRender}
-              {!isLastElement && (
-                <div
-                  key={`separator-${index}`}
-                  className="border-border-medium h-2 border-r-[1px]"
-                />
-              )}
-            </React.Fragment>
-          );
-        })}
+      <div className={className ?? defaultClassName}>
+        <a
+          href={COMPANY_SITE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={localize('com_ui_logo', { 0: appTitle })}
+          className="text-text-primary focus-visible:ring-border-xheavy inline-flex items-center justify-center gap-3 rounded-md opacity-80 transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:outline-none"
+        >
+          <img
+            src="assets/logo.svg"
+            alt=""
+            className="h-9 w-auto max-w-[12rem] object-contain dark:brightness-0 dark:invert"
+          />
+          <span className="text-sm font-semibold tracking-wide">{appTitle}</span>
+        </a>
       </div>
     </div>
   );

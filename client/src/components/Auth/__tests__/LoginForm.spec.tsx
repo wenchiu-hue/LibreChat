@@ -42,6 +42,7 @@ const mockStartupConfig: TStartupConfig = {
   publicSharedLinksEnabled: true,
   allowAccountDeletion: true,
   allowEmailChange: true,
+  passwordChangeEnabled: true,
 };
 
 const setup = ({
@@ -162,4 +163,59 @@ test('displays validation error messages', async () => {
 
   expect(getByText(/You must enter a valid email address/i)).toBeInTheDocument();
   expect(getByText(/Password must be at least 8 characters/i)).toBeInTheDocument();
+});
+
+test('remember me persists email for the next visit', async () => {
+  localStorage.clear();
+  const first = render(
+    <Login
+      onSubmit={mockLogin}
+      startupConfig={mockStartupConfig}
+      error={undefined}
+      setError={jest.fn()}
+    />,
+  );
+
+  const emailInput = first.getByLabelText(/email/i);
+  const passwordInput = first.getByLabelText(/password/i);
+  const rememberMe = first.getByTestId('remember-me');
+  const submitButton = getByTestId(document.body, 'login-button');
+
+  await userEvent.type(emailInput, 'remember@example.com');
+  await userEvent.type(passwordInput, 'password12');
+  await userEvent.click(rememberMe);
+  await userEvent.click(submitButton);
+
+  expect(localStorage.getItem('librechat_remember_login_email')).toBe('remember@example.com');
+  first.unmount();
+
+  const second = render(
+    <Login
+      onSubmit={mockLogin}
+      startupConfig={mockStartupConfig}
+      error={undefined}
+      setError={jest.fn()}
+    />,
+  );
+
+  expect(second.getByLabelText(/email/i)).toHaveValue('remember@example.com');
+  expect(second.getByTestId('remember-me')).toBeChecked();
+});
+
+test('unchecking remember me clears the stored email', async () => {
+  localStorage.setItem('librechat_remember_login_email', 'keep@example.com');
+  const { getByTestId } = render(
+    <Login
+      onSubmit={mockLogin}
+      startupConfig={mockStartupConfig}
+      error={undefined}
+      setError={jest.fn()}
+    />,
+  );
+
+  const rememberMe = getByTestId('remember-me');
+  expect(rememberMe).toBeChecked();
+  await userEvent.click(rememberMe);
+
+  expect(localStorage.getItem('librechat_remember_login_email')).toBeNull();
 });

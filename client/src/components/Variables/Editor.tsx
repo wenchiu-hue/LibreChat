@@ -15,6 +15,7 @@ import {
   OGDialogContent,
 } from '@librechat/client';
 import type { TSpecialVarLabel } from 'librechat-data-provider';
+import type { TextareaProps } from '@librechat/client';
 import { useLocalize } from '~/hooks';
 import { cn } from '~/utils';
 
@@ -42,6 +43,8 @@ interface VariableEditorProps {
   invalid?: boolean;
   describedBy?: string;
   className?: string;
+  /** 透傳給內層 `Textarea` 的 variant。 */
+  variant?: TextareaProps['variant'];
   labelClassName?: string;
   containerClassName?: string;
   /** Whether to expose special-variable insertion controls. Defaults to true. */
@@ -73,6 +76,7 @@ export default function VariableEditor({
   invalid,
   describedBy,
   className,
+  variant,
   labelClassName,
   containerClassName,
   showVariables = true,
@@ -115,14 +119,19 @@ export default function VariableEditor({
               isOpen={isMenuOpen}
               setIsOpen={setIsMenuOpen}
               trigger={
-                <Menu.MenuButton
-                  id={`${id}-variables-menu-button`}
-                  aria-label={localize('com_ui_variables')}
-                  title={localize('com_ui_variables')}
-                  className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary focus-visible:ring-ring-primary inline-flex h-7 w-7 items-center justify-center rounded-lg transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
-                >
-                  <PlusCircle className="h-4 w-4" strokeWidth={1.75} aria-hidden={true} />
-                </Menu.MenuButton>
+                <TooltipAnchor
+                  description={localize('com_ui_variables')}
+                  showOnHover={!isMenuOpen}
+                  render={
+                    <Menu.MenuButton
+                      id={`${id}-variables-menu-button`}
+                      aria-label={localize('com_ui_variables')}
+                      className="text-text-secondary hover:bg-surface-hover active:bg-surface-pressed hover:text-text-primary focus-visible:ring-ring-primary inline-flex h-7 w-7 items-center justify-center rounded-lg transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
+                    >
+                      <PlusCircle className="h-4 w-4" strokeWidth={1.75} aria-hidden={true} />
+                    </Menu.MenuButton>
+                  }
+                />
               }
               items={variableItems}
               menuId={menuId}
@@ -137,7 +146,7 @@ export default function VariableEditor({
                 variant="ghost"
                 onClick={() => setIsDialogOpen(true)}
                 aria-label={localize('com_ui_expand_editor')}
-                className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary h-7 w-7 p-0"
+                className="text-text-secondary h-7 w-7 p-0"
               >
                 <Maximize2 className="h-4 w-4" strokeWidth={1.75} aria-hidden={true} />
               </Button>
@@ -152,6 +161,7 @@ export default function VariableEditor({
         onChange={(event) => onChange(event.target.value)}
         onBlur={onBlur}
         className={className}
+        variant={variant}
         placeholder={placeholder}
         rows={rows}
         aria-label={label}

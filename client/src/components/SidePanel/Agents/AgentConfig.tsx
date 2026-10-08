@@ -1,4 +1,4 @@
-import { Input, Label } from '@librechat/client';
+import { Input, Label, TooltipAnchor } from '@librechat/client';
 import { Controller, useWatch, useFormContext } from 'react-hook-form';
 import type { InstructionsPromptStatus } from './Instructions';
 import type { AgentForm } from '~/common';
@@ -16,6 +16,7 @@ import AgentAvatar from './AgentAvatar';
 import Starters from './Starters';
 import { Panel } from '~/common';
 
+/** 欄位填色走 `Input` 的 `filled` variant（與 instructions `Textarea` 一致），這裡只管高度。 */
 const fieldClass = 'h-9';
 
 export default function AgentConfig({
@@ -45,6 +46,35 @@ export default function AgentConfig({
     endpoint: providerValue as string,
     endpointsConfig,
   });
+  const modelLabel =
+    model != null && model !== '' ? String(model) : localize('com_ui_select_model');
+  const hasModel = model != null && model !== '';
+
+  const modelButton = (
+    <button
+      id="provider"
+      type="button"
+      onClick={() => setActivePanel(Panel.model)}
+      className={cn(
+        'bg-field-fill text-text-primary hover:border-focus-control focus-visible:border-border-field-focus focus-visible:ring-border-field-focus relative flex h-9 w-full min-w-0 items-center overflow-hidden rounded-lg border border-transparent text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-1',
+        hasModel ? 'px-1' : 'px-3',
+      )}
+    >
+      <div className="flex w-full min-w-0 items-center gap-2">
+        {providerValue !== undefined && (
+          <div className="shadow-stroke bg-surface-primary text-text-primary relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
+            <ResolvedProviderIcon
+              provider={providerId}
+              imageURL={imageURL}
+              size={16}
+              className="h-2/3 w-2/3"
+            />
+          </div>
+        )}
+        <span className="truncate">{modelLabel}</span>
+      </div>
+    </button>
+  );
 
   return (
     <div className="h-auto pt-1">
@@ -64,6 +94,7 @@ export default function AgentConfig({
                   {...field}
                   value={field.value ?? ''}
                   maxLength={256}
+                  variant="filled"
                   className={cn(fieldClass, 'font-medium')}
                   id="name"
                   type="text"
@@ -92,6 +123,7 @@ export default function AgentConfig({
                 {...field}
                 value={field.value ?? ''}
                 maxLength={512}
+                variant="filled"
                 className={fieldClass}
                 id="description"
                 type="text"
@@ -112,41 +144,26 @@ export default function AgentConfig({
           >
             {localize('com_ui_model')} <span className="text-text-destructive">*</span>
           </Label>
-          <button
-            id="provider"
-            type="button"
-            onClick={() => setActivePanel(Panel.model)}
-            title={model || undefined}
-            className={cn(
-              'border-border-control bg-surface-secondary text-text-primary hover:bg-surface-tertiary focus-visible:ring-ring-primary relative flex h-9 w-full min-w-0 items-center overflow-hidden rounded-lg border text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-2',
-              model != null && model ? 'px-1' : 'px-3',
-            )}
-          >
-            <div className="flex w-full min-w-0 items-center gap-2">
-              {providerValue !== undefined && (
-                <div className="shadow-stroke bg-surface-primary text-text-primary relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                  <ResolvedProviderIcon
-                    provider={providerId}
-                    imageURL={imageURL}
-                    size={16}
-                    className="h-2/3 w-2/3"
-                  />
-                </div>
-              )}
-              <span className="truncate">
-                {model != null && model ? model : localize('com_ui_select_model')}
-              </span>
-            </div>
-          </button>
+          {hasModel ? (
+            <TooltipAnchor
+              side="top"
+              description={String(model)}
+              popupClassName="tooltip-inverse"
+              className="block w-full min-w-0"
+              render={modelButton}
+            />
+          ) : (
+            modelButton
+          )}
         </div>
-        <div className="flex flex-col">
+        <div className="flex min-w-0 flex-col">
           <Label
             className="text-text-secondary mb-1 block text-[11px] font-medium tracking-wide uppercase"
             htmlFor="category-selector"
           >
             {localize('com_ui_category')} <span className="text-text-destructive">*</span>
           </Label>
-          <AgentCategorySelector className="w-full rounded-lg" />
+          <AgentCategorySelector variant="filled" className="w-full" />
         </div>
       </div>
 
@@ -189,6 +206,7 @@ export default function AgentConfig({
                 <Input
                   {...field}
                   value={field.value ?? ''}
+                  variant="filled"
                   className={cn(fieldClass, error && 'border-border-destructive border-2')}
                   id="support-contact-name"
                   type="text"
@@ -222,6 +240,7 @@ export default function AgentConfig({
                 <Input
                   {...field}
                   value={field.value ?? ''}
+                  variant="filled"
                   className={cn(fieldClass, error && 'border-border-destructive border-2')}
                   id="support-contact-email"
                   type="email"

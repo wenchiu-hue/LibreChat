@@ -157,7 +157,7 @@ const AgentHandoffs: React.FC<AgentHandoffsProps> = ({ field, currentAgentId }) 
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-text-secondary hover:bg-surface-secondary hover:text-text-primary size-auto shrink-0 rounded-lg p-1"
+                    className="text-text-secondary hover:text-text-primary size-auto shrink-0 rounded-lg p-1"
                     onClick={() => toggleExpanded(idx)}
                     aria-expanded={isExpanded}
                     aria-label={localize(isExpanded ? 'com_ui_collapse' : 'com_ui_expand')}
