@@ -1751,8 +1751,8 @@ html {
  * Specificity beats `.lc-field` / pointer-modality focus resets from Field.css. */
 .auth-glass-input {
   background-clip: border-box;
-  -webkit-text-fill-color: #fff;
-  caret-color: #fff;
+  -webkit-text-fill-color: rgb(var(--text-on-brand));
+  caret-color: rgb(var(--text-on-brand));
   box-shadow: none;
   -webkit-box-shadow: none;
 }
@@ -1762,26 +1762,26 @@ html {
 html[data-input-modality='pointer'] .lc-field.auth-glass-input:focus,
 html[data-input-modality='pointer'] .lc-field.auth-glass-input:focus-visible {
   background-clip: border-box;
-  -webkit-text-fill-color: #fff;
-  caret-color: #fff;
+  -webkit-text-fill-color: rgb(var(--text-on-brand));
+  caret-color: rgb(var(--text-on-brand));
   border-color: rgb(var(--border-field-focus, var(--focus-control)));
   outline: none;
   --tw-ring-shadow: 0 0 #0000;
   --tw-ring-offset-shadow: 0 0 #0000;
-  box-shadow: 0 0 5px #fff;
-  -webkit-box-shadow: 0 0 5px #fff;
+  box-shadow: 0 0 5px rgb(var(--surface-on-brand));
+  -webkit-box-shadow: 0 0 5px rgb(var(--surface-on-brand));
 }
 
 .auth-glass-input:-webkit-autofill,
 .auth-glass-input:-webkit-autofill:hover,
 .auth-glass-input:-webkit-autofill:focus,
 .auth-glass-input:-webkit-autofill:active {
-  -webkit-text-fill-color: #fff;
-  caret-color: #fff;
+  -webkit-text-fill-color: rgb(var(--text-on-brand));
+  caret-color: rgb(var(--text-on-brand));
   background-clip: border-box;
   transition: background-color 99999s ease-out;
-  box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
-  -webkit-box-shadow: 0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+  box-shadow: 0 0 0 1000px rgb(var(--surface-on-brand) / 0.12) inset;
+  -webkit-box-shadow: 0 0 0 1000px rgb(var(--surface-on-brand) / 0.12) inset;
 }
 
 .lc-field.auth-glass-input:-webkit-autofill:focus,
@@ -1790,11 +1790,11 @@ html[data-input-modality='pointer'] .lc-field.auth-glass-input:-webkit-autofill:
   --tw-ring-shadow: 0 0 #0000;
   --tw-ring-offset-shadow: 0 0 #0000;
   box-shadow:
-    0 0 5px #fff,
-    0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+    0 0 5px rgb(var(--surface-on-brand)),
+    0 0 0 1000px rgb(var(--surface-on-brand) / 0.12) inset;
   -webkit-box-shadow:
-    0 0 5px #fff,
-    0 0 0 1000px rgba(255, 255, 255, 0.12) inset;
+    0 0 5px rgb(var(--surface-on-brand)),
+    0 0 0 1000px rgb(var(--surface-on-brand) / 0.12) inset;
 }
 
 /* Left nav rail icons: idea-bulb style pop + sparkle on hover. */
@@ -1855,7 +1855,7 @@ html[data-input-modality='pointer'] .lc-field.auth-glass-input:-webkit-autofill:
 .nav-rail-icon::after {
   bottom: 0.1rem;
   left: 0.05rem;
-  background: rgb(255 255 255);
+  background: rgb(var(--surface-on-brand));
 }
 
 .nav-rail-icon:hover .nav-rail-glyph,
@@ -2169,21 +2169,6 @@ a:focus-visible > .nav-rail-icon::after {
   line-height: 1.5;
   color: rgb(var(--text-tooltip, var(--text-primary)));
   box-shadow: var(--theme-tooltip-shadow, 0 2px 4px 0 rgb(0 0 0 / 0.25));
-}
-
-/** Inverse chip for light or chromatic surfaces (e.g. the auth glass shell). */
-.tooltip-inverse {
-  background-color: #000;
-  color: #fff;
-  font-size: 0.75rem;
-  line-height: 1.25;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.35);
-  /** Never steal the click meant for the control underneath. */
-  pointer-events: none;
-}
-
-.tooltip-inverse svg {
-  fill: #000;
 }
 
 .tooltip:where(.dark, .dark *) {

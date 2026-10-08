@@ -126,11 +126,12 @@ describe('theme registry', () => {
     expect(resolveTheme(theme, 'dark').colors['rgb-surface-code-body']).toBe('98 76 54');
   });
 
-  it('paints the default code pane white in light and gray-850 in dark', () => {
+  /** 深色 code pane 與側邊面板原本的 #2a2a2a 一致。 */
+  it('paints the default code pane white in light and #2a2a2a in dark', () => {
     expect(resolveTheme(libreChatTheme, 'light').colors['rgb-surface-code-body']).toBe(
       '255 255 255',
     );
-    expect(resolveTheme(libreChatTheme, 'dark').colors['rgb-surface-code-body']).toBe('23 23 23');
+    expect(resolveTheme(libreChatTheme, 'dark').colors['rgb-surface-code-body']).toBe('42 42 42');
   });
 
   it('keeps the bundled code surfaces unchanged for the default appearances', () => {

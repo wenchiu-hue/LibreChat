@@ -1,23 +1,27 @@
 import * as React from 'react';
-import { fieldControl } from './Field';
+import { fieldControl, glassField } from './Field';
 import { cn } from '~/utils';
 import './Field.css';
 
 /** `title` edits a heading in place, so the field takes the heading's type scale. `inline` shares
  *  a row with icon Buttons, so it takes their height role and the row stays one height when a
  *  theme sizes fields and buttons apart. */
-const INPUT_VARIANTS = {
+type InputVariant = 'default' | 'inline' | 'title' | 'title-sm' | 'filled' | 'glass';
+
+const INPUT_VARIANTS: Readonly<Record<InputVariant, string>> = {
   default: '',
   inline: 'h-theme-button',
   title: 'h-theme-field-lg text-2xl font-semibold tracking-tight',
   'title-sm': 'text-base font-semibold tracking-tight',
   /** 無框填色欄位：平常以 `field-fill` 與所在面板區隔，框線只在 focus 時出現。 */
   filled: 'border-transparent bg-field-fill',
-} as const;
+  /** 品牌漸層上的玻璃欄位（登入、註冊）。 */
+  glass: glassField,
+};
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   colorTransition?: boolean;
-  variant?: keyof typeof INPUT_VARIANTS;
+  variant?: InputVariant;
 };
 
 const Input: React.ForwardRefExoticComponent<InputProps & React.RefAttributes<HTMLInputElement>> =

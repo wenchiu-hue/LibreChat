@@ -6,6 +6,12 @@ import store from '~/store';
 
 type PortalElement = ((element: HTMLElement) => HTMLElement | null) | HTMLElement | null;
 
+/** 不再提供的高對比模式，對應回一般的深淺色。 */
+const highContrastFallback: Partial<Record<string, string>> = {
+  'high-contrast-dark': 'dark',
+  'high-contrast-light': 'light',
+};
+
 export const ThemeSelector = ({
   theme,
   onChange,
@@ -29,8 +35,7 @@ export const ThemeSelector = ({
 
   /** High-contrast modes are no longer offered here; map a stored one onto its
    *  plain scheme so the dropdown still shows a real option. */
-  const dropdownValue =
-    theme === 'high-contrast-dark' ? 'dark' : theme === 'high-contrast-light' ? 'light' : theme;
+  const dropdownValue = highContrastFallback[theme] ?? theme;
 
   const labelId = 'theme-selector-label';
 

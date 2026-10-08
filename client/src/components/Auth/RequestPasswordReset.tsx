@@ -7,7 +7,7 @@ import { useRequestPasswordResetMutation } from 'librechat-data-provider/react-q
 import type { TRequestPasswordReset, TRequestPasswordResetResponse } from 'librechat-data-provider';
 import type { FC } from 'react';
 import type { TLoginLayoutContext } from '~/common';
-import { authGlassSubmitClassName, authGlassTextLinkClassName } from './authStyles';
+import { authGlassTextLinkClassName } from './authStyles';
 import { useLocalize } from '~/hooks';
 
 const BodyTextWrapper: FC<{ children: ReactNode }> = ({ children }) => {
@@ -112,7 +112,8 @@ function RequestPasswordReset() {
               },
             })}
             aria-invalid={!!errors.email}
-            className="auth-glass-input peer h-auto w-full rounded-xl border border-white/30 bg-white/10 px-3.5 pt-3 pb-2.5 text-white duration-200 focus:bg-white/15"
+            variant="glass"
+            className="pt-3 pb-2.5"
             placeholder=" "
           />
           <label
@@ -133,8 +134,7 @@ function RequestPasswordReset() {
           aria-label="Continue with password reset"
           type="submit"
           disabled={!!errors.email || isLoading}
-          variant="submit"
-          className={authGlassSubmitClassName}
+          variant="glass-submit"
         >
           {isLoading ? <Spinner /> : localize('com_auth_continue')}
         </Button>

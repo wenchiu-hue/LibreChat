@@ -7,14 +7,7 @@ import { useRegisterUserMutation } from 'librechat-data-provider/react-query';
 import { ThemeContext, SecretInput, Spinner, Button, Input, isDark } from '@librechat/client';
 import type { TRegisterUser, TError } from 'librechat-data-provider';
 import type { TLoginLayoutContext } from '~/common';
-import {
-  authGlassInputClassName,
-  authGlassSubmitClassName,
-  authGlassSecretInputClassName,
-  authGlassSecretButtonClassName,
-  authGlassSecretControlsClassName,
-  authGlassTextLinkClassName,
-} from './authStyles';
+import { authGlassTextLinkClassName } from './authStyles';
 import { useLocalize, TranslationKeys } from '~/hooks';
 import { ErrorMessage } from './ErrorMessage';
 import LegalConsent from './LegalConsent';
@@ -45,11 +38,8 @@ const Registration: React.FC = () => {
 
   // only require captcha if we have a siteKey
   const requireCaptcha = Boolean(startupConfig?.turnstile?.siteKey);
-  const authInputClassName = `${authGlassInputClassName} peer pb-2.5 pt-3`;
-  const authSecretInputClassName = `${authGlassSecretInputClassName} peer pb-2.5 pt-3`;
   const authLabelClassName =
     'absolute start-3 top-1.5 z-10 origin-[0] -translate-y-4 scale-75 transform bg-transparent px-2 text-sm text-white/70 duration-200 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-1.5 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-white rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4';
-  const authSecretButtonClassName = authGlassSecretButtonClassName;
 
   const registerUser = useRegisterUserMutation({
     onMutate: () => {
@@ -96,13 +86,12 @@ const Registration: React.FC = () => {
               aria-label={fieldLabel}
               {...field}
               aria-invalid={!!errors[id]}
-              className={authSecretInputClassName}
+              variant="glass"
+              className="pt-3 pb-2.5"
               placeholder=" "
               data-testid={id}
               label={fieldLabel}
               labelClassName={authLabelClassName}
-              controlsClassName={authGlassSecretControlsClassName}
-              buttonClassName={authSecretButtonClassName}
             />
           ) : (
             <>
@@ -114,7 +103,8 @@ const Registration: React.FC = () => {
                 aria-label={fieldLabel}
                 {...field}
                 aria-invalid={!!errors[id]}
-                className={authInputClassName}
+                variant="glass"
+                className="pt-3 pb-2.5"
                 placeholder=" "
                 data-testid={id}
               />
@@ -240,8 +230,7 @@ const Registration: React.FC = () => {
                 }
                 type="submit"
                 aria-label="Submit registration"
-                variant="submit"
-                className={authGlassSubmitClassName}
+                variant="glass-submit"
               >
                 {isSubmitting ? <Spinner /> : localize('com_auth_continue')}
               </Button>

@@ -68,47 +68,34 @@
       "count": 6
     }
   },
-  "client/src/components/Auth/AuthLayout.tsx": {
-    "shadcn/no-inline-styles": {
-      "count": 1
-    }
-  },
   "client/src/components/Auth/ErrorMessage.tsx": {
     "shadcn/no-restyle": {
       "count": 3
     }
   },
   "client/src/components/Auth/Footer.tsx": {
-    "shadcn/no-arbitrary-values": {
-      "count": 1
-    },
     "shadcn/no-unknown-classes": {
       "count": 1
     }
   },
-  "client/src/components/Auth/LoginForm.tsx": {
-    "shadcn/no-restyle": {
-      "count": 33
-    }
-  },
   "client/src/components/Auth/Registration.tsx": {
     "shadcn/no-restyle": {
-      "count": 33
+      "count": 11
     }
   },
   "client/src/components/Auth/RequestPasswordReset.tsx": {
     "shadcn/no-restyle": {
-      "count": 13
+      "count": 5
     }
   },
   "client/src/components/Auth/ResetPassword.tsx": {
     "shadcn/no-restyle": {
-      "count": 48
+      "count": 21
     }
   },
   "client/src/components/Auth/TwoFactorScreen.tsx": {
     "shadcn/no-restyle": {
-      "count": 19
+      "count": 1
     }
   },
   "client/src/components/Auth/VerifyEmail.tsx": {
@@ -1466,12 +1453,12 @@
   },
   "client/src/components/SidePanel/Agents/Advanced/AdvancedPanel.tsx": {
     "shadcn/no-restyle": {
-      "count": 17
+      "count": 15
     }
   },
   "client/src/components/SidePanel/Agents/Advanced/AgentHandoffs.tsx": {
     "shadcn/no-restyle": {
-      "count": 11
+      "count": 10
     }
   },
   "client/src/components/SidePanel/Agents/Advanced/AgentList.tsx": {
@@ -1479,7 +1466,7 @@
       "count": 1
     },
     "shadcn/no-restyle": {
-      "count": 11
+      "count": 10
     }
   },
   "client/src/components/SidePanel/Agents/Advanced/MaxAgentSteps.tsx": {
@@ -1503,7 +1490,7 @@
       "count": 1
     },
     "shadcn/no-restyle": {
-      "count": 9
+      "count": 8
     }
   },
   "client/src/components/SidePanel/Agents/AgentFooter.tsx": {
@@ -1552,7 +1539,7 @@
       "count": 1
     },
     "shadcn/no-restyle": {
-      "count": 14
+      "count": 13
     }
   },
   "client/src/components/SidePanel/Agents/FileSearch.tsx": {
@@ -1586,7 +1573,7 @@
       "count": 2
     },
     "shadcn/no-restyle": {
-      "count": 15
+      "count": 13
     }
   },
   "client/src/components/SidePanel/Agents/OptionToggle.tsx": {
@@ -1964,11 +1951,6 @@
       "count": 3
     }
   },
-  "client/src/components/UnifiedSidebar/ExpandedPanel.tsx": {
-    "shadcn/no-restyle": {
-      "count": 6
-    }
-  },
   "client/src/components/UnifiedSidebar/Sidebar.tsx": {
     "shadcn/no-inline-styles": {
       "count": 2
@@ -1994,7 +1976,7 @@
   },
   "client/src/components/Variables/Editor.tsx": {
     "shadcn/no-restyle": {
-      "count": 12
+      "count": 10
     },
     "shadcn/require-static-classes": {
       "count": 1

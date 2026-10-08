@@ -18,19 +18,20 @@
   text-align: left;
 }
 
-/** Inverse chip for light or chromatic surfaces (e.g. the auth glass shell). */
+/** Inverse chip for light or chromatic surfaces (e.g. the auth glass shell): `tone="inverse"`.
+ *  The black and white roles are fixed in every bundled theme, so the chip reads on any surface. */
 .tooltip-inverse {
-  background-color: #000;
-  color: #fff;
+  background-color: rgb(var(--surface-overlay));
+  color: rgb(var(--text-on-brand));
   font-size: 0.75rem;
   line-height: 1.25;
-  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 0.35);
+  box-shadow: var(--theme-tooltip-shadow, 0 2px 4px 0 rgb(var(--surface-overlay) / 0.35));
   /** Never steal the click meant for the control underneath. */
   pointer-events: none;
 }
 
 .tooltip-inverse svg {
-  fill: #000;
+  fill: rgb(var(--surface-overlay));
 }
 
 @media (max-width: 640px) {

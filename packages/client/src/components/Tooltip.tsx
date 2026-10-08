@@ -19,8 +19,10 @@ interface TooltipAnchorProps extends Ariakit.TooltipAnchorProps {
   focusOutline?: FocusOutline;
   role?: string;
   className?: string;
-  /** Extra classes on the floating popup (e.g. `tooltip-inverse`). */
+  /** Extra classes on the floating popup. */
   popupClassName?: string;
+  /** `inverse` draws a black chip with white ink, for chromatic or glass surfaces. */
+  tone?: 'default' | 'inverse';
   description: string;
   enableHTML?: boolean;
   portalElement?: Ariakit.TooltipProps['portalElement'];
@@ -40,6 +42,7 @@ const TooltipPopup = memo(function TooltipPopup({
   portalElement,
   zIndex,
   popupClassName,
+  tone,
 }: {
   store: Ariakit.TooltipStore;
   description: string;
@@ -47,6 +50,7 @@ const TooltipPopup = memo(function TooltipPopup({
   portalElement?: Ariakit.TooltipProps['portalElement'];
   zIndex?: number;
   popupClassName?: string;
+  tone?: 'default' | 'inverse';
 }) {
   const mounted = Ariakit.useStoreState(store, (state) => state.mounted);
   const placement = Ariakit.useStoreState(store, (state) => state.placement);
@@ -108,7 +112,7 @@ const TooltipPopup = memo(function TooltipPopup({
           gutter={4}
           alwaysVisible
           portalElement={portalElement}
-          className={cn('tooltip', popupClassName)}
+          className={cn('tooltip', tone === 'inverse' && 'tooltip-inverse', popupClassName)}
           render={
             <motion.div
               style={resolvedZIndex != null ? { zIndex: resolvedZIndex } : undefined}
@@ -142,6 +146,7 @@ export const TooltipAnchor: ForwardRefExoticComponent<
     side = 'top',
     className,
     popupClassName,
+    tone,
     focusOutline,
     role,
     enableHTML = false,
@@ -201,6 +206,7 @@ export const TooltipAnchor: ForwardRefExoticComponent<
         portalElement={portalElement}
         zIndex={zIndex}
         popupClassName={popupClassName}
+        tone={tone}
       />
     </Ariakit.TooltipProvider>
   );

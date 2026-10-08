@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useState, useCallback } from 'react';
 import { Eye, EyeOff, Copy, Check } from 'lucide';
+import { fieldControl, glassField, glassFieldButton } from './Field';
 import { cn, disabledInkClasses } from '~/utils';
 import { MorphIcon } from './MorphIcon';
-import { fieldControl } from './Field';
 
 export interface SecretInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -22,6 +22,8 @@ export interface SecretInputProps
   controlsClassName?: string;
   buttonClassName?: string;
   controlsOnHover?: boolean;
+  /** `glass` 對應 `Input` 的 glass variant，連同顯示密碼按鈕一起換成玻璃樣式。 */
+  variant?: 'default' | 'glass';
 }
 
 const SecretInput: React.ForwardRefExoticComponent<
@@ -40,6 +42,7 @@ const SecretInput: React.ForwardRefExoticComponent<
       controlsClassName,
       buttonClassName,
       controlsOnHover = false,
+      variant = 'default',
       onCopy,
       copyFeedbackDuration = 2000,
       disabled,
@@ -49,6 +52,12 @@ const SecretInput: React.ForwardRefExoticComponent<
     ref,
   ) => {
     const [isVisible, setIsVisible] = useState(false);
+    const hasCopy = copyButton != null || showCopy;
+    /** 右側保留給控制按鈕的空間；玻璃按鈕較大，需多留一點。 */
+    let controlsPadding = variant === 'glass' ? 'pr-12' : 'pr-11';
+    if (hasCopy) {
+      controlsPadding = 'pr-20';
+    }
     const [isCopied, setIsCopied] = useState(false);
 
     const toggleVisibility = useCallback(() => {
@@ -84,9 +93,10 @@ const SecretInput: React.ForwardRefExoticComponent<
           id={id}
           className={cn(
             fieldControl,
+            variant === 'glass' && glassField,
             colorTransition && 'transition-colors',
             className ?? '',
-            copyButton != null || showCopy ? 'pr-20' : 'pr-11',
+            controlsPadding,
           )}
           ref={ref}
           disabled={disabled}
@@ -106,6 +116,7 @@ const SecretInput: React.ForwardRefExoticComponent<
         <div
           className={cn(
             'pointer-events-none absolute inset-y-0 right-1.5 z-10 flex items-center gap-0.5 [&_button]:pointer-events-auto',
+            variant === 'glass' && 'right-2',
             controlsOnHover &&
               'opacity-0 transition-opacity duration-150 group-focus-within/secret-input:opacity-100 group-hover/secret-input:opacity-100',
             controlsClassName,
@@ -140,6 +151,7 @@ const SecretInput: React.ForwardRefExoticComponent<
                 ? 'cursor-not-allowed opacity-50'
                 : 'hover:bg-surface-hover hover:text-text-primary',
               disabledInkClasses,
+              variant === 'glass' && glassFieldButton,
               buttonClassName,
             )}
             aria-label={isVisible ? 'Hide secret' : 'Show secret'}

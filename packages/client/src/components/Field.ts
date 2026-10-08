@@ -17,3 +17,11 @@ export const fieldBase: string = `lc-field flex w-full rounded-lg border border-
 
 /** A single-line control sized to sit in a form row, matching `Input`. */
 export const fieldControl: string = `${fieldBase} h-theme-field bg-transparent`;
+
+/** 品牌漸層上的玻璃欄位：半透明白底、白字，focus 只提亮底色（框線與自動填入由 `.auth-glass-input` 處理）。 */
+export const glassField: string =
+  'auth-glass-input peer h-auto rounded-xl border-surface-on-brand/30 bg-surface-on-brand/10 px-3.5 py-3 text-text-on-brand placeholder:text-text-on-brand/50 duration-200 focus:bg-surface-on-brand/15 focus-visible:bg-surface-on-brand/15 focus:ring-0 focus-visible:ring-0 focus:outline-hidden focus-visible:outline-hidden';
+
+/** 玻璃欄位內的圖示按鈕（顯示密碼等）。 */
+export const glassFieldButton: string =
+  'relative z-10 size-theme-control rounded-xl text-text-on-brand/70 transition-all duration-200 hover:bg-surface-on-brand/15 hover:text-text-on-brand active:scale-95 focus-visible:ring-2 focus-visible:ring-surface-on-brand/50';

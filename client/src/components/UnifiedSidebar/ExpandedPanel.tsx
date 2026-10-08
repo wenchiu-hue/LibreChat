@@ -10,7 +10,6 @@ import { CLOSE_SIDEBAR_ID } from '~/components/Chat/Menus/OpenSidebar';
 import { lazyWithRecovery } from '~/lib/assets/lazy';
 import useNewChat from '~/hooks/Chat/useNewChat';
 import { useLocalize } from '~/hooks';
-import { cn } from '~/utils';
 
 const AccountSettings = lazyWithRecovery(() => import('~/components/Nav/AccountSettings'));
 
@@ -106,15 +105,12 @@ const NavIconButton = memo(function NavIconButton({
       render={
         <Button
           size="icon"
-          variant="ghost"
+          variant="brand"
           aria-label={localize(link.title)}
           aria-pressed={isActive}
           disabled={link.disabled}
           data-testid={`nav-panel-${link.id}`}
-          className={cn(
-            'h-10 w-10 rounded-lg hover:bg-white/15 hover:text-white',
-            isActive ? 'bg-white/20 text-white' : 'text-white/75',
-          )}
+          className="h-10 w-10"
           onClick={handleClick}
         >
           <span className="nav-rail-icon">
@@ -155,7 +151,7 @@ function ExpandedPanel({
   const toggleSidebarAriaKey = useShortcutAriaKey('toggleSidebar');
 
   return (
-    <div className="flex h-full shrink-0 flex-col gap-2 border-r border-white/15 bg-gradient-to-t from-[#071533] via-[#0a4d6e] to-[#0d6b5c] px-2 py-2 text-white">
+    <div className="from-brand-gradient-start via-brand-gradient-mid to-brand-gradient-end flex h-full shrink-0 flex-col gap-2 border-r border-white/15 bg-gradient-to-t px-2 py-2 text-white">
       <TooltipAnchor
         side="right"
         description={toggleSidebarHint}
@@ -164,11 +160,11 @@ function ExpandedPanel({
             id={expanded ? CLOSE_SIDEBAR_ID : undefined}
             data-testid={expanded ? 'close-sidebar-button' : 'open-sidebar-button'}
             size="icon"
-            variant="ghost"
+            variant="brand"
             aria-label={localize(toggleLabel)}
             aria-expanded={expanded}
             aria-keyshortcuts={toggleSidebarAriaKey}
-            className="h-10 w-10 rounded-lg text-white/85 hover:bg-white/15 hover:text-white"
+            className="h-10 w-10"
             onClick={toggleClick}
           >
             <span className="nav-rail-icon">

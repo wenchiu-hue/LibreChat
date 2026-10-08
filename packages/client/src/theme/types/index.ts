@@ -181,6 +181,16 @@ export interface IThemeRGB {
 
   // Brand colors
   'rgb-brand-purple'?: string;
+  /** The brand gradient, its glows, and the ink and fill drawn over it; identical in every mode. */
+  'rgb-brand-highlight'?: string;
+  /** The brand gradient, its glows, and the ink and fill drawn over it; identical in every mode. */
+  'rgb-brand-gradient-start'?: string;
+  'rgb-brand-gradient-mid'?: string;
+  'rgb-brand-gradient-end'?: string;
+  'rgb-brand-glow-cool'?: string;
+  'rgb-brand-glow-warm'?: string;
+  'rgb-text-on-brand'?: string;
+  'rgb-surface-on-brand'?: string;
 
   /** The default user avatar's fill and glyph, drawn when a user has no image. The glyph follows
    *  `rgb-text-primary` in a theme that does not set it, as it did before it had a role. */
@@ -373,6 +383,14 @@ export interface IThemeVariables {
   '--status-verified': string;
   '--text-on-status': string;
   '--brand-purple': string;
+  '--brand-highlight': string;
+  '--brand-gradient-start': string;
+  '--brand-gradient-mid': string;
+  '--brand-gradient-end': string;
+  '--brand-glow-cool': string;
+  '--brand-glow-warm': string;
+  '--text-on-brand': string;
+  '--surface-on-brand': string;
   '--avatar-fill': string;
   '--avatar-text': string;
   '--avatar-placeholder': string;
@@ -532,6 +550,14 @@ export interface IThemeColors {
   'status-verified'?: string;
   'text-on-status'?: string;
   'brand-purple'?: string;
+  'brand-highlight'?: string;
+  'brand-gradient-start'?: string;
+  'brand-gradient-mid'?: string;
+  'brand-gradient-end'?: string;
+  'brand-glow-cool'?: string;
+  'brand-glow-warm'?: string;
+  'text-on-brand'?: string;
+  'surface-on-brand'?: string;
   'avatar-fill'?: string;
   'avatar-text'?: string;
   'avatar-placeholder'?: string;

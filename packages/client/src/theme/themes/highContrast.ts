@@ -173,6 +173,14 @@ export const highContrastLightTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '107 0 179', // #6b00b3
+  'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
+  'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
+  'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
+  'rgb-brand-glow-cool': '56 189 248', // #38bdf8 — cool glow over the brand gradient
+  'rgb-brand-glow-warm': '45 212 191', // #2dd4bf — warm glow over the brand gradient
+  'rgb-text-on-brand': '255 255 255', // #ffffff — ink on the brand gradient
+  'rgb-surface-on-brand': '255 255 255', // #ffffff — fill on the brand gradient, used at an alpha
   'rgb-avatar-fill': '121 137 255', // #7989ff (the default avatar fill in every bundled theme)
   'rgb-avatar-text': '0 0 0', // #000000 (matching text-primary)
   'rgb-avatar-placeholder': '255 255 255', // #ffffff (matching surface-secondary)
@@ -373,6 +381,14 @@ export const highContrastDarkTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '224 179 255', // #e0b3ff
+  'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
+  'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
+  'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
+  'rgb-brand-glow-cool': '56 189 248', // #38bdf8 — cool glow over the brand gradient
+  'rgb-brand-glow-warm': '45 212 191', // #2dd4bf — warm glow over the brand gradient
+  'rgb-text-on-brand': '255 255 255', // #ffffff — ink on the brand gradient
+  'rgb-surface-on-brand': '255 255 255', // #ffffff — fill on the brand gradient, used at an alpha
   'rgb-avatar-fill': '121 137 255', // #7989ff (the default avatar fill in every bundled theme)
   'rgb-avatar-text': '255 255 255', // #ffffff (matching text-primary)
   'rgb-avatar-placeholder': '0 0 0', // #000000 (matching surface-tertiary)

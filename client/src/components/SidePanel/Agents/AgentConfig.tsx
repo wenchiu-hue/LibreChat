@@ -148,7 +148,7 @@ export default function AgentConfig({
             <TooltipAnchor
               side="top"
               description={String(model)}
-              popupClassName="tooltip-inverse"
+              tone="inverse"
               className="block w-full min-w-0"
               render={modelButton}
             />

@@ -103,7 +103,7 @@ const AgentCategorySelector: React.FC<{
           <TooltipAnchor
             side="top"
             description={displayValue}
-            popupClassName="tooltip-inverse"
+            tone="inverse"
             className="block w-full min-w-0"
             render={<div className="w-full min-w-0">{combobox}</div>}
           />

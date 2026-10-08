@@ -9,7 +9,8 @@ function WelcomePanel({ startupConfig }: { startupConfig: TStartupConfig | null 
   /** Prefer a dedicated FAQ/docs URL so View more never doubles the privacy link
    *  already stated in LegalConsent / Footer. */
   const viewMoreUrl = startupConfig?.helpAndFaqURL?.trim() || undefined;
-  const welcomeBody = startupConfig?.customWelcome?.trim() || localize('com_auth_welcome_message');
+  /** `interface.customWelcome` 是登入後的聊天歡迎詞（可含 `{{user.name}}`），登入前不會送出，這裡固定用登入頁文案。 */
+  const welcomeBody = localize('com_auth_welcome_message');
   const appTitle = startupConfig?.appTitle?.trim() || DEFAULT_APP_TITLE;
 
   return (
@@ -26,10 +27,7 @@ function WelcomePanel({ startupConfig }: { startupConfig: TStartupConfig | null 
       </div>
 
       <div className="flex flex-1 flex-col justify-center gap-4">
-        <h2
-          className="text-3xl font-bold tracking-tight text-white sm:text-4xl"
-          style={{ userSelect: 'none' }}
-        >
+        <h2 className="text-3xl font-bold tracking-tight text-white select-none sm:text-4xl">
           {localize('com_auth_hello_welcome')}
         </h2>
         <p className="max-w-sm text-sm leading-relaxed text-white/80" aria-label={welcomeBody}>

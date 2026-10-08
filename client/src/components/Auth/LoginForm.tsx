@@ -5,19 +5,11 @@ import { ThemeContext, SecretInput, Spinner, Button, Input, isDark } from '@libr
 import type { TLoginUser, TStartupConfig } from 'librechat-data-provider';
 import type { TAuthContext } from '~/common';
 import {
-  authGlassInputClassName,
-  authGlassLabelClassName,
-  authGlassSubmitClassName,
-  authGlassSecretInputClassName,
-  authGlassSecretButtonClassName,
-  authGlassSecretControlsClassName,
-  authGlassTextLinkClassName,
-} from './authStyles';
-import {
   getRememberedLoginEmail,
   setRememberedLoginEmail,
   clearRememberedLoginEmail,
 } from '~/utils/rememberLoginEmail';
+import { authGlassLabelClassName, authGlassTextLinkClassName } from './authStyles';
 import { useResendVerificationEmail, useGetStartupConfig } from '~/data-provider';
 import { validateEmail } from '~/utils';
 import { useLocalize } from '~/hooks';
@@ -111,7 +103,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
   return (
     <>
       {showResendLink && (
-        <div className="mt-2 rounded-md border border-emerald-300/40 bg-emerald-500/15 px-3 py-2 text-sm text-white/90">
+        <div className="border-brand-highlight/40 bg-brand-highlight/15 mt-2 rounded-md border px-3 py-2 text-sm text-white/90">
           {localize('com_auth_email_verification_resend_prompt')}
           <button
             type="button"
@@ -149,7 +141,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
                 : (value) => validateEmail(value, localize('com_auth_email_pattern')),
             })}
             aria-invalid={!!errors.email}
-            className={authGlassInputClassName}
+            variant="glass"
             placeholder={useUsernameLogin ? '' : 'name@mail.com'}
           />
           {renderError('email')}
@@ -172,10 +164,8 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
               maxLength: { value: 128, message: localize('com_auth_password_max_length') },
             })}
             aria-invalid={!!errors.password}
-            className={authGlassSecretInputClassName}
+            variant="glass"
             placeholder="********"
-            controlsClassName={authGlassSecretControlsClassName}
-            buttonClassName={authGlassSecretButtonClassName}
           />
           {renderError('password')}
         </div>
@@ -225,8 +215,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
             data-testid="login-button"
             type="submit"
             disabled={(requireCaptcha && !turnstileToken) || isSubmitting}
-            variant="submit"
-            className={authGlassSubmitClassName}
+            variant="glass-submit"
           >
             {isSubmitting ? <Spinner /> : localize('com_auth_continue')}
           </Button>

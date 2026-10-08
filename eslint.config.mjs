@@ -213,7 +213,8 @@ export default [
         {
           // `icon-*` is a sizing utility from client/src/style.css (height, width, stroke-width),
           // so it belongs with layout rather than with a primitive's own appearance.
-          allow: ['layout', 'icon-*'],
+          // `nav-rail-glyph` only hooks the rail icon's hover animation in client/src/style.css.
+          allow: ['layout', 'icon-*', 'nav-rail-glyph'],
           // A contract replaces `allow` rather than extending it, so each one restates the
           // baseline. These record policy, not debt: the categories below are the caller's to
           // set, which is why they are not in eslint-suppressions.json.
@@ -274,6 +275,11 @@ export default [
             'toast-root',
             'alert-root',
             'tooltip',
+            'tooltip-inverse',
+            // client/src/style.css：玻璃欄位的 focus / autofill 修正，與側欄圖示的 hover 動畫
+            'auth-glass-input',
+            'nav-rail-icon',
+            'nav-rail-glyph',
             'spinner',
             'popover-ui',
             'select-item',

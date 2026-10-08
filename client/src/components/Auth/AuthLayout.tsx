@@ -93,26 +93,17 @@ function AuthLayout({
     <div className="relative flex min-h-screen flex-col overflow-hidden text-white">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#071533] via-[#0a4d6e] to-[#0d6b5c]"
+        className="from-brand-gradient-start via-brand-gradient-mid to-brand-gradient-end pointer-events-none absolute inset-0 bg-gradient-to-br"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 -left-16 h-80 w-80 rounded-full bg-sky-400/30 blur-3xl"
+        className="bg-brand-glow-cool/30 pointer-events-none absolute -top-24 -left-16 h-80 w-80 rounded-full blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-teal-400/25 blur-3xl"
+        className="bg-brand-glow-warm/25 pointer-events-none absolute -right-20 bottom-0 h-96 w-96 rounded-full blur-3xl"
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            'radial-gradient(rgba(255,255,255,0.35) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.2) 1px, transparent 1px)',
-          backgroundSize: '28px 28px, 48px 48px',
-          backgroundPosition: '0 0, 12px 18px',
-        }}
-      />
+      <div aria-hidden className="brand-dots pointer-events-none absolute inset-0 opacity-40" />
 
       <div className="relative z-10">
         <Banner />
@@ -138,10 +129,7 @@ function AuthLayout({
             )}
           >
             {!hasStartupConfigError && !isFetching && header && (
-              <h1
-                className="mb-4 text-center text-2xl font-semibold text-white"
-                style={{ userSelect: 'none' }}
-              >
+              <h1 className="mb-4 text-center text-2xl font-semibold text-white select-none">
                 {header}
               </h1>
             )}

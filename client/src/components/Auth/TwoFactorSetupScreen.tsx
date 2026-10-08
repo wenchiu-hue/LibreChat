@@ -248,11 +248,7 @@ const TwoFactorSetupScreen: React.FC = React.memo(() => {
     return (
       <div>
         <ErrorMessage>{localize('com_auth_two_factor_setup_expired')}</ErrorMessage>
-        <Button
-          variant="link"
-          onClick={restartLogin}
-          className="mt-4 w-full cursor-pointer text-white/90 underline decoration-transparent transition-all duration-200 hover:text-white hover:decoration-white focus-visible:ring-2 focus-visible:ring-white/50 focus-visible:outline-none"
-        >
+        <Button variant="glass-link" onClick={restartLogin} className="mt-4 w-full">
           {localize('com_auth_back_to_login')}
         </Button>
       </div>

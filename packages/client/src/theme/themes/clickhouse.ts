@@ -162,6 +162,14 @@ export const clickHouseLightTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '136 0 204', // #8800cc (palette.violet.600)
+  'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
+  'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
+  'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
+  'rgb-brand-glow-cool': '56 189 248', // #38bdf8 — cool glow over the brand gradient
+  'rgb-brand-glow-warm': '45 212 191', // #2dd4bf — warm glow over the brand gradient
+  'rgb-text-on-brand': '255 255 255', // #ffffff — ink on the brand gradient
+  'rgb-surface-on-brand': '255 255 255', // #ffffff — fill on the brand gradient, used at an alpha
   'rgb-avatar-fill': '105 110 121', // #696e79 (avatar.color.background.default)
   'rgb-avatar-text': '255 255 255', // #ffffff (avatar.color.text.default)
   'rgb-avatar-placeholder': '246 247 250', // #f6f7fa (background.muted)
@@ -345,6 +353,14 @@ export const clickHouseDarkTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '204 102 255', // #cc66ff (palette.violet.300)
+  'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
+  'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
+  'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
+  'rgb-brand-glow-cool': '56 189 248', // #38bdf8 — cool glow over the brand gradient
+  'rgb-brand-glow-warm': '45 212 191', // #2dd4bf — warm glow over the brand gradient
+  'rgb-text-on-brand': '255 255 255', // #ffffff — ink on the brand gradient
+  'rgb-surface-on-brand': '255 255 255', // #ffffff — fill on the brand gradient, used at an alpha
   'rgb-avatar-fill': '128 134 145', // #808691 (avatar.color.background.default)
   'rgb-avatar-text': '31 31 28', // #1f1f1c (avatar.color.text.default)
   'rgb-avatar-placeholder': '40 40 40', // #282828 (background.muted)

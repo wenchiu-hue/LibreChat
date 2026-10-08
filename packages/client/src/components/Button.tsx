@@ -19,6 +19,9 @@ type ButtonVariantOptions =
         | 'secondary'
         | 'ghost'
         | 'media'
+        | 'brand'
+        | 'glass-submit'
+        | 'glass-link'
         | 'row-action'
         | 'row-action-reveal'
         | 'section-header'
@@ -88,6 +91,15 @@ const buttonVariantRecipe = cva(
          * black media scrim whatever the page theme paints.
          */
         media: 'text-text-on-media hover:bg-text-on-media/10',
+        /** 品牌漸層上的 ghost 按鈕（側欄、Marketplace）：白色墨水，hover 與按下時提亮一層白。 */
+        brand:
+          'text-text-on-brand/85 hover:bg-surface-on-brand/15 hover:text-text-on-brand aria-pressed:bg-surface-on-brand/20 aria-pressed:text-text-on-brand',
+        /** 品牌漸層上的主要動作（登入、送出）：白色實心膠囊，hover 浮起並帶螢光光暈。 */
+        'glass-submit':
+          'h-theme-field-lg w-full rounded-full border-0 bg-surface-on-brand font-semibold text-brand-gradient-start shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:glow-brand active:translate-y-0 active:scale-98 active:shadow-sm focus-visible:ring-brand-highlight focus-visible:ring-offset-transparent disabled:opacity-60',
+        /** 品牌漸層上的文字動作（返回登入、改用備用碼）：白字，hover 出現底線。 */
+        'glass-link':
+          'h-auto p-1 text-sm font-medium text-text-on-brand/90 underline decoration-transparent transition-all duration-200 hover:text-text-on-brand hover:decoration-text-on-brand focus-visible:rounded-sm focus-visible:ring-surface-on-brand/50 focus-visible:ring-offset-0',
         /**
          * A compact action living inside a list row — a pinned row's unpin
          * badge, a conversation's overflow trigger, a table row's controls. The
@@ -210,6 +222,18 @@ const buttonVariantRecipe = cva(
       },
     },
     compoundVariants: [
+      /* 品牌漸層上的送出鈕與文字連結自帶高度與內距；否則預設 size 的 h-theme-button 與 px-4 py-2
+       * 排在 variant 之後勝出，送出鈕會從 48px 縮成 40px。 */
+      {
+        variant: 'glass-submit',
+        size: 'default',
+        class: 'h-theme-field-lg px-4 py-0',
+      },
+      {
+        variant: 'glass-link',
+        size: 'default',
+        class: 'h-auto p-1',
+      },
       /* An outlined icon button is chrome: a theme that draws no chrome outline leaves it ghost-shaped. */
       {
         variant: ['outline', 'subtle'],

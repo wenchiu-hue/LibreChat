@@ -12,7 +12,6 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
 } from '@librechat/client';
-import { authGlassSubmitClassName, authGlassTextLinkClassName } from './authStyles';
 import { useVerifyTwoFactorTempMutation } from '~/data-provider';
 import BackupCodeInput from './BackupCodeInput';
 import { useLocalize } from '~/hooks';
@@ -140,31 +139,20 @@ const TwoFactorScreen: React.FC = React.memo(() => {
         <div className="flex items-center justify-between">
           <Button
             type="submit"
-            variant="submit"
+            variant="glass-submit"
             data-testid="login-button"
             disabled={isLoading}
-            className={authGlassSubmitClassName}
           >
             {isLoading ? localize('com_auth_email_verifying_ellipsis') : localize('com_ui_verify')}
           </Button>
         </div>
         <div className="mt-4 flex justify-center">
           {!useBackup ? (
-            <Button
-              type="button"
-              variant="link"
-              onClick={toggleBackupOn}
-              className={authGlassTextLinkClassName}
-            >
+            <Button type="button" variant="glass-link" onClick={toggleBackupOn}>
               {localize('com_ui_use_backup_code')}
             </Button>
           ) : (
-            <Button
-              type="button"
-              variant="link"
-              onClick={toggleBackupOff}
-              className={authGlassTextLinkClassName}
-            >
+            <Button type="button" variant="glass-link" onClick={toggleBackupOff}>
               {localize('com_ui_use_2fa_code')}
             </Button>
           )}

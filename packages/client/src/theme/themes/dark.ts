@@ -148,6 +148,14 @@ export const darkTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '171 104 255', // #ab68ff
+  'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
+  'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
+  'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
+  'rgb-brand-glow-cool': '56 189 248', // #38bdf8 — cool glow over the brand gradient
+  'rgb-brand-glow-warm': '45 212 191', // #2dd4bf — warm glow over the brand gradient
+  'rgb-text-on-brand': '255 255 255', // #ffffff — ink on the brand gradient
+  'rgb-surface-on-brand': '255 255 255', // #ffffff — fill on the brand gradient, used at an alpha
   'rgb-avatar-fill': '121 137 255', // #7989ff (the default avatar fill in every bundled theme)
   'rgb-avatar-text': '236 236 236', // #ececec (gray-100, matching text-primary)
   'rgb-avatar-placeholder': '47 47 47', // #2f2f2f (gray-700, matching surface-tertiary)

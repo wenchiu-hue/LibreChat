@@ -165,6 +165,8 @@ const colorSources: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>>> 
     'rgb-status-verified': 'palette.info.600',
     'rgb-text-on-status': 'palette.neutral.0',
     'rgb-brand-purple': 'palette.violet.600',
+    'rgb-text-on-brand': 'click.button.basic.color.primary.text.default',
+    'rgb-surface-on-brand': 'click.button.basic.color.primary.text.default',
     'rgb-avatar-fill': 'click.avatar.color.background.default',
     'rgb-avatar-text': 'click.avatar.color.text.default',
     'rgb-avatar-placeholder': 'global.color.background.muted',
@@ -360,6 +362,10 @@ const AVATAR_EDGE_REASON =
 const MEDIA_SCRIM_DEPARTURE =
   'the dialog scrim is the nearest Click UI job; a lightbox frames the user image in black instead';
 
+/** TYNE AI 品牌漸層與其上的墨色、填色，Click UI 沒有對應的 token。 */
+const BRAND_REASON =
+  'Click UI has no brand gradient; the TYNE AI gradient, its glows and the ink drawn over it stay fixed in every mode';
+
 const ALERT_ALPHA_REASON =
   'Click UI draws the danger alert as feedback.danger at 10% (light) or 20% (dark) alpha with no edge; a role holds an opaque triplet, so the theme takes the fill blended over the page and the edge equals it';
 
@@ -372,6 +378,12 @@ const unsourcedColors: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>
     'rgb-avatar-edge': AVATAR_EDGE_REASON,
     'rgb-alert-error-fill': ALERT_ALPHA_REASON,
     'rgb-alert-error-border': ALERT_ALPHA_REASON,
+    'rgb-brand-gradient-start': BRAND_REASON,
+    'rgb-brand-gradient-mid': BRAND_REASON,
+    'rgb-brand-gradient-end': BRAND_REASON,
+    'rgb-brand-glow-cool': BRAND_REASON,
+    'rgb-brand-glow-warm': BRAND_REASON,
+    'rgb-brand-highlight': BRAND_REASON,
   },
   dark: {
     'rgb-surface-nav-selected':
@@ -382,6 +394,14 @@ const unsourcedColors: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>
     'rgb-avatar-edge': AVATAR_EDGE_REASON,
     'rgb-alert-error-fill': ALERT_ALPHA_REASON,
     'rgb-alert-error-border': ALERT_ALPHA_REASON,
+    'rgb-brand-gradient-start': BRAND_REASON,
+    'rgb-brand-gradient-mid': BRAND_REASON,
+    'rgb-brand-gradient-end': BRAND_REASON,
+    'rgb-brand-glow-cool': BRAND_REASON,
+    'rgb-brand-glow-warm': BRAND_REASON,
+    'rgb-brand-highlight': BRAND_REASON,
+    'rgb-text-on-brand': BRAND_REASON,
+    'rgb-surface-on-brand': BRAND_REASON,
   },
 };
 
@@ -425,6 +445,36 @@ const departures: Record<ThemeMode, Partial<Record<keyof IThemeRGB, Departure>>>
       counterpart: 'global.color.stroke.default',
       status: 'near',
       reason: AVATAR_EDGE_REASON,
+    },
+    'rgb-brand-gradient-start': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-gradient-mid': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-gradient-end': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-glow-cool': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-glow-warm': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-highlight': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
     },
     'rgb-surface-media-overlay': {
       counterpart: 'click.dialog.color.opaqueBackground.default',
@@ -578,6 +628,46 @@ const departures: Record<ThemeMode, Partial<Record<keyof IThemeRGB, Departure>>>
       counterpart: 'global.color.stroke.default',
       status: 'mismatch',
       reason: AVATAR_EDGE_REASON,
+    },
+    'rgb-brand-gradient-start': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-gradient-mid': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-gradient-end': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-glow-cool': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-glow-warm': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-highlight': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-text-on-brand': {
+      counterpart: 'click.button.basic.color.primary.text.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-surface-on-brand': {
+      counterpart: 'click.button.basic.color.primary.text.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
     },
   },
 };

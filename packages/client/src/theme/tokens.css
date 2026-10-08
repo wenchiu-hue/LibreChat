@@ -22,6 +22,14 @@
 @theme inline {
   /* brand and surfaces */
   --color-brand-purple: rgb(var(--brand-purple));
+  --color-brand-highlight: rgb(var(--brand-highlight));
+  --color-brand-gradient-start: rgb(var(--brand-gradient-start));
+  --color-brand-gradient-mid: rgb(var(--brand-gradient-mid));
+  --color-brand-gradient-end: rgb(var(--brand-gradient-end));
+  --color-brand-glow-cool: rgb(var(--brand-glow-cool));
+  --color-brand-glow-warm: rgb(var(--brand-glow-warm));
+  --color-text-on-brand: rgb(var(--text-on-brand));
+  --color-surface-on-brand: rgb(var(--surface-on-brand));
   --color-avatar-fill: rgb(var(--avatar-fill));
   --color-avatar-text: rgb(var(--avatar-text));
   --color-avatar-placeholder: rgb(var(--avatar-placeholder));
@@ -118,28 +126,16 @@
   /* borders */
   --color-border-light: rgb(var(--border-light) / var(--border-light-alpha, 1));
   /* `--border-medium-edge` 只改 `border-border-medium` 這個 utility 的邊色；`--border-medium` channel 與其別名不受影響。 */
-  --color-border-medium: rgb(
-    var(--border-medium-edge, var(--border-medium)) / var(--border-medium-alpha, 1)
-  );
+  --color-border-medium: rgb(var(--border-medium-edge, var(--border-medium)) / var(--border-medium-alpha, 1));
   /* border-light, at the share the theme keeps for chrome outlines and inset hairlines. */
-  --color-border-chrome: rgb(
-    var(--border-light) / calc(var(--border-light-alpha, 1) * var(--theme-border-chrome-alpha, 1))
-  );
+  --color-border-chrome: rgb(var(--border-light) / calc(var(--border-light-alpha, 1) * var(--theme-border-chrome-alpha, 1)));
   /* border-heavy, at the chrome share: the pressed or selected outline of a control that is chrome. */
-  --color-border-chrome-heavy: rgb(
-    var(--border-heavy) / calc(var(--border-heavy-alpha, 1) * var(--theme-border-chrome-alpha, 1))
-  );
+  --color-border-chrome-heavy: rgb(var(--border-heavy) / calc(var(--border-heavy-alpha, 1) * var(--theme-border-chrome-alpha, 1)));
   /* border-medium, at the chrome share: the hover outline of a chrome control. */
-  --color-border-chrome-medium: rgb(
-    var(--border-medium) / calc(var(--border-medium-alpha, 1) * var(--theme-border-chrome-alpha, 1))
-  );
+  --color-border-chrome-medium: rgb(var(--border-medium) / calc(var(--border-medium-alpha, 1) * var(--theme-border-chrome-alpha, 1)));
   /* border-medium, at the inset share: the box edges of a form that sits on a stroked page. */
-  --color-border-inset-medium: rgb(
-    var(--border-medium) / calc(var(--border-medium-alpha, 1) * var(--theme-border-inset-alpha, 1))
-  );
-  --color-border-inset: rgb(
-    var(--border-light) / calc(var(--border-light-alpha, 1) * var(--theme-border-inset-alpha, 1))
-  );
+  --color-border-inset-medium: rgb(var(--border-medium) / calc(var(--border-medium-alpha, 1) * var(--theme-border-inset-alpha, 1)));
+  --color-border-inset: rgb(var(--border-light) / calc(var(--border-light-alpha, 1) * var(--theme-border-inset-alpha, 1)));
   --color-border-medium-alt: rgb(var(--border-medium-alt));
   --color-border-heavy: rgb(var(--border-heavy) / var(--border-heavy-alpha, 1));
   --color-border-xheavy: rgb(var(--border-xheavy) / var(--border-xheavy-alpha, 1));
@@ -309,6 +305,24 @@
       @slot;
     }
   }
+}
+
+/* 品牌漸層上的光暈：主要動作 hover 的螢光綠，以及白色外框按鈕的柔光。 */
+@utility glow-brand {
+  box-shadow: 0 0 12px rgb(var(--brand-highlight) / 0.55);
+}
+
+@utility glow-brand-soft {
+  box-shadow: 0 0 10px rgb(var(--surface-on-brand) / 0.35);
+}
+
+/* 品牌漸層上的點陣紋理（登入頁背景）。 */
+@utility brand-dots {
+  background-image:
+    radial-gradient(rgb(var(--surface-on-brand) / 0.35) 1px, transparent 1px),
+    radial-gradient(rgb(var(--surface-on-brand) / 0.2) 1px, transparent 1px);
+  background-size: 28px 28px, 48px 48px;
+  background-position: 0 0, 12px 18px;
 }
 
 /* A theme whose `fieldFillStyle` is `fill` paints its fields in `field-fill` instead of leaving

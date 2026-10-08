@@ -73,7 +73,7 @@ const Theme = ({
     <TooltipAnchor
       side="right"
       description={themeLabel}
-      popupClassName="tooltip-inverse"
+      tone="inverse"
       render={
         <Button
           type="button"
@@ -129,7 +129,7 @@ const ContrastToggle = ({
     <TooltipAnchor
       side="right"
       description={contrastLabel}
-      popupClassName="tooltip-inverse"
+      tone="inverse"
       render={
         <Button
           type="button"
