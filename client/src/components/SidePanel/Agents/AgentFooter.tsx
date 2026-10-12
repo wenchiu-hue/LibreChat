@@ -1,6 +1,6 @@
 import { Globe } from 'lucide-react';
-import { Button, Spinner, TooltipAnchor, DisabledReason } from '@librechat/client';
 import { useWatch, useFormContext } from 'react-hook-form';
+import { Button, Spinner, TooltipAnchor, DisabledReason } from '@librechat/client';
 import {
   SystemRoles,
   Permissions,
@@ -78,15 +78,11 @@ export default function AgentFooter({
 
   return (
     <div className="mb-1 flex w-full flex-col gap-2">
-      {showButtons && (
-        <div className={`grid gap-2 ${agent_id ? 'grid-cols-2' : 'grid-cols-1'}`}>
-          <AdvancedButton setActivePanel={setActivePanel} />
-          {!!agent_id && <VersionButton setActivePanel={setActivePanel} />}
-        </div>
-      )}
+      {showButtons && !!agent_id && <VersionButton setActivePanel={setActivePanel} />}
       {user?.role === SystemRoles.ADMIN && showButtons && <AdminSettings />}
-      {/* Context Button */}
+      {/* Context Button：進階與建立／儲存同一排，各佔一半 */}
       <div className="flex items-center justify-end gap-2">
+        {showButtons && <AdvancedButton setActivePanel={setActivePanel} />}
         {(agent?.author === user?.id || user?.role === SystemRoles.ADMIN || canDeleteThisAgent) &&
           !permissionsLoading && (
             <DeleteButton

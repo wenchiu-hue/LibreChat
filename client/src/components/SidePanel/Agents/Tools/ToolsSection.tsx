@@ -383,7 +383,7 @@ function SelectedSection({
         <button
           type="button"
           onClick={onAdd}
-          className="border-border-medium text-text-secondary hover:border-focus-control hover:bg-surface-hover active:bg-surface-pressed hover:text-text-primary focus-visible:ring-ring-primary flex w-full flex-col items-center gap-1 rounded-xl border border-dashed px-2 py-4 transition-colors focus:outline-hidden focus-visible:ring-2"
+          className="border-border-composer/41 text-text-secondary hover:bg-surface-hover active:bg-surface-pressed hover:text-text-primary focus-visible:ring-ring-primary flex w-full flex-col items-center gap-1 rounded-xl border border-dashed px-2 py-4 transition-colors focus:outline-hidden focus-visible:ring-2"
         >
           <Plus className="h-4 w-4" aria-hidden="true" />
           <span className="text-xs">{emptyLabel}</span>

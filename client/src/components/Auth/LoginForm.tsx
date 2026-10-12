@@ -77,7 +77,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
   const renderError = (fieldName: string) => {
     const errorMessage = errors[fieldName]?.message;
     return errorMessage ? (
-      <span role="alert" className="mt-1 text-sm text-red-200">
+      <span role="alert" className="text-text-on-brand-error mt-1 text-sm">
         {String(errorMessage)}
       </span>
     ) : null;
@@ -165,7 +165,7 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
             })}
             aria-invalid={!!errors.password}
             variant="glass"
-            placeholder="********"
+            placeholder={localize('com_auth_password_placeholder')}
           />
           {renderError('password')}
         </div>
@@ -211,13 +211,13 @@ const LoginForm: React.FC<TLoginFormProps> = ({ onSubmit, startupConfig, error, 
 
         <div className="mt-2">
           <Button
-            aria-label={localize('com_auth_continue')}
+            aria-label={localize('com_auth_login')}
             data-testid="login-button"
             type="submit"
             disabled={(requireCaptcha && !turnstileToken) || isSubmitting}
             variant="glass-submit"
           >
-            {isSubmitting ? <Spinner /> : localize('com_auth_continue')}
+            {isSubmitting ? <Spinner /> : localize('com_auth_login')}
           </Button>
         </div>
       </form>

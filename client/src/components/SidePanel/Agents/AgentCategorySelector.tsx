@@ -92,6 +92,7 @@ const AgentCategorySelector: React.FC<{
             ariaLabel={ariaLabel}
             isCollapsed={false}
             showCarat={true}
+            nativeTitle={false}
           />
         );
 

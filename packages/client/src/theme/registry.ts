@@ -377,7 +377,8 @@ export const defaultAppearance: IThemeAppearance = Object.freeze({
   leadingLg: 'calc(1.75 / 1.125)',
   leadingXl: 'calc(1.75 / 1.25)',
   leading2xl: 'calc(2 / 1.5)',
-  dialogStroke: '0px',
+  /** 燈箱底色與深色背景接近，預設畫 1px 外框區隔。 */
+  dialogStroke: '1px',
   dialogPaddingX: '1.5rem',
   dialogHeaderGap: '0.375rem',
   dialogTitleSize: '1.125rem',

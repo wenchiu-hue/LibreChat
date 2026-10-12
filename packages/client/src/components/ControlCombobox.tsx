@@ -27,6 +27,8 @@ interface ControlComboboxProps {
   containerClassName?: string;
   iconClassName?: string;
   showCarat?: boolean;
+  /** 觸發鈕的原生 `title`（顯示被截斷的值）。外層已有 TooltipAnchor 時傳 false，避免出現兩個提示。 */
+  nativeTitle?: boolean;
   className?: string;
   disabled?: boolean;
   iconSide?: 'left' | 'right';
@@ -76,6 +78,7 @@ function ControlCombobox({
   isCollapsed,
   SelectIcon,
   showCarat,
+  nativeTitle = true,
   className,
   disabled,
   iconClassName,
@@ -183,6 +186,8 @@ function ControlCombobox({
     'flex h-5 w-5 items-center justify-center overflow-hidden rounded-full',
     iconClassName,
   );
+  const shownValue = (displayValue != null ? displayValue : selectedValue) || undefined;
+  const triggerTitle = nativeTitle ? shownValue : undefined;
   const optionIconClassName = cn(
     'mr-2 flex h-5 w-5 items-center justify-center overflow-hidden rounded-full',
     iconClassName,
@@ -207,7 +212,7 @@ function ControlCombobox({
         onBlur={onBlur}
         aria-invalid={ariaInvalid || undefined}
         aria-describedby={ariaDescribedBy}
-        title={(displayValue != null ? displayValue : selectedValue) || undefined}
+        title={triggerTitle}
         className={cn(
           'bg-surface-secondary flex items-center justify-center gap-2 rounded-full',
           'text-text-primary hover:bg-surface-tertiary',
@@ -217,7 +222,7 @@ function ControlCombobox({
           variant === 'filled' &&
             cn(
               fieldControl,
-              'bg-field-fill hover:bg-field-fill hover:border-focus-control justify-start border-transparent',
+              'lc-field-filled bg-field-fill hover:bg-field-fill hover:border-border-composer/41 justify-start border-transparent transition-colors duration-200 motion-reduce:transition-none',
             ),
           className,
         )}

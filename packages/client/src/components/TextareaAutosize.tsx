@@ -20,6 +20,10 @@ type BaseTextareaAutosizeProps = Omit<TextareaAutosizeProps, 'aria-label' | 'ari
 /** A field marked `aria-invalid` draws its border in the destructive role, over the caller's border colour. */
 const invalidBorder = 'aria-invalid:border-border-destructive';
 
+/** 與 `Input` 一致：聚焦時框線換成 `border-field-focus`；驗證錯誤時仍維持紅色。
+ *  composer 的 textarea 沒有框線寬度（框線在外層容器），所以不受影響。 */
+const focusBorder = 'focus:border-border-field-focus aria-invalid:focus:border-border-destructive';
+
 export type TextareaAutosizePropsWithAria =
   | (BaseTextareaAutosizeProps & {
       'aria-label': string;
@@ -42,7 +46,8 @@ export const TextareaAutosize: ForwardRefExoticComponent<
         dir={chatDirection}
         {...props}
         className={
-          cx(focusOutlineVariants({ focusOutline }), invalidBorder, className) || undefined
+          cx(focusOutlineVariants({ focusOutline }), invalidBorder, focusBorder, className) ||
+          undefined
         }
         ref={ref}
       />

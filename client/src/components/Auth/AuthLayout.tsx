@@ -1,4 +1,3 @@
-import { ThemeSelector } from '@librechat/client';
 import { TStartupConfig } from 'librechat-data-provider';
 import { ErrorMessage } from '~/components/Auth/ErrorMessage';
 import { hasPublishedPolicies } from '~/utils/policies';
@@ -6,6 +5,7 @@ import { TranslationKeys, useLocalize } from '~/hooks';
 import SocialLoginRender from './SocialLoginRender';
 import WelcomePanel from './WelcomePanel';
 import LegalConsent from './LegalConsent';
+import AuthBrand from './AuthBrand';
 import { Banner } from '../Banners';
 import Footer from './Footer';
 import { cn } from '~/utils';
@@ -103,6 +103,14 @@ function AuthLayout({
         aria-hidden
         className="bg-brand-glow-warm/25 pointer-events-none absolute -right-20 bottom-0 h-96 w-96 rounded-full blur-3xl"
       />
+      <div
+        aria-hidden
+        className="bg-brand-purple/20 pointer-events-none absolute -top-32 right-1/4 h-96 w-96 rounded-full blur-3xl"
+      />
+      <div
+        aria-hidden
+        className="bg-brand-purple/15 pointer-events-none absolute bottom-0 left-1/4 h-80 w-80 rounded-full blur-3xl"
+      />
       <div aria-hidden className="brand-dots pointer-events-none absolute inset-0 opacity-40" />
 
       <div className="relative z-10">
@@ -110,34 +118,39 @@ function AuthLayout({
       </div>
       <DisplayError />
 
-      <div className="absolute bottom-0 left-0 z-20 m-4">
-        <ThemeSelector onDarkSurface />
-      </div>
-
       <main className="relative z-10 flex grow items-center justify-center px-4 py-10">
-        <div
-          className={cn(
-            'w-full overflow-hidden rounded-3xl border border-white/20 bg-white/10 shadow-2xl backdrop-blur-xl',
-            isTwoFactorSetup ? 'max-w-lg' : 'max-w-5xl md:grid md:grid-cols-2',
-          )}
-        >
-          {showWelcomePanel && <WelcomePanel startupConfig={startupConfig} />}
+        <div className={cn('relative w-full', isTwoFactorSetup ? 'max-w-lg' : 'max-w-5xl')}>
           <div
             className={cn(
-              'flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10',
-              isTwoFactorSetup ? 'w-full' : '',
+              'border-brand-glow-cool/40 bg-surface-on-brand/10 glow-brand-card relative w-full overflow-hidden rounded-3xl border backdrop-blur-xl',
+              !isTwoFactorSetup && 'md:grid md:grid-cols-2',
             )}
           >
-            {!hasStartupConfigError && !isFetching && header && (
-              <h1 className="mb-4 text-center text-2xl font-semibold text-white select-none">
-                {header}
-              </h1>
-            )}
-            {children}
-            {showsSocialLogin && (
-              <SocialLoginRender startupConfig={startupConfig} showPasskey={isLogin} />
-            )}
-            {statesConsentBelowProviders && <LegalConsent startupConfig={startupConfig} />}
+            {showWelcomePanel && <WelcomePanel startupConfig={startupConfig} />}
+            <div
+              className={cn(
+                'flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10',
+                isTwoFactorSetup ? 'w-full' : '',
+              )}
+            >
+              <AuthBrand startupConfig={startupConfig} />
+              {/* 登入頁以 logo 取代「歡迎回來」：標題只留給螢幕閱讀器，頁面仍有 h1 */}
+              {!hasStartupConfigError && !isFetching && header && (
+                <h1
+                  className={cn(
+                    'mb-4 text-center text-2xl font-semibold text-white select-none',
+                    isLogin && 'sr-only',
+                  )}
+                >
+                  {header}
+                </h1>
+              )}
+              {children}
+              {showsSocialLogin && (
+                <SocialLoginRender startupConfig={startupConfig} showPasskey={isLogin} />
+              )}
+              {statesConsentBelowProviders && <LegalConsent startupConfig={startupConfig} />}
+            </div>
           </div>
         </div>
       </main>

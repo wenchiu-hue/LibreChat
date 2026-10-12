@@ -276,7 +276,8 @@ function ChatView({
                             {!isLandingPage && configuredFooter && <Footer configuredOnly />}
                           </div>
                         </div>
-                        {isLandingPage && <Footer />}
+                        {/* logo 與產品名稱已移到 Header 右上角，首頁底部只放部署自訂的 footer。 */}
+                        {isLandingPage && configuredFooter && <Footer configuredOnly />}
                       </>
                     </TraceSurface>
                   </Presentation>

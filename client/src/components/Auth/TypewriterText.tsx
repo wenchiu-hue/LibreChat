@@ -72,7 +72,7 @@ export default function TypewriterText({
       {showCaret && (
         <span
           aria-hidden="true"
-          className="ml-0.5 inline-block h-[1em] w-[0.08em] translate-y-[0.1em] bg-white/80 align-[-0.05em]"
+          className="ml-0.5 inline-block h-[1em] w-[0.08em] translate-y-[0.1em] bg-current align-[-0.05em]"
         />
       )}
     </span>

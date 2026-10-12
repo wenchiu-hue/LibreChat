@@ -35,6 +35,7 @@ jest.mock('~/store', () => ({
 jest.mock('~/utils', () => ({
   cn: (...classes: Array<string | false | undefined>) => classes.filter(Boolean).join(' '),
 }));
+jest.mock('../Brand', () => ({ __esModule: true, default: () => null }));
 jest.mock('../Menus', () => ({
   OpenSidebar: () => null,
   PresetsMenu: () => null,

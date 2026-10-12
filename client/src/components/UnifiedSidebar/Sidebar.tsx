@@ -42,11 +42,9 @@ function Sidebar({
         />
         <nav
           className={cn(
-            /** The resize separator to the right is transparent until hovered, so
-             *  the edge is drawn here. The panel and the content beside it now sit
-             *  on the same surface, so the fill no longer separates them on its
-             *  own and the boundary has to be a line in every theme. */
-            'border-border-light bg-surface-primary-alt min-h-0 flex-1 overflow-hidden border-r',
+            /** 不畫右側框線：面板（surface-primary-alt #33383c）與內容區（canvas #2a2a2a）
+             *  底色已不同，邊界靠底色區分；右側的拖拉分隔線仍在，滑過時才顯示。 */
+            'bg-surface-primary-alt min-h-0 flex-1 overflow-hidden',
             expanded ? 'opacity-100' : 'pointer-events-none opacity-0',
           )}
           style={{ transition: expanded ? 'opacity 200ms ease 80ms' : 'opacity 150ms ease' }}

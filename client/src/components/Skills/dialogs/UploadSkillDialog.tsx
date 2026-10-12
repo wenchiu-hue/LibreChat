@@ -225,10 +225,11 @@ export default function UploadSkillDialog({ isOpen, setIsOpen }: UploadSkillDial
               onDrop={handleDrop}
               disabled={importMutation.isLoading}
               className={cn(
-                'text-text-secondary flex h-[7.5rem] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border border-dashed text-sm transition-colors',
+                /* 與 Agent 面板 TOOLS 的虛線框一致：Message 邊色（41%）的虛線，hover 提亮底色與文字。 */
+                'text-text-secondary flex h-[7.5rem] w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border border-dashed text-sm transition-colors duration-200 motion-reduce:transition-none',
                 isDragging
-                  ? 'border-border-heavy bg-surface-hover'
-                  : 'border-border-medium hover:bg-surface-hover',
+                  ? 'border-border-composer bg-surface-hover text-text-primary'
+                  : 'border-border-composer/41 hover:bg-surface-hover hover:text-text-primary',
                 importMutation.isLoading && 'cursor-wait opacity-50',
               )}
             >

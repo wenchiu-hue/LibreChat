@@ -94,8 +94,8 @@ const CreatePromptForm = ({
   const promptText = watch('prompt');
   const isCreating = createPromptMutation.isLoading;
   const isBlocked = !isDirty || isSubmitting || !isValid || isCreating;
-  /** Floating labels notch out the surface behind them: the dialog sits on `surface-primary`, the page on `presentation` */
-  const labelBgClassName = isDialog ? 'bg-surface-primary' : 'bg-surface-primary-alt';
+  /** 浮動標籤用底色蓋住欄位框線，必須與所在表面同色：燈箱內用燈箱底色，頁面內用面板底色。 */
+  const labelBgClassName = isDialog ? 'bg-surface-dialog' : 'bg-surface-primary-alt';
 
   const onSubmit = (data: CreateFormValues) => {
     const { name, category, oneliner, command, ...rest } = data;

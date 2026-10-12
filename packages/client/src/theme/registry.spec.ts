@@ -959,7 +959,7 @@ describe('theme registry', () => {
 
   it('keeps LibreChat’s dialog chrome by default', () => {
     expect(defaultAppearance).toMatchObject({
-      dialogStroke: '0px',
+      dialogStroke: '1px',
       dialogPaddingX: '1.5rem',
       dialogHeaderGap: '0.375rem',
       dialogTitleSize: defaultAppearance.textLg,

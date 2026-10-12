@@ -1,5 +1,6 @@
 import React, { useState, useRef, useLayoutEffect, useCallback, memo } from 'react';
 import { disabledInkClasses } from '~/utils';
+import { TooltipAnchor } from './Tooltip';
 import { useLocalize } from '~/hooks';
 
 /** Matches the `inset-y-1` the single-row indicator uses. */
@@ -9,6 +10,8 @@ interface Option {
   value: string;
   label: string;
   icon?: React.ReactNode;
+  /** 選項的說明，滑過或聚焦時以 tooltip 顯示；未提供則不包 tooltip。 */
+  description?: string;
 }
 
 interface RadioProps {
@@ -184,31 +187,43 @@ const Radio: React.NamedExoticComponent<RadioProps> = memo(function Radio({
           style={backgroundStyle}
         />
       )}
-      {options.map((option, index) => (
-        <button
-          key={option.value}
-          ref={(el) => {
-            buttonRefs.current[index] = el;
-          }}
-          type="button"
-          role="radio"
-          aria-checked={currentValue === option.value}
-          tabIndex={selectedIndex === index || (selectedIndex < 0 && index === 0) ? 0 : -1}
-          onClick={() => handleChange(option.value)}
-          onKeyDown={(event) => handleKeyDown(event, index)}
-          disabled={disabled}
-          className={`focus-visible:ring-focus-control relative z-10 flex items-center justify-center gap-2 rounded-md font-medium ${segmentSizeClasses[size]} transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-hidden ${
-            currentValue === option.value ? 'text-text-on-status' : 'text-text-secondary'
-          } ${disabled ? 'cursor-not-allowed opacity-50' : ''} ${disabledInkClasses} ${fullWidth ? 'flex-1' : ''} ${buttonClassName}`}
-        >
-          {option.icon && (
-            <span className="shrink-0" aria-hidden="true">
-              {option.icon}
-            </span>
-          )}
-          <span className="whitespace-nowrap">{option.label}</span>
-        </button>
-      ))}
+      {options.map((option, index) => {
+        const segment = (
+          <button
+            ref={(el) => {
+              buttonRefs.current[index] = el;
+            }}
+            type="button"
+            role="radio"
+            aria-checked={currentValue === option.value}
+            tabIndex={selectedIndex === index || (selectedIndex < 0 && index === 0) ? 0 : -1}
+            onClick={() => handleChange(option.value)}
+            onKeyDown={(event) => handleKeyDown(event, index)}
+            disabled={disabled}
+            className={`focus-visible:ring-focus-control relative z-10 flex items-center justify-center gap-2 rounded-md font-medium ${segmentSizeClasses[size]} transition-colors duration-150 focus-visible:ring-2 focus-visible:outline-hidden ${
+              currentValue === option.value ? 'text-text-on-status' : 'text-text-secondary'
+            } ${disabled ? 'cursor-not-allowed opacity-50' : ''} ${disabledInkClasses} ${fullWidth ? 'flex-1' : ''} ${buttonClassName}`}
+          >
+            {option.icon && (
+              <span className="shrink-0" aria-hidden="true">
+                {option.icon}
+              </span>
+            )}
+            <span className="whitespace-nowrap">{option.label}</span>
+          </button>
+        );
+        if (option.description == null || option.description === '') {
+          return <React.Fragment key={option.value}>{segment}</React.Fragment>;
+        }
+        return (
+          <TooltipAnchor
+            key={option.value}
+            side="top"
+            description={option.description}
+            render={segment}
+          />
+        );
+      })}
     </div>
   );
 });

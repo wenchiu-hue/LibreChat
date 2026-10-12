@@ -189,4 +189,26 @@ describe('Radio keyboard navigation', () => {
     expect(singleOnChange).not.toHaveBeenCalled();
     expect(document.activeElement).toBe(only);
   });
+
+  it('explains an option on hover when it carries a description, and stays a radio', async () => {
+    render(
+      <Radio
+        options={[
+          { value: 'inline', label: 'Inline', description: 'Type the instructions directly' },
+          { value: 'prompt', label: 'Prompt' },
+        ]}
+        value="inline"
+        aria-labelledby="lbl"
+      />,
+    );
+
+    const inline = screen.getByRole('radio', { name: 'Inline' });
+    expect(screen.getAllByRole('radio')).toHaveLength(2);
+
+    fireEvent.mouseEnter(inline);
+    fireEvent.mouseMove(inline);
+
+    const tooltip = await screen.findByRole('tooltip', undefined, { timeout: 3000 });
+    expect(tooltip).toHaveTextContent('Type the instructions directly');
+  });
 });

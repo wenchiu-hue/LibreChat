@@ -56,7 +56,7 @@ export default function AgentConfig({
       type="button"
       onClick={() => setActivePanel(Panel.model)}
       className={cn(
-        'bg-field-fill text-text-primary hover:border-focus-control focus-visible:border-border-field-focus focus-visible:ring-border-field-focus relative flex h-9 w-full min-w-0 items-center overflow-hidden rounded-lg border border-transparent text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-1',
+        'lc-field-filled bg-field-fill text-text-primary hover:border-border-composer/41 focus-visible:border-border-field-focus focus-visible:ring-border-field-focus relative flex h-9 w-full min-w-0 items-center overflow-hidden rounded-lg border border-transparent text-sm font-medium transition-colors focus:outline-hidden focus-visible:ring-1',
         hasModel ? 'px-1' : 'px-3',
       )}
     >

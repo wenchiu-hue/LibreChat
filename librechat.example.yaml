@@ -356,6 +356,11 @@ interface:
   #   - 'artifacts'
   #   - 'execute_code'
   #   - 'mcp'
+  # Hide side-nav entries by id; the features stay available (e.g. bookmarks from the chat header).
+  # Ids: memories, bookmarks, prompts, skills, agents, mcp-builder, parameters, schedules.
+  # hiddenSideNavLinks:
+  #   - memories
+  #   - bookmarks
   # Remote Agents configuration
   # Controls user permissions for remote agents with external API support
   # remoteAgents:

@@ -75,6 +75,11 @@ jest.mock('~/components/Chat/Menus/OpenSidebar', () => ({
   CLOSE_SIDEBAR_ID: 'close-sidebar',
 }));
 
+const mockLogout = jest.fn();
+jest.mock('~/hooks/AuthContext', () => ({
+  useAuthContext: () => ({ logout: mockLogout }),
+}));
+
 jest.mock('~/components/Nav/AccountSettings', () => ({
   __esModule: true,
   default: () => <div data-testid="account-settings" />,
@@ -221,6 +226,19 @@ describe('ExpandedPanel', () => {
 
       expect(mockNewConversation).toHaveBeenCalledTimes(1);
       expect(localStorage.getItem('side:active-panel')).toBe('prompts');
+    });
+  });
+
+  describe('LogoutButton', () => {
+    it('keeps logout one click away at the foot of the rail', () => {
+      mockLogout.mockClear();
+      renderPanel();
+
+      const logout = screen.getByTestId('nav-logout-button');
+      expect(logout).toHaveAttribute('aria-label', 'com_nav_log_out');
+      fireEvent.click(logout);
+
+      expect(mockLogout).toHaveBeenCalledTimes(1);
     });
   });
 });

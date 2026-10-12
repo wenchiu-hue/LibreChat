@@ -84,7 +84,7 @@ test.describe('required two-factor enrollment', () => {
     await page.goto(`/login?redirect_to=${encodeURIComponent(DEEP_LINK)}`);
     await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
     await page.getByRole('textbox', { name: 'Password' }).fill('password');
-    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
 
     await expect(page).toHaveURL(SETUP_ROUTE_PATTERN);
     expect(await page.evaluate(() => window.sessionStorage.getItem('two_factor_setup_token'))).toBe(

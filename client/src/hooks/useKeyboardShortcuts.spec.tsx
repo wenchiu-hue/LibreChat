@@ -412,6 +412,19 @@ describe('global shortcut dispatch', () => {
     expect(event.defaultPrevented).toBe(false);
   });
 
+  it('opens a new chat from the focused composer instead of yielding Ctrl+Shift+O to the browser', () => {
+    renderHarness();
+    const textarea = document.createElement('textarea');
+    textarea.id = 'prompt-textarea';
+    document.body.appendChild(textarea);
+    textarea.focus();
+
+    /** Left unclaimed, Chrome takes this chord for its bookmark manager. */
+    const event = dispatchKey({ key: 'O', ctrlKey: true, shiftKey: true }, textarea);
+
+    expect(event.defaultPrevented).toBe(true);
+  });
+
   it('focuses the chat input and prevents the event when the textarea exists', () => {
     renderHarness();
     const textarea = document.createElement('textarea');

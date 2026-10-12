@@ -37,6 +37,13 @@ jest.mock('../NewChat', () => ({
   default: () => <div data-testid="nav-new-chat-fab" />,
 }));
 
+jest.mock('../../Logout', () => ({
+  __esModule: true,
+  default: ({ placement, tabIndex }: { placement: string; tabIndex?: number }) => (
+    <button type="button" data-testid={`${placement}-logout-button`} tabIndex={tabIndex} />
+  ),
+}));
+
 jest.mock('~/components/Nav/AccountSettings', () => ({
   __esModule: true,
   default: () => <div data-testid="nav-user" />,
@@ -226,5 +233,33 @@ describe('mobile drawer header', () => {
 
     expect(screen.getByTestId('nav-new-chat-fab')).toBeInTheDocument();
     expect(screen.queryByTestId('nav-agents-marketplace-button')).not.toBeInTheDocument();
+  });
+
+  /** 登出已從帳號選單移出，手機抽屜必須自己帶一顆，否則手機上無法登出。 */
+  it('keeps logout reachable in the drawer and out of the tab order while closed', () => {
+    const { rerender } = render(
+      <Header
+        links={links}
+        expanded={true}
+        onClose={jest.fn()}
+        onNewChat={jest.fn()}
+        switchToHistory={true}
+      />,
+      { wrapper: MemoryRouter },
+    );
+
+    expect(screen.getByTestId('drawer-logout-button')).toHaveAttribute('tabindex', '0');
+
+    rerender(
+      <Header
+        links={links}
+        expanded={false}
+        onClose={jest.fn()}
+        onNewChat={jest.fn()}
+        switchToHistory={true}
+      />,
+    );
+
+    expect(screen.getByTestId('drawer-logout-button')).toHaveAttribute('tabindex', '-1');
   });
 });

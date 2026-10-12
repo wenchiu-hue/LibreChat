@@ -122,7 +122,7 @@ export default function VersionItem({
           'group relative mb-2 ml-2 flex flex-1 flex-col rounded-xl border p-3 transition-colors',
           isActive
             ? 'border-status-success-border bg-status-success-subtle'
-            : 'border-border-light hover:border-focus-control hover:bg-surface-hover bg-transparent',
+            : 'border-border-light hover:border-border-composer/41 hover:bg-surface-hover bg-transparent',
         )}
       >
         <div className="flex items-start justify-between gap-2">
@@ -170,10 +170,10 @@ export default function VersionItem({
                   side="left"
                   render={
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="icon"
                       aria-label={localize('com_ui_agent_version_restore')}
-                      className="border-border-light text-text-secondary hover:border-focus-control size-7 shrink-0 rounded-lg border opacity-0 transition-all group-hover:opacity-100 focus-visible:opacity-100"
+                      className="text-text-secondary size-7 shrink-0 rounded-lg opacity-0 transition-all group-hover:opacity-100 focus-visible:opacity-100"
                     >
                       <RotateCcw className="h-3.5 w-3.5" strokeWidth={1.75} aria-hidden="true" />
                     </Button>

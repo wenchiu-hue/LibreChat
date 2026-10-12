@@ -33,6 +33,27 @@ describe('LangSelector', () => {
     await flushDropdownEffects();
   });
 
+  /** 自動偵測存的是瀏覽器原始語言碼（zh-TW、de），選項值是另一套寫法；選單要對到同一個語言。 */
+  it.each([
+    ['zh-TW', '繁體中文'],
+    ['de', 'Deutsch'],
+  ])('shows the option a detected browser language %s maps to', async (langcode, label) => {
+    global.ResizeObserver = class MockedResizeObserver {
+      observe = jest.fn();
+      unobserve = jest.fn();
+      disconnect = jest.fn();
+    };
+    const { getByRole } = render(
+      <RecoilRoot>
+        <LangSelector langcode={langcode} onChange={mockOnChange} />
+      </RecoilRoot>,
+    );
+
+    expect(getByRole('combobox')).toHaveTextContent(label);
+
+    await flushDropdownEffects();
+  });
+
   it('calls onChange when the select value changes', async () => {
     global.ResizeObserver = class MockedResizeObserver {
       observe = jest.fn();

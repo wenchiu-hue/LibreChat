@@ -5,9 +5,7 @@ import { hasConfiguredFooter } from 'librechat-data-provider';
 import type { TStartupConfig } from 'librechat-data-provider';
 import { useGetStartupConfig } from '~/data-provider';
 import { DEFAULT_APP_TITLE } from '~/utils';
-import { useLocalize } from '~/hooks';
-
-const COMPANY_SITE_URL = 'https://www.tynesys.com';
+import Brand from './Brand';
 
 type FooterProps = {
   className?: string;
@@ -63,7 +61,6 @@ function Footer({ className, startupConfig, configuredOnly = false }: FooterProp
   const shouldFetchConfig = startupConfig === undefined;
   const { data: fetchedConfig } = useGetStartupConfig({ enabled: shouldFetchConfig });
   const config = shouldFetchConfig ? fetchedConfig : startupConfig;
-  const localize = useLocalize();
 
   const configuredFooter = typeof config?.customFooter === 'string' ? config.customFooter : null;
   const appTitle = config?.appTitle?.trim() || DEFAULT_APP_TITLE;
@@ -137,20 +134,7 @@ function Footer({ className, startupConfig, configuredOnly = false }: FooterProp
   return (
     <div className="relative w-full">
       <div className={className ?? defaultClassName}>
-        <a
-          href={COMPANY_SITE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={localize('com_ui_logo', { 0: appTitle })}
-          className="text-text-primary focus-visible:ring-border-xheavy inline-flex items-center justify-center gap-3 rounded-md opacity-80 transition-opacity hover:opacity-100 focus-visible:ring-2 focus-visible:outline-none"
-        >
-          <img
-            src="assets/logo.svg"
-            alt=""
-            className="h-9 w-auto max-w-[12rem] object-contain dark:brightness-0 dark:invert"
-          />
-          <span className="text-sm font-semibold tracking-wide">{appTitle}</span>
-        </a>
+        <Brand appTitle={appTitle} />
       </div>
     </div>
   );

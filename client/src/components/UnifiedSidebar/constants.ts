@@ -1,4 +1,6 @@
-export const COLLAPSED_WIDTH = 52;
+/** 收合時只剩圖示列：px-2（8px）× 2 + 40px 按鈕（圖示列已無右框線）。按鈕從 36px 放大後若仍是 52，
+ *  右側內距會被吃掉，選中項目的底色左右不對稱。 */
+export const COLLAPSED_WIDTH = 56;
 export const EXPANDED_MIN = 360;
 
 /**

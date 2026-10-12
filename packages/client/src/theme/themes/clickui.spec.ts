@@ -119,6 +119,7 @@ const colorSources: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>>> 
     'rgb-surface-fixed-hover': 'palette.slate.100',
     'rgb-text-fixed': 'palette.slate.900',
     'rgb-border-light': 'global.color.stroke.default',
+    'rgb-border-card': 'global.color.stroke.default',
     'rgb-border-medium': 'global.color.stroke.default',
     'rgb-border-medium-alt': 'global.color.stroke.default',
     'rgb-border-heavy': 'global.color.stroke.intense',
@@ -268,6 +269,7 @@ const colorSources: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>>> 
     'rgb-surface-fixed-hover': 'palette.slate.100',
     'rgb-text-fixed': 'palette.slate.900',
     'rgb-border-light': 'global.color.stroke.default',
+    'rgb-border-card': 'global.color.stroke.default',
     'rgb-border-medium': 'global.color.stroke.default',
     'rgb-border-medium-alt': 'global.color.stroke.default',
     'rgb-border-heavy': 'global.color.stroke.intense',
@@ -384,6 +386,10 @@ const unsourcedColors: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>
     'rgb-brand-glow-cool': BRAND_REASON,
     'rgb-brand-glow-warm': BRAND_REASON,
     'rgb-brand-highlight': BRAND_REASON,
+    'rgb-text-on-brand-error': BRAND_REASON,
+    'rgb-border-composer': BRAND_REASON,
+    'rgb-brand-rail-start': BRAND_REASON,
+    'rgb-brand-rail-end': BRAND_REASON,
   },
   dark: {
     'rgb-surface-nav-selected':
@@ -400,6 +406,10 @@ const unsourcedColors: Record<ThemeMode, Partial<Record<keyof IThemeRGB, string>
     'rgb-brand-glow-cool': BRAND_REASON,
     'rgb-brand-glow-warm': BRAND_REASON,
     'rgb-brand-highlight': BRAND_REASON,
+    'rgb-text-on-brand-error': BRAND_REASON,
+    'rgb-border-composer': BRAND_REASON,
+    'rgb-brand-rail-start': BRAND_REASON,
+    'rgb-brand-rail-end': BRAND_REASON,
     'rgb-text-on-brand': BRAND_REASON,
     'rgb-surface-on-brand': BRAND_REASON,
   },
@@ -472,6 +482,26 @@ const departures: Record<ThemeMode, Partial<Record<keyof IThemeRGB, Departure>>>
       reason: BRAND_REASON,
     },
     'rgb-brand-highlight': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-text-on-brand-error': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-border-composer': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-rail-start': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-rail-end': {
       counterpart: 'click.button.basic.color.primary.background.default',
       status: 'mismatch',
       reason: BRAND_REASON,
@@ -655,6 +685,26 @@ const departures: Record<ThemeMode, Partial<Record<keyof IThemeRGB, Departure>>>
       reason: BRAND_REASON,
     },
     'rgb-brand-highlight': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-text-on-brand-error': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-border-composer': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-rail-start': {
+      counterpart: 'click.button.basic.color.primary.background.default',
+      status: 'mismatch',
+      reason: BRAND_REASON,
+    },
+    'rgb-brand-rail-end': {
       counterpart: 'click.button.basic.color.primary.background.default',
       status: 'mismatch',
       reason: BRAND_REASON,

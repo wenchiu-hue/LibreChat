@@ -345,7 +345,7 @@ function Avatar() {
             </>
           ) : (
             <div
-              className="border-border-medium hover:border-border-heavy flex h-72 w-full flex-col items-center justify-center rounded-lg border-2 border-dashed bg-transparent transition-colors"
+              className="border-border-composer/41 hover:bg-surface-hover flex h-72 w-full flex-col items-center justify-center rounded-xl border-2 border-dashed bg-transparent transition-colors"
               onDrop={handleDrop}
               onDragOver={handleDragOver}
             >

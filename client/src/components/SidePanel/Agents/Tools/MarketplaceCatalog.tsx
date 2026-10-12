@@ -37,7 +37,7 @@ const EMPTY_COPY_KEYS: Record<View, TranslationKeys> = {
 
 function ToolCardSkeleton() {
   return (
-    <div className="border-border-light flex h-32 w-full flex-col gap-2 rounded-2xl border p-4">
+    <div className="border-border-card flex h-32 w-full flex-col gap-2 rounded-2xl border p-4">
       <div className="flex w-full items-start gap-3">
         <Skeleton className="h-10 w-10 shrink-0 rounded-xl" />
         <div className="min-w-0 flex-1 space-y-1.5">

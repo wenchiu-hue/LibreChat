@@ -71,12 +71,12 @@ describe('shared component color guardrail', () => {
 });
 
 describe('dark dialog surface', () => {
-  it('matches the legacy rendered background in CSS and the runtime theme', () => {
+  /** 燈箱底色改為 #313131，與深色背景拉開層次。 */
+  it('paints the dialog in #313131 in CSS and the runtime theme', () => {
     const stockStyles = readFileSync(join(__dirname, 'defaults.css'), 'utf8');
 
-    expect(stockStyles).toMatch(/--gray-875:\s*18 18 18;/);
-    expect(stockStyles).toMatch(/--surface-dialog:\s*var\(--gray-875\);/);
-    expect(darkTheme['rgb-surface-dialog']).toBe('18 18 18');
+    expect(stockStyles).toMatch(/--surface-dialog:\s*49 49 49;/);
+    expect(darkTheme['rgb-surface-dialog']).toBe('49 49 49');
   });
 });
 

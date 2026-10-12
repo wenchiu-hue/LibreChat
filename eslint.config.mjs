@@ -278,6 +278,8 @@ export default [
             'tooltip-inverse',
             // client/src/style.css：玻璃欄位的 focus / autofill 修正，與側欄圖示的 hover 動畫
             'auth-glass-input',
+            // packages/client/src/components/Field.css：filled 欄位的焦點邊色
+            'lc-field-filled',
             'nav-rail-icon',
             'nav-rail-glyph',
             'spinner',

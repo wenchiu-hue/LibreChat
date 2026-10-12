@@ -158,7 +158,7 @@ async function mockChallengeAuth(page: Page) {
 async function signInThroughChallenge(page: Page) {
   await page.getByRole('textbox', { name: 'Email' }).fill(ENROLLED_USER.email);
   await page.getByLabel('Password').fill('password');
-  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('button', { name: 'Login', exact: true }).click();
   await expect(page).toHaveURL(CHALLENGE_PATTERN);
   await page.getByLabel('Enter your 2FA code to continue').fill('123456');
   await page.getByRole('button', { name: 'Verify' }).click();

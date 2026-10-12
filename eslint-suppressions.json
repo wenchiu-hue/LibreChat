@@ -1078,7 +1078,7 @@
       "count": 3
     },
     "shadcn/no-unknown-classes": {
-      "count": 2
+      "count": 1
     }
   },
   "client/src/components/Nav/ExportConversation/ExportModal.tsx": {
@@ -1557,7 +1557,7 @@
       "count": 1
     },
     "shadcn/no-restyle": {
-      "count": 9
+      "count": 2
     }
   },
   "client/src/components/SidePanel/Agents/MCPToolItem.tsx": {
@@ -1674,7 +1674,7 @@
       "count": 2
     },
     "shadcn/no-restyle": {
-      "count": 10
+      "count": 7
     }
   },
   "client/src/components/SidePanel/Agents/Version/VersionPanel.tsx": {
@@ -1863,7 +1863,7 @@
   },
   "client/src/components/Skills/dialogs/CreateSkillDialog.tsx": {
     "shadcn/no-restyle": {
-      "count": 36
+      "count": 32
     }
   },
   "client/src/components/Skills/display/SkillDetail.tsx": {

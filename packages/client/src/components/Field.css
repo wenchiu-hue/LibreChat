@@ -18,7 +18,7 @@ html[data-input-modality='pointer'] .lc-field:focus-visible {
 @container style(--theme-field-focus-style: border) {
   html[data-input-modality='pointer'] .lc-field:is(:root *):focus,
   html[data-input-modality='pointer'] .lc-field:is(:root *):focus-visible {
-    border-color: rgb(var(--border-field-focus, var(--focus-control)));
+    border-color: rgb(var(--border-field-focus, var(--focus-control)) / var(--border-field-focus-alpha, 1));
     /* Soft halo in the outline ink (~#ffffff61 on dark); keeps pointer focus
        visible after the modality reset clears the keyboard ring. */
     box-shadow: 0 0 3px rgb(var(--focus-outline) / 0.38);
@@ -37,4 +37,11 @@ html[data-input-modality='pointer'] .lc-field:focus-visible {
       outline: none;
     }
   }
+}
+
+/* `filled` 欄位（側邊設定 panel）的焦點框線與 Message 輸入框的邊色一致：border-composer，41%。
+   以元素上的區域變數覆寫，上面的焦點規則與 `border-field-focus` utility 都會讀到它。 */
+.lc-field-filled {
+  --border-field-focus: var(--border-composer);
+  --border-field-focus-alpha: 0.41;
 }

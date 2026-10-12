@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
-import { MCPIcon, OpenAIMinimalIcon } from '@librechat/client';
+import { MCPIcon, AgentBotIcon, OpenAIMinimalIcon } from '@librechat/client';
 import {
-  Bot,
   Brain,
   Bookmark,
   NotebookPen,
@@ -35,6 +34,7 @@ import Parameters from '~/components/SidePanel/Parameters/Panel';
 import { MemoryPanel } from '~/components/SidePanel/Memories';
 import { PromptsAccordion } from '~/components/Prompts';
 import { SkillsAccordion } from '~/components/Skills';
+import { withoutHiddenLinks } from './hiddenLinks';
 
 export default function useSideNavLinks({
   hidePanel,
@@ -110,7 +110,7 @@ export default function useSideNavLinks({
       links.push({
         title: 'com_sidepanel_agent_builder',
         label: '',
-        icon: Bot,
+        icon: AgentBotIcon,
         id: EModelEndpoint.agents,
         Component: AgentPanelSwitch,
       });
@@ -233,7 +233,7 @@ export default function useSideNavLinks({
       });
     }
 
-    return links;
+    return withoutHiddenLinks(links, interfaceConfig.hiddenSideNavLinks);
   }, [
     endpoint,
     endpointsConfig,
@@ -248,6 +248,7 @@ export default function useSideNavLinks({
     hasAccessToSchedules,
     interfaceConfig.schedules,
     interfaceConfig.parameters,
+    interfaceConfig.hiddenSideNavLinks,
     endpointType,
     hasAccessToBookmarks,
     availableMCPServers,

@@ -115,7 +115,7 @@ const Registration: React.FC = () => {
           )}
         </div>
         {errors[id] && (
-          <span role="alert" className="mt-1 text-sm text-red-200">
+          <span role="alert" className="text-text-on-brand-error mt-1 text-sm">
             {String(errors[id]?.message) ?? ''}
           </span>
         )}

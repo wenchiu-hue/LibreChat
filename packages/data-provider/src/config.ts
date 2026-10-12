@@ -2737,6 +2737,9 @@ export const interfaceSchema = z
     traceViewer: traceViewerSchema.optional(),
     /** Tool keys (and `'mcp'` or an MCP server name) pinned to the prompt bar by default */
     defaultPinnedTools: z.array(z.string()).optional(),
+    /** Side-nav entries to hide by id (e.g. `memories`, `bookmarks`); the features themselves stay
+     *  available. Unset shows every entry the user has access to. */
+    hiddenSideNavLinks: z.array(z.string()).optional(),
     buildInfo: z.boolean().optional(),
     remoteAgents: z
       .object({

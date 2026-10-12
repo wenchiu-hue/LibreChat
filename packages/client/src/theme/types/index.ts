@@ -97,6 +97,7 @@ export interface IThemeRGB {
 
   // Border colors
   'rgb-border-light'?: string;
+  'rgb-border-card'?: string;
   'rgb-border-medium'?: string;
   'rgb-border-medium-alt'?: string;
   'rgb-border-heavy'?: string;
@@ -182,7 +183,13 @@ export interface IThemeRGB {
   // Brand colors
   'rgb-brand-purple'?: string;
   /** The brand gradient, its glows, and the ink and fill drawn over it; identical in every mode. */
+  'rgb-border-composer'?: string;
+  /** The brand gradient, its glows, and the ink and fill drawn over it; identical in every mode. */
+  'rgb-brand-rail-start'?: string;
+  'rgb-brand-rail-end'?: string;
+  /** The brand gradient, its glows, and the ink and fill drawn over it; identical in every mode. */
   'rgb-brand-highlight'?: string;
+  'rgb-text-on-brand-error'?: string;
   /** The brand gradient, its glows, and the ink and fill drawn over it; identical in every mode. */
   'rgb-brand-gradient-start'?: string;
   'rgb-brand-gradient-mid'?: string;
@@ -328,6 +335,7 @@ export interface IThemeVariables {
   '--surface-fixed-hover': string;
   '--text-fixed': string;
   '--border-light': string;
+  '--border-card': string;
   '--border-light-alpha': string;
   '--border-medium': string;
   '--border-medium-alpha': string;
@@ -383,7 +391,11 @@ export interface IThemeVariables {
   '--status-verified': string;
   '--text-on-status': string;
   '--brand-purple': string;
+  '--border-composer': string;
+  '--brand-rail-start': string;
+  '--brand-rail-end': string;
   '--brand-highlight': string;
+  '--text-on-brand-error': string;
   '--brand-gradient-start': string;
   '--brand-gradient-mid': string;
   '--brand-gradient-end': string;
@@ -499,6 +511,7 @@ export interface IThemeColors {
   'surface-fixed-hover'?: string;
   'text-fixed'?: string;
   'border-light'?: string;
+  'border-card'?: string;
   'border-medium'?: string;
   'border-medium-alt'?: string;
   'border-heavy'?: string;
@@ -550,7 +563,11 @@ export interface IThemeColors {
   'status-verified'?: string;
   'text-on-status'?: string;
   'brand-purple'?: string;
+  'border-composer'?: string;
+  'brand-rail-start'?: string;
+  'brand-rail-end'?: string;
   'brand-highlight'?: string;
+  'text-on-brand-error'?: string;
   'brand-gradient-start'?: string;
   'brand-gradient-mid'?: string;
   'brand-gradient-end'?: string;

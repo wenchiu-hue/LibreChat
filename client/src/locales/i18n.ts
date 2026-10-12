@@ -155,6 +155,37 @@ const loadingLocales: Partial<Record<SupportedLocale, Promise<SupportedLocale>>>
 let languageRequestId = 0;
 let latestRequestedLocale: SupportedLocale = 'en';
 
+function readCookie(name: string) {
+  if (typeof document === 'undefined') {
+    return undefined;
+  }
+
+  const prefix = `${name}=`;
+  return document.cookie
+    .split(';')
+    .map((cookie) => cookie.trim())
+    .find((cookie) => cookie.startsWith(prefix))
+    ?.slice(prefix.length);
+}
+
+function readStoredLanguage() {
+  if (typeof localStorage === 'undefined') {
+    return undefined;
+  }
+
+  const raw = localStorage.getItem('lang');
+  if (!raw) {
+    return undefined;
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    return typeof parsed === 'string' ? parsed : raw;
+  } catch {
+    return raw;
+  }
+}
+
 function getNavigatorLanguage() {
   if (typeof navigator === 'undefined') {
     return 'en';
@@ -184,9 +215,11 @@ export function normalizeLocale(locale?: string | null): SupportedLocale {
   return localeByLowercase[base] ?? localeAliases[base] ?? 'en';
 }
 
+/** 使用者選過的語言（cookie、localStorage）優先，否則依瀏覽器語言自動偵測。 */
 export function detectInitialLanguage() {
-  /** TYNESYS: keep the product UI in English regardless of browser / stored locale. */
-  return 'en';
+  const cookieLang = readCookie('lang');
+  const storedLang = readStoredLanguage();
+  return normalizeLocale(cookieLang || storedLang || getNavigatorLanguage());
 }
 
 export async function ensureLocale(locale?: string | null): Promise<SupportedLocale> {

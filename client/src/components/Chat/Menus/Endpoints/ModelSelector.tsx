@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { ChevronDown } from 'lucide-react';
 import { TooltipAnchor } from '@librechat/client';
 import { getConfigDefaults } from 'librechat-data-provider';
 import type { ModelSelectorProps } from '~/common';
@@ -73,7 +74,7 @@ function ModelSelectorContent() {
         <button
           data-testid="model-selector-button"
           aria-keyshortcuts={modelSelectorAriaKey}
-          className="border-border-chrome bg-presentation text-text-primary hover:bg-surface-active-alt rounded-theme-control my-1 flex h-9 max-w-full items-center gap-2 border px-3 py-2 text-sm"
+          className="border-border-chrome bg-presentation text-text-primary hover:bg-surface-active-alt hover:border-border-composer/41 rounded-theme-control my-1 flex h-9 max-w-full items-center gap-2 border px-3 py-2 text-sm transition-colors duration-200 motion-reduce:transition-none"
           aria-label={localize('com_ui_select_model')}
         >
           {selectedIcon && React.isValidElement(selectedIcon) && (
@@ -82,6 +83,7 @@ function ModelSelectorContent() {
             </div>
           )}
           <span className="truncate text-left">{selectedDisplayValue}</span>
+          <ChevronDown className="text-text-secondary h-4 w-4 shrink-0" aria-hidden="true" />
         </button>
       }
     />

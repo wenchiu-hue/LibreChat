@@ -302,6 +302,9 @@ export const EDITING_ALLOWED_SHORTCUTS: ReadonlySet<ShortcutActionId> = new Set(
   'submitMessage',
   'escalateSteer',
   'uploadFile',
+  /* 頁面載入後焦點就在 composer，Ctrl+Shift+O 若在輸入框被略過、沒有 preventDefault，
+     Chrome 會改開書籤管理員（同一組快捷鍵）。這組按鍵在輸入框沒有編輯用途，所以照常開新對話。 */
+  'newChat',
   /* The composer keeps focus across a send, so this is where a user reads the
      hint naming it and where they press it. Filtering it out as an editing
      chord made the one shortcut the composer advertises the one that did

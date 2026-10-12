@@ -4,7 +4,8 @@ describe('composerSurfaceClasses', () => {
   it('draws the composer surface from semantic roles', () => {
     const classes = composerSurfaceClasses();
 
-    expect(classes).toContain('border-border-light');
+    /** 輸入框專用邊色 rgb(97 191 188)，以 41% 透明度畫出。 */
+    expect(classes).toContain('border-border-composer/41');
     expect(classes).toContain('bg-surface-composer');
     expect(classes).toContain('text-text-primary');
   });

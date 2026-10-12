@@ -18,9 +18,10 @@ import { useGetStartupConfig } from '~/data-provider';
 import ExportAndShareMenu from './ExportAndShareMenu';
 import SubagentThreadLink from './SubagentThreadLink';
 import BookmarkMenu from './Menus/BookmarkMenu';
+import { cn, DEFAULT_APP_TITLE } from '~/utils';
 import AddMultiConvo from './AddMultiConvo';
 import { useHasAccess } from '~/hooks';
-import { cn } from '~/utils';
+import Brand from './Brand';
 import store from '~/store';
 
 const defaultInterface = getConfigDefaults().interface;
@@ -138,6 +139,10 @@ function Header({
           />
           {showTemporaryChat && <TemporaryChat />}
         </div>
+        <Brand
+          appTitle={startupConfig?.appTitle?.trim() || DEFAULT_APP_TITLE}
+          className="mr-4 ml-2 hidden sm:inline-flex"
+        />
       </div>
     </div>
   );

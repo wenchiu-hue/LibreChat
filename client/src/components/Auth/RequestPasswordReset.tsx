@@ -124,7 +124,7 @@ function RequestPasswordReset() {
           </label>
         </div>
         {errors.email && (
-          <p role="alert" className="text-sm font-medium text-red-200">
+          <p role="alert" className="text-text-on-brand-error text-sm font-medium">
             {errors.email.message}
           </p>
         )}

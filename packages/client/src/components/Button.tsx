@@ -66,10 +66,10 @@ const buttonVariantRecipe = cva(
         destructive:
           'bg-surface-destructive text-text-on-status hover:bg-surface-destructive-hover theme-destructive-soft:bg-surface-destructive/10 theme-destructive-soft:text-text-destructive theme-destructive-soft:hover:bg-surface-destructive/14 theme-destructive-soft:hover:active:bg-surface-destructive/17',
         outline:
-          'hover:border-focus-control text-text-primary border border-border-light bg-transparent hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
+          'hover:border-border-composer/41 text-text-primary border border-border-light bg-transparent hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
         /** An outlined filter whose pressed state stays visible between activations. */
         'outline-toggle':
-          'hover:border-focus-control text-text-primary border border-border-control bg-transparent transition-none hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary aria-pressed:border-border-heavy aria-pressed:bg-surface-active-alt aria-pressed:hover:bg-surface-active-alt',
+          'hover:border-border-composer/41 text-text-primary border border-border-control bg-transparent transition-none hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary aria-pressed:border-border-heavy aria-pressed:bg-surface-active-alt aria-pressed:hover:bg-surface-active-alt',
         /**
          * A selectable answer inside a question card. `outline` is wrong here:
          * its `border-light` edge measures ~1.2:1 against the panel these sit
@@ -79,9 +79,9 @@ const buttonVariantRecipe = cva(
          * and drops to `font-normal` so the question above stays the heading.
          */
         choice:
-          'hover:border-focus-control border border-border-xheavy bg-surface-tertiary font-normal text-text-primary hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
+          'hover:border-border-composer/41 border border-border-xheavy bg-surface-tertiary font-normal text-text-primary hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
         subtle:
-          'hover:border-focus-control border border-border-light bg-transparent text-text-primary hover:bg-surface-secondary focus-visible:ring-focus-control focus-visible:ring-offset-0',
+          'hover:border-border-composer/41 border border-border-heavy bg-transparent text-text-primary hover:bg-surface-secondary focus-visible:ring-focus-control focus-visible:ring-offset-0',
         secondary:
           'bg-surface-secondary text-text-primary hover:bg-surface-hover hover:active:bg-surface-pressed',
         ghost: 'hover:bg-surface-hover hover:active:bg-surface-pressed hover:text-text-primary',
@@ -96,7 +96,7 @@ const buttonVariantRecipe = cva(
           'text-text-on-brand/85 hover:bg-surface-on-brand/15 hover:text-text-on-brand aria-pressed:bg-surface-on-brand/20 aria-pressed:text-text-on-brand',
         /** 品牌漸層上的主要動作（登入、送出）：白色實心膠囊，hover 浮起並帶螢光光暈。 */
         'glass-submit':
-          'h-theme-field-lg w-full rounded-full border-0 bg-surface-on-brand font-semibold text-brand-gradient-start shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:glow-brand active:translate-y-0 active:scale-98 active:shadow-sm focus-visible:ring-brand-highlight focus-visible:ring-offset-transparent disabled:opacity-60',
+          'h-theme-field-lg w-full rounded-full border-0 bg-linear-to-r from-surface-on-brand via-surface-on-brand to-brand-glow-cool/35 font-semibold text-brand-gradient-start shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:glow-brand active:translate-y-0 active:scale-98 active:shadow-sm focus-visible:ring-brand-highlight focus-visible:ring-offset-transparent disabled:opacity-60',
         /** 品牌漸層上的文字動作（返回登入、改用備用碼）：白字，hover 出現底線。 */
         'glass-link':
           'h-auto p-1 text-sm font-medium text-text-on-brand/90 underline decoration-transparent transition-all duration-200 hover:text-text-on-brand hover:decoration-text-on-brand focus-visible:rounded-sm focus-visible:ring-surface-on-brand/50 focus-visible:ring-offset-0',
@@ -147,7 +147,7 @@ const buttonVariantRecipe = cva(
          * lag rather than polish.
          */
         'header-action':
-          'hover:border-focus-control rounded-xl border border-border-chrome bg-presentation text-text-primary duration-0 hover:bg-surface-active-alt hover:text-text-primary',
+          'hover:border-border-composer/41 rounded-xl border border-border-chrome bg-presentation text-text-primary duration-0 hover:bg-surface-active-alt hover:text-text-primary',
         /**
          * Text that turns into its own editor when activated, such as a workspace
          * title or description. It reads as the text it stands for, so the caller

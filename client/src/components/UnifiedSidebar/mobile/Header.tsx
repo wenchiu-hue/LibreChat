@@ -7,6 +7,7 @@ import { lazyWithRecovery } from '~/lib/assets/lazy';
 import { useLocalize } from '~/hooks';
 import Switcher from './Switcher';
 import NewChat from './NewChat';
+import Logout from '../Logout';
 
 const AccountSettings = lazyWithRecovery(() => import('~/components/Nav/AccountSettings'));
 
@@ -81,6 +82,7 @@ function Header({
         routeActiveId={routeActiveId}
       />
       <NewChat onNewChat={onNewChat} switchToHistory={switchToHistory} />
+      <Logout placement="drawer" tabIndex={expanded ? 0 : -1} />
       <Suspense fallback={<Skeleton className="size-9 rounded-lg" />}>
         <AccountSettings collapsed />
       </Suspense>

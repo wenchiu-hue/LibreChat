@@ -22,7 +22,11 @@
 @theme inline {
   /* brand and surfaces */
   --color-brand-purple: rgb(var(--brand-purple));
+  --color-border-composer: rgb(var(--border-composer));
+  --color-brand-rail-start: rgb(var(--brand-rail-start));
+  --color-brand-rail-end: rgb(var(--brand-rail-end));
   --color-brand-highlight: rgb(var(--brand-highlight));
+  --color-text-on-brand-error: rgb(var(--text-on-brand-error));
   --color-brand-gradient-start: rgb(var(--brand-gradient-start));
   --color-brand-gradient-mid: rgb(var(--brand-gradient-mid));
   --color-brand-gradient-end: rgb(var(--brand-gradient-end));
@@ -125,6 +129,7 @@
 
   /* borders */
   --color-border-light: rgb(var(--border-light) / var(--border-light-alpha, 1));
+  --color-border-card: rgb(var(--border-card, var(--border-light)));
   /* `--border-medium-edge` 只改 `border-border-medium` 這個 utility 的邊色；`--border-medium` channel 與其別名不受影響。 */
   --color-border-medium: rgb(var(--border-medium-edge, var(--border-medium)) / var(--border-medium-alpha, 1));
   /* border-light, at the share the theme keeps for chrome outlines and inset hairlines. */
@@ -143,7 +148,7 @@
   --color-border-destructive: rgb(var(--border-destructive));
   --color-border-control: rgb(var(--border-control));
   /* Falls back to the focus ring color, for a stylesheet that predates it. */
-  --color-border-field-focus: rgb(var(--border-field-focus, var(--focus-control)));
+  --color-border-field-focus: rgb(var(--border-field-focus, var(--focus-control)) / var(--border-field-focus-alpha, 1));
   /* Follow the canvas and the primary ink, for a stylesheet that predates them. */
   --color-field-fill: rgb(var(--field-fill, var(--surface-primary)));
   --color-field-text: rgb(var(--field-text, var(--text-primary)));
@@ -314,6 +319,22 @@
 
 @utility glow-brand-soft {
   box-shadow: 0 0 10px rgb(var(--surface-on-brand) / 0.35);
+}
+
+/* 登入頁玻璃卡片的發光邊緣。 */
+@utility glow-brand-card {
+  box-shadow:
+    0 0 0 1px rgb(var(--brand-glow-cool) / 0.35),
+    0 0 36px rgb(var(--brand-glow-cool) / 0.25),
+    0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+/* Message 輸入框聚焦時的光暈：與它的邊色（border-composer）同色，外加一層原本的落影。 */
+@utility glow-composer {
+  box-shadow:
+    0 0 0 1px rgb(var(--border-composer) / 0.35),
+    0 0 18px 2px rgb(var(--border-composer) / 0.28),
+    0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
 /* 品牌漸層上的點陣紋理（登入頁背景）。 */

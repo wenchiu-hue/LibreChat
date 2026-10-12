@@ -40,8 +40,9 @@ describe('Button', () => {
     expect(cn(buttonVariants({ variant: 'subtle', size: 'icon' }))).toContain(
       'border-border-chrome',
     );
+    /** 文字型 subtle 按鈕（Agent 面板的 Advanced、Version）改用較亮的 border-heavy。 */
     expect(cn(buttonVariants({ variant: 'subtle', size: 'dense' }))).toContain(
-      'border-border-light',
+      'border-border-heavy',
     );
   });
 

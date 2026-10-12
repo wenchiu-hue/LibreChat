@@ -31,6 +31,13 @@ const MODE_LABELS: Record<SkillsScope, TranslationKeys> = {
   [SkillsScope.selected]: 'com_ui_skills_mode_selected',
 };
 
+/** 每個模式滑過時的說明。 */
+const MODE_INFO: Record<SkillsScope, TranslationKeys> = {
+  [SkillsScope.none]: 'com_ui_skills_mode_off_info',
+  [SkillsScope.all]: 'com_ui_skills_mode_all_info',
+  [SkillsScope.selected]: 'com_ui_skills_mode_selected_info',
+};
+
 const ROW = 'flex items-center gap-2.5 px-3 py-2.5';
 const CHIP = 'flex size-[26px] shrink-0 items-center justify-center rounded-md';
 
@@ -239,7 +246,12 @@ export default function SkillsSection({ items, onInfo, onRemove, onAdd }: Props)
   );
 
   const modeOptions = useMemo(
-    () => MODES.map((value) => ({ value, label: localize(MODE_LABELS[value]) })),
+    () =>
+      MODES.map((value) => ({
+        value,
+        label: localize(MODE_LABELS[value]),
+        description: localize(MODE_INFO[value]),
+      })),
     [localize],
   );
 
@@ -306,7 +318,7 @@ export default function SkillsSection({ items, onInfo, onRemove, onAdd }: Props)
               role="alert"
               className={cn(
                 ROW,
-                'border-border-light text-text-secondary justify-between rounded-lg border-[0.5px] text-sm',
+                'border-border-heavy text-text-secondary justify-between rounded-lg border-[0.5px] text-sm',
               )}
             >
               <span className="truncate">{localize('com_ui_skills_load_error')}</span>
@@ -323,7 +335,7 @@ export default function SkillsSection({ items, onInfo, onRemove, onAdd }: Props)
           </>
         )}
         {bodyMode === SkillsScope.all && !catalogError && (
-          <div className="border-border-light overflow-hidden rounded-lg border-[0.5px]">
+          <div className="border-border-heavy overflow-hidden rounded-lg border-[0.5px]">
             <button
               type="button"
               onClick={() => setAllExpanded((prev) => !prev)}
@@ -413,7 +425,7 @@ export default function SkillsSection({ items, onInfo, onRemove, onAdd }: Props)
               <button
                 type="button"
                 onClick={onAdd}
-                className="border-border-medium text-text-secondary hover:border-focus-control hover:bg-surface-hover active:bg-surface-pressed hover:text-text-primary focus-visible:ring-ring-primary flex w-full flex-col items-center gap-1 rounded-xl border border-dashed px-2 py-4 transition-colors focus:outline-hidden focus-visible:ring-2"
+                className="border-border-composer/41 text-text-secondary hover:bg-surface-hover active:bg-surface-pressed hover:text-text-primary focus-visible:ring-ring-primary flex w-full flex-col items-center gap-1 rounded-xl border border-dashed px-2 py-4 transition-colors focus:outline-hidden focus-visible:ring-2"
               >
                 <Plus className="h-4 w-4" aria-hidden="true" />
                 <span className="text-xs">{localize('com_ui_skills_add_row')}</span>

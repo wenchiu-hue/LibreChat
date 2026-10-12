@@ -10,10 +10,9 @@ interface QueryDevtoolsGateProps {
   isDevelopment?: boolean;
 }
 
-const LazyReactQueryDevtools = lazyWithRecovery(() =>
-  importWithRecovery(() => import('@tanstack/react-query-devtools/production')).then(
-    ({ ReactQueryDevtools }) => ({ default: ReactQueryDevtools }),
-  ),
+/** 抽屜（含 devtools 面板）延遲載入，未啟用時不進入主 bundle。 */
+const LazyQueryDevtoolsDrawer = lazyWithRecovery(() =>
+  importWithRecovery(() => import('./QueryDevtools/Drawer')),
 );
 
 export const shouldEnableQueryDevtools = ({
@@ -28,7 +27,7 @@ export default function QueryDevtoolsGate({ isDevelopment, config }: QueryDevtoo
 
   return (
     <Suspense fallback={null}>
-      <LazyReactQueryDevtools initialIsOpen={false} position="top-right" />
+      <LazyQueryDevtoolsDrawer />
     </Suspense>
   );
 }

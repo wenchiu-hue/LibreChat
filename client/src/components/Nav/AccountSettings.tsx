@@ -3,17 +3,7 @@ import { useSetAtom } from 'jotai';
 import { useSetRecoilState } from 'recoil';
 import * as Menu from '@ariakit/react/menu';
 import { GearIcon, DropdownMenuSeparator, Avatar } from '@librechat/client';
-import {
-  Archive,
-  ChevronRight,
-  CircleHelp,
-  Files,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Scale,
-  ShieldCheck,
-} from 'lucide-react';
+import { Archive, Files, Keyboard, Scale, ShieldCheck } from 'lucide-react';
 import { ArchivedChatsModal } from '~/components/Nav/SettingsTabs/General/ArchivedChatsModal';
 import { filesDialogTriggerAtom, showFilesDialogAtom } from '~/store/filesDialog';
 import { useGetStartupConfig } from '~/data-provider';
@@ -23,80 +13,9 @@ import { openInNewTab } from '~/utils';
 import { useLocalize } from '~/hooks';
 import store from '~/store';
 
-function HelpSubmenu({
-  helpAndFaqURL,
-  termsOfServiceURL,
-  privacyPolicyURL,
-  onShowShortcuts,
-}: {
-  helpAndFaqURL?: string;
-  termsOfServiceURL?: string;
-  privacyPolicyURL?: string;
-  onShowShortcuts: () => void;
-}) {
-  const localize = useLocalize();
-  const hasHelpFaq = !!helpAndFaqURL && helpAndFaqURL !== '/';
-  const hasTos = !!termsOfServiceURL;
-  const hasPrivacy = !!privacyPolicyURL;
-  const showLegalDivider = (hasHelpFaq || true) && (hasTos || hasPrivacy);
-
-  return (
-    <Menu.MenuProvider placement="right-start">
-      <Menu.MenuItem
-        hideOnClick={false}
-        render={
-          <Menu.MenuButton className="select-item flex w-full cursor-pointer items-center gap-2 text-sm" />
-        }
-      >
-        <CircleHelp className="icon-md" aria-hidden="true" />
-        <span className="flex-1 text-left">{localize('com_nav_help')}</span>
-        <ChevronRight className="text-text-secondary h-4 w-4" aria-hidden="true" />
-      </Menu.MenuItem>
-      <Menu.Menu
-        portal
-        gutter={12}
-        className="account-settings-popover popover-ui popover-from-left z-[126] w-[min(15.25rem,90vw)] rounded-lg"
-      >
-        {hasHelpFaq && (
-          <Menu.MenuItem
-            onClick={() => openInNewTab(helpAndFaqURL)}
-            className="select-item text-sm"
-          >
-            <LifeBuoy className="icon-md" aria-hidden="true" />
-            {localize('com_nav_help_faq')}
-          </Menu.MenuItem>
-        )}
-        <Menu.MenuItem onClick={onShowShortcuts} className="select-item text-sm">
-          <Keyboard className="icon-md" aria-hidden="true" />
-          {localize('com_shortcut_keyboard_shortcuts')}
-        </Menu.MenuItem>
-        {showLegalDivider && (hasTos || hasPrivacy) && <DropdownMenuSeparator />}
-        {hasTos && (
-          <Menu.MenuItem
-            onClick={() => openInNewTab(termsOfServiceURL)}
-            className="select-item text-sm"
-          >
-            <Scale className="icon-md" aria-hidden="true" />
-            {localize('com_ui_terms_of_service')}
-          </Menu.MenuItem>
-        )}
-        {hasPrivacy && (
-          <Menu.MenuItem
-            onClick={() => openInNewTab(privacyPolicyURL)}
-            className="select-item text-sm"
-          >
-            <ShieldCheck className="icon-md" aria-hidden="true" />
-            {localize('com_ui_privacy_policy')}
-          </Menu.MenuItem>
-        )}
-      </Menu.Menu>
-    </Menu.MenuProvider>
-  );
-}
-
 function AccountSettings({ collapsed = false }: { collapsed?: boolean }) {
   const localize = useLocalize();
-  const { user, logout } = useAuthContext();
+  const { user } = useAuthContext();
   const { data: startupConfig } = useGetStartupConfig();
   const setShowSettings = useSetAtom(settingsOpenAtom);
   const setShowFiles = useSetAtom(showFilesDialogAtom);
@@ -104,6 +23,8 @@ function AccountSettings({ collapsed = false }: { collapsed?: boolean }) {
   const setShowShortcutsDialog = useSetRecoilState(store.showShortcutsDialog);
   const [showArchived, setShowArchived] = useState(false);
   const accountSettingsButtonRef = useRef<HTMLButtonElement>(null);
+  const termsOfServiceURL = startupConfig?.interface?.termsOfService?.externalUrl;
+  const privacyPolicyURL = startupConfig?.interface?.privacyPolicy?.externalUrl;
 
   return (
     <Menu.MenuProvider placement={collapsed ? 'right-end' : undefined}>
@@ -143,12 +64,11 @@ function AccountSettings({ collapsed = false }: { collapsed?: boolean }) {
           {user?.email ?? localize('com_nav_user')}
         </div>
         <DropdownMenuSeparator />
-        <HelpSubmenu
-          helpAndFaqURL={startupConfig?.helpAndFaqURL}
-          termsOfServiceURL={startupConfig?.interface?.termsOfService?.externalUrl}
-          privacyPolicyURL={startupConfig?.interface?.privacyPolicy?.externalUrl}
-          onShowShortcuts={() => setShowShortcutsDialog(true)}
-        />
+        {/* 「說明」子選單已移除：鍵盤快捷鍵放到第一層，服務條款／隱私權政策有設定時列在最下方。 */}
+        <Menu.MenuItem onClick={() => setShowShortcutsDialog(true)} className="select-item text-sm">
+          <Keyboard className="icon-md" aria-hidden="true" />
+          {localize('com_shortcut_keyboard_shortcuts')}
+        </Menu.MenuItem>
         <Menu.MenuItem onClick={() => setShowArchived(true)} className="select-item text-sm">
           <Archive className="icon-md" aria-hidden="true" />
           {localize('com_nav_archived_chats')}
@@ -176,11 +96,26 @@ function AccountSettings({ collapsed = false }: { collapsed?: boolean }) {
           <GearIcon className="icon-md" aria-hidden="true" />
           {localize('com_nav_settings')}
         </Menu.MenuItem>
-        <DropdownMenuSeparator />
-        <Menu.MenuItem onClick={() => logout()} className="select-item text-sm">
-          <LogOut className="icon-md" aria-hidden="true" />
-          {localize('com_nav_log_out')}
-        </Menu.MenuItem>
+        {(termsOfServiceURL || privacyPolicyURL) && <DropdownMenuSeparator />}
+        {termsOfServiceURL && (
+          <Menu.MenuItem
+            onClick={() => openInNewTab(termsOfServiceURL)}
+            className="select-item text-sm"
+          >
+            <Scale className="icon-md" aria-hidden="true" />
+            {localize('com_ui_terms_of_service')}
+          </Menu.MenuItem>
+        )}
+        {privacyPolicyURL && (
+          <Menu.MenuItem
+            onClick={() => openInNewTab(privacyPolicyURL)}
+            className="select-item text-sm"
+          >
+            <ShieldCheck className="icon-md" aria-hidden="true" />
+            {localize('com_ui_privacy_policy')}
+          </Menu.MenuItem>
+        )}
+        {/* 登出已常駐在側欄底部（UnifiedSidebar/Logout），選單不再重複。 */}
       </Menu.Menu>
       {showArchived && (
         <ArchivedChatsModal

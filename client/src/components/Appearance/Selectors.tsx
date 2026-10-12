@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { Dropdown, Spinner } from '@librechat/client';
+import { normalizeLocale } from '~/locales/i18n';
 import { useLocalize } from '~/hooks';
 import { cn } from '~/utils';
 import store from '~/store';
@@ -118,6 +119,14 @@ export const LangSelector = ({
     { value: 'uk-UA', label: localize('com_nav_lang_ukrainian') },
   ];
 
+  /** 存的可能是瀏覽器原始語言碼（例如 zh-TW），選項值是另一套寫法（zh-Hant）：
+   *  兩邊都換算成同一個語系再比對，選單才會顯示偵測到的語言。 */
+  const normalizedLang = normalizeLocale(langcode);
+  const selectedLanguage =
+    languageOptions.find(
+      (option) => option.value !== 'auto' && normalizeLocale(option.value) === normalizedLang,
+    )?.value ?? langcode;
+
   const labelId = 'language-selector-label';
 
   return (
@@ -135,7 +144,7 @@ export const LangSelector = ({
           </span>
         )}
         <Dropdown
-          value={langcode}
+          value={selectedLanguage}
           onChange={onChange}
           sizeClasses={cn('z-50 w-[min(13.75rem,90vw)]', popoverClassName)}
           options={languageOptions}

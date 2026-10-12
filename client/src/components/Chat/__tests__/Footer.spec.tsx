@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Footer from '../Footer';
 
@@ -14,6 +14,7 @@ jest.mock('~/data-provider', () => ({
 
 const mockTranslations: Record<string, string> = {
   com_ui_logo: '{{0}} Logo',
+  com_ui_brand_site_new_window: 'Opens the TYNE website in a new window',
   com_ui_latest_footer: 'Every AI for Everyone.',
   com_ui_privacy_policy: 'Privacy policy',
   com_ui_terms_of_service: 'Terms of service',
@@ -38,6 +39,17 @@ describe('Footer', () => {
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
     expect(link.querySelector('img')).toHaveAttribute('src', 'assets/logo.svg');
     expect(link).toHaveTextContent('TYNE AI');
+  });
+
+  test('tells a hovering reader the logo opens the company site in a new window', async () => {
+    render(<Footer startupConfig={null} />);
+    const link = screen.getByRole('link', { name: 'TYNE AI Logo' });
+
+    fireEvent.mouseEnter(link);
+    fireEvent.mouseMove(link);
+
+    const tooltip = await screen.findByRole('tooltip', undefined, { timeout: 3000 });
+    expect(tooltip).toHaveTextContent('Opens the TYNE website in a new window');
   });
 
   test('does not show LibreChat version or policy links on the landing footer', () => {

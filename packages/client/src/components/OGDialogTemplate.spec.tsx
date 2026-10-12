@@ -23,7 +23,7 @@ describe('OGDialog chrome roles', () => {
     const dialog = screen.getByRole('dialog', { name: 'Archive all chats' });
     expect(dialog).toHaveClass(
       'border-(length:--theme-dialog-stroke)',
-      'border-border-light',
+      'border-border-medium',
       'px-theme-dialog-x',
     );
     expect(dialog).not.toHaveClass('border-none');

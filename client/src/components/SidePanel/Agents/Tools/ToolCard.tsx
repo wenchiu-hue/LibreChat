@@ -118,7 +118,7 @@ function ToolCardImpl({
         'group touch:h-36 relative flex h-32 w-full flex-col overflow-hidden rounded-2xl border',
         selected
           ? 'border-status-success bg-status-success/10 shadow-xs'
-          : 'border-border-light hover:border-focus-control hover:bg-surface-tertiary bg-transparent hover:shadow-xs',
+          : 'border-border-card hover:border-border-composer/41 hover:bg-surface-tertiary bg-transparent hover:shadow-xs',
       )}
     >
       <button

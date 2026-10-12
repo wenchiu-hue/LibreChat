@@ -23,8 +23,16 @@ function SourceToggle({ disabled = false }: { disabled?: boolean }) {
   const { control } = useFormContext<AgentForm>();
   const options = useMemo(
     () => [
-      { value: 'inline', label: localize('com_agents_instructions_source_inline') },
-      { value: 'prompt', label: localize('com_agents_instructions_source_prompt') },
+      {
+        value: 'inline',
+        label: localize('com_agents_instructions_source_inline'),
+        description: localize('com_agents_instructions_source_inline_info'),
+      },
+      {
+        value: 'prompt',
+        label: localize('com_agents_instructions_source_prompt'),
+        description: localize('com_agents_instructions_source_prompt_info'),
+      },
     ],
     [localize],
   );

@@ -105,6 +105,7 @@ export const clickHouseLightTheme: IThemeRGB = {
 
   // Border colors
   'rgb-border-light': '230 231 233', // #e6e7e9 (stroke.default)
+  'rgb-border-card': '230 231 233', // matching border-light
   'rgb-border-medium': '230 231 233', // #e6e7e9 (stroke.default)
   'rgb-border-medium-alt': '230 231 233', // #e6e7e9 (stroke.default)
   'rgb-border-heavy': '179 182 189', // #b3b6bd (stroke.intense)
@@ -162,7 +163,11 @@ export const clickHouseLightTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '136 0 204', // #8800cc (palette.violet.600)
+  'rgb-border-composer': '97 191 188', // #61bfbc — message composer edge, used at 41%
+  'rgb-brand-rail-start': '23 54 76', // #17364c — left nav rail gradient start, used at 79%
+  'rgb-brand-rail-end': '23 98 86', // #176256 — left nav rail gradient end, used at 90%
   'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-text-on-brand-error': '252 165 165', // #fca5a5 — 品牌漸層底上的錯誤文字
   'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
   'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
   'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
@@ -296,6 +301,7 @@ export const clickHouseDarkTheme: IThemeRGB = {
 
   // Border colors
   'rgb-border-light': '50 50 50', // #323232 (stroke.default)
+  'rgb-border-card': '50 50 50', // matching border-light
   'rgb-border-medium': '50 50 50', // #323232 (stroke.default)
   'rgb-border-medium-alt': '50 50 50', // #323232 (stroke.default)
   'rgb-border-heavy': '65 65 65', // #414141 (stroke.intense)
@@ -353,7 +359,11 @@ export const clickHouseDarkTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '204 102 255', // #cc66ff (palette.violet.300)
+  'rgb-border-composer': '97 191 188', // #61bfbc — message composer edge, used at 41%
+  'rgb-brand-rail-start': '23 54 76', // #17364c — left nav rail gradient start, used at 79%
+  'rgb-brand-rail-end': '23 98 86', // #176256 — left nav rail gradient end, used at 90%
   'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-text-on-brand-error': '252 165 165', // #fca5a5 — 品牌漸層底上的錯誤文字
   'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
   'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
   'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end

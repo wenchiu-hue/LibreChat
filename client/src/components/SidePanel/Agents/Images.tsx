@@ -1,12 +1,12 @@
-import { useRef, useState, useEffect, type ReactElement } from 'react';
+import { useRef, useState, useEffect, cloneElement, type ReactElement } from 'react';
 import * as Ariakit from '@ariakit/react';
-import { DropdownPopup, Skeleton } from '@librechat/client';
+import { DropdownPopup, Skeleton, TooltipAnchor } from '@librechat/client';
 import type { MenuItemProps } from '~/common/menus';
 import { useLocalize } from '~/hooks';
 
 export function NoImage() {
   return (
-    <div className="border-border-medium flex h-full w-full items-center justify-center rounded-full border-2 border-dashed">
+    <div className="border-border-composer/41 flex h-full w-full items-center justify-center rounded-full border-2 border-dashed">
       <svg
         stroke="currentColor"
         fill="none"
@@ -104,18 +104,36 @@ export function AvatarMenu({
     );
   }
 
+  /** 還沒有頭像時選單只剩「上傳」一項，點了就直接開檔案選擇；有頭像時才需要選單提供「重設」。 */
+  const control = canReset ? (
+    <DropdownPopup
+      trigger={
+        <TooltipAnchor
+          side="bottom"
+          description={uploadLabel}
+          showOnHover={!isOpen}
+          render={<Ariakit.MenuButton render={trigger} />}
+        />
+      }
+      items={items}
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      menuId="agent-avatar-menu"
+      gutter={8}
+      portal
+      mountByState
+    />
+  ) : (
+    <TooltipAnchor
+      side="bottom"
+      description={uploadLabel}
+      render={cloneElement(trigger, { onClick: onItemClick })}
+    />
+  );
+
   return (
     <>
-      <DropdownPopup
-        trigger={<Ariakit.MenuButton render={trigger} />}
-        items={items}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        menuId="agent-avatar-menu"
-        gutter={8}
-        portal
-        mountByState
-      />
+      {control}
       <input
         accept="image/png,.png,image/jpeg,.jpg,.jpeg,image/gif,.gif,image/webp,.webp"
         multiple={false}

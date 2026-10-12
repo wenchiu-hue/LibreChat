@@ -43,7 +43,7 @@ test.describe('required two-factor enrollment · unauthenticated arrival', () =>
     await page.goto('/login');
     await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
     await page.getByRole('textbox', { name: 'Password' }).fill('password');
-    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
 
     await expect(page).toHaveURL(SETUP_ROUTE_PATTERN);
     expect(page.url()).not.toContain('tempToken');
@@ -159,7 +159,7 @@ test.describe('required two-factor enrollment · unauthenticated arrival', () =>
     await page.goto(`/login?redirect_to=${encodeURIComponent(deepLink)}`);
     await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
     await page.getByRole('textbox', { name: 'Password' }).fill('password');
-    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.getByRole('button', { name: 'Login', exact: true }).click();
 
     await expect(page).toHaveURL(SETUP_ROUTE_PATTERN);
     await page.getByRole('button', { name: 'Generate QR Code' }).click();

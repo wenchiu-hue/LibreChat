@@ -9,7 +9,8 @@ const TEXTAREA_VARIANTS = {
   transparent: 'bg-transparent',
   document: 'bg-transparent text-base leading-relaxed',
   /** 與 `Input` 的 `filled` 相同的無框填色。 */
-  filled: 'border-transparent bg-field-fill',
+  filled:
+    'lc-field-filled border-transparent bg-field-fill hover:border-border-composer/41 transition-colors duration-200 motion-reduce:transition-none',
 } as const;
 
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {

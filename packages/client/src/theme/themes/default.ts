@@ -79,6 +79,7 @@ export const defaultTheme: IThemeRGB = {
 
   // Border colors
   'rgb-border-light': '227 227 227', // #e3e3e3 (gray-200)
+  'rgb-border-card': '227 227 227', // matching border-light
   'rgb-border-medium': '205 205 205', // #cdcdcd (gray-300)
   'rgb-border-medium-alt': '205 205 205', // #cdcdcd (gray-300)
   'rgb-border-heavy': '153 150 150', // #999696 (gray-400)
@@ -138,7 +139,11 @@ export const defaultTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '126 34 206', // #7e22ce (purple-700)
+  'rgb-border-composer': '97 191 188', // #61bfbc — message composer edge, used at 41%
+  'rgb-brand-rail-start': '23 54 76', // #17364c — left nav rail gradient start, used at 79%
+  'rgb-brand-rail-end': '23 98 86', // #176256 — left nav rail gradient end, used at 90%
   'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-text-on-brand-error': '252 165 165', // #fca5a5 — 品牌漸層底上的錯誤文字
   'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
   'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
   'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end

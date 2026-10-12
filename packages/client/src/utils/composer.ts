@@ -9,16 +9,17 @@ import { cn } from './utils';
  */
 export const composerSurfaceClasses = (): string =>
   cn(
-    'border border-border-light bg-surface-composer text-text-primary transition-all duration-200',
+    'border border-border-composer/41 bg-surface-composer text-text-primary transition-all duration-200',
   );
 
 /** Elevation states for the composer surface. `within` is the CSS-only
  *  equivalent of the managed focused/blurred pair for surfaces that do not
  *  track focus in state. */
 export const composerSurfaceShadow = {
-  focused: 'shadow-lg',
+  /** 聚焦時以邊色光暈取代原本加深的落影，讓輸入中的狀態更明顯。 */
+  focused: 'glow-composer',
   blurred: 'shadow-md',
-  within: 'shadow-md focus-within:shadow-lg',
+  within: 'shadow-md focus-within:glow-composer',
 } as const;
 
 /**

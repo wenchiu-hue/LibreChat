@@ -90,7 +90,7 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({
                   setActiveSetting(optionLabels[ForkOptions.DEFAULT]);
                 }, 175);
               }}
-              className="border-border-medium bg-surface-secondary text-text-secondary hover:bg-surface-hover hover:text-text-primary mx-0.5 w-14 flex-1 rounded-xl border-2 transition duration-200 ease-in-out"
+              className="bg-surface-tertiary text-text-secondary hover:bg-surface-hover hover:text-text-primary mx-0.5 w-14 flex-1 rounded-xl transition duration-200 ease-in-out"
               aria-label={label}
             >
               {children}
@@ -110,8 +110,9 @@ const PopoverButton: React.FC<PopoverButtonProps> = ({
           <Ariakit.Hovercard
             gutter={16}
             shift={40}
-            flip={false}
-            className="border-border-medium bg-surface-secondary text-text-primary rounded-theme-popover z-[999] w-[min(20rem,90vw)] border p-4 shadow-md"
+            /* 右側放不下時自動翻到左側，並與視窗邊緣保持 12px，不會超出瀏覽器。 */
+            overflowPadding={12}
+            className="bg-surface-secondary text-text-primary rounded-theme-popover z-[999] w-[min(20rem,90vw)] p-4 shadow-md"
             portal={true}
             unmountOnHide={true}
           >
@@ -186,8 +187,9 @@ const CheckboxOption: React.FC<CheckboxOptionProps> = ({
       <Ariakit.Hovercard
         gutter={14}
         shift={40}
-        flip={false}
-        className="border-border-medium bg-surface-secondary text-text-primary rounded-theme-popover z-[999] w-[min(20rem,90vw)] border p-4 shadow-md"
+        /* 右側放不下時自動翻到左側，並與視窗邊緣保持 12px，不會超出瀏覽器。 */
+        overflowPadding={12}
+        className="bg-surface-secondary text-text-primary rounded-theme-popover z-[999] w-[min(20rem,90vw)] p-4 shadow-md"
         portal={true}
         unmountOnHide={true}
       >
@@ -354,7 +356,7 @@ function Fork({
       <Ariakit.Popover
         store={popoverStore}
         gutter={10}
-        className={`popover-animate ${isActive ? 'open' : ''} border-border-medium bg-surface-secondary rounded-theme-popover flex w-[min(15rem,90vw)] flex-col gap-3 overflow-hidden border p-2 px-4 shadow-lg`}
+        className={`popover-animate ${isActive ? 'open' : ''} bg-surface-secondary rounded-theme-popover flex w-[min(15rem,90vw)] flex-col gap-3 overflow-hidden p-2 px-4 shadow-lg`}
         style={{
           outline: 'none',
           pointerEvents: 'auto',
@@ -385,8 +387,9 @@ function Fork({
             <Ariakit.Hovercard
               gutter={19}
               shift={40}
-              flip={false}
-              className="border-border-medium bg-surface-secondary text-text-primary rounded-theme-popover z-[999] w-[min(20rem,90vw)] border p-4 shadow-md"
+              /* 右側放不下時自動翻到左側，並與視窗邊緣保持 12px，不會超出瀏覽器。 */
+              overflowPadding={12}
+              className="bg-surface-secondary text-text-primary rounded-theme-popover z-[999] w-[min(20rem,90vw)] p-4 shadow-md"
               portal={true}
               unmountOnHide={true}
             >

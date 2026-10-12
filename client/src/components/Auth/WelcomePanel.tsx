@@ -1,8 +1,8 @@
 import type { TStartupConfig } from 'librechat-data-provider';
 import { authGlassPillClassName } from './authStyles';
 import TypewriterText from './TypewriterText';
-import { DEFAULT_APP_TITLE } from '~/utils';
 import { useLocalize } from '~/hooks';
+import { cn } from '~/utils';
 
 function WelcomePanel({ startupConfig }: { startupConfig: TStartupConfig | null | undefined }) {
   const localize = useLocalize();
@@ -11,32 +11,35 @@ function WelcomePanel({ startupConfig }: { startupConfig: TStartupConfig | null 
   const viewMoreUrl = startupConfig?.helpAndFaqURL?.trim() || undefined;
   /** `interface.customWelcome` 是登入後的聊天歡迎詞（可含 `{{user.name}}`），登入前不會送出，這裡固定用登入頁文案。 */
   const welcomeBody = localize('com_auth_welcome_message');
-  const appTitle = startupConfig?.appTitle?.trim() || DEFAULT_APP_TITLE;
 
   return (
-    <div className="relative flex flex-col justify-between gap-8 border-b border-white/15 px-8 py-10 md:border-r md:border-b-0 md:px-10 md:py-12">
-      <div className="flex h-11 items-center gap-4">
-        <img
-          src="assets/logo.svg"
-          className="h-11 w-auto max-w-[14rem] object-contain brightness-0 invert"
-          alt={localize('com_ui_logo', { 0: appTitle })}
-        />
-        <span className="text-lg font-semibold tracking-wide text-white/90 sm:text-xl">
-          {appTitle}
-        </span>
-      </div>
-
-      <div className="flex flex-1 flex-col justify-center gap-4">
-        <h2 className="text-3xl font-bold tracking-tight text-white select-none sm:text-4xl">
+    <div className="relative flex flex-col justify-between gap-4 border-b border-white/15 px-8 py-10 md:border-r md:border-b-0 md:px-10 md:pt-8 md:pb-12">
+      {/* 底圖上半部是明亮天空，上方疊淡白漸層，深藍標題與說明才看得清楚 */}
+      <img
+        src="assets/login_bg.png"
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center select-none"
+      />
+      <div
+        aria-hidden
+        className="from-surface-on-brand/50 via-surface-on-brand/10 to-surface-on-brand/0 pointer-events-none absolute inset-0 bg-gradient-to-b"
+      />
+      {/* 靠上排列：避開底圖下半部的機器人 */}
+      <div className="relative flex flex-1 flex-col justify-start gap-4">
+        <h2 className="text-brand-gradient-start text-2xl font-bold tracking-tight select-none sm:text-3xl">
           {localize('com_auth_hello_welcome')}
         </h2>
-        <p className="max-w-sm text-sm leading-relaxed text-white/80" aria-label={welcomeBody}>
+        <p
+          className="text-brand-gradient-start/85 max-w-md text-base leading-relaxed"
+          aria-label={welcomeBody}
+        >
           <TypewriterText text={welcomeBody} />
         </p>
       </div>
 
       {viewMoreUrl != null && (
-        <a href={viewMoreUrl} className={authGlassPillClassName} rel="noreferrer">
+        <a href={viewMoreUrl} className={cn('relative', authGlassPillClassName)} rel="noreferrer">
           {localize('com_auth_view_more')}
         </a>
       )}

@@ -1,8 +1,9 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import QueryDevtoolsGate, { shouldEnableQueryDevtools } from '../QueryDevtoolsGate';
 
-jest.mock('@tanstack/react-query-devtools/production', () => ({
-  ReactQueryDevtools: () => <div data-testid="query-devtools" />,
+jest.mock('../QueryDevtools/Drawer', () => ({
+  __esModule: true,
+  default: () => <div data-testid="query-devtools" />,
 }));
 
 describe('QueryDevtoolsGate', () => {

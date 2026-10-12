@@ -181,7 +181,7 @@ function SidebarChip({ icon, label, active, onClick, count }: SidebarEntry) {
         'touch:min-h-theme-control-touch touch:px-4',
         active
           ? 'border-border-medium bg-surface-active text-text-primary font-medium'
-          : 'border-border-light text-text-secondary hover:bg-surface-hover hover:text-text-primary',
+          : 'border-border-card text-text-secondary hover:bg-surface-hover hover:text-text-primary',
       )}
     >
       <span className="flex size-4 shrink-0 items-center justify-center">{icon}</span>
@@ -200,7 +200,7 @@ export default function MarketplaceSidebar(props: MarketplaceSidebarProps) {
   const createItems = useCreateItems(props.onCreateNew);
 
   return (
-    <aside className="border-border-light bg-surface-primary-alt flex w-[min(14rem,35%)] shrink-0 flex-col gap-0.5 border-r p-3">
+    <aside className="border-border-card bg-surface-primary-alt flex w-[min(14rem,35%)] shrink-0 flex-col gap-0.5 border-r p-3">
       <h2 className="text-text-primary px-2.5 pt-1 pb-1 text-base font-bold">
         {localize('com_ui_tools_marketplace')}
       </h2>

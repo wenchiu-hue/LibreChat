@@ -10,6 +10,7 @@ import { CLOSE_SIDEBAR_ID } from '~/components/Chat/Menus/OpenSidebar';
 import { lazyWithRecovery } from '~/lib/assets/lazy';
 import useNewChat from '~/hooks/Chat/useNewChat';
 import { useLocalize } from '~/hooks';
+import Logout from './Logout';
 
 const AccountSettings = lazyWithRecovery(() => import('~/components/Nav/AccountSettings'));
 
@@ -146,12 +147,14 @@ function ExpandedPanel({
   const isInsightsRoute = location.pathname.startsWith('/insights');
 
   const toggleLabel = expanded ? 'com_nav_close_sidebar' : 'com_nav_open_sidebar';
-  const toggleClick = expanded ? onCollapse : onExpand;
+  /** 不把 click 事件往下傳：onCollapse 的第一個參數是 afterSlide 回呼，收到事件物件會在
+   *  requestAnimationFrame 拋出「afterSlide is not a function」。 */
+  const toggleClick = () => (expanded ? onCollapse?.() : onExpand?.());
   const toggleSidebarHint = useShortcutHint('toggleSidebar', localize(toggleLabel));
   const toggleSidebarAriaKey = useShortcutAriaKey('toggleSidebar');
 
   return (
-    <div className="from-brand-gradient-start via-brand-gradient-mid to-brand-gradient-end flex h-full shrink-0 flex-col gap-2 border-r border-white/15 bg-gradient-to-t px-2 py-2 text-white">
+    <div className="from-brand-rail-start/79 via-brand-gradient-mid to-brand-rail-end/90 flex h-full shrink-0 flex-col gap-2 bg-gradient-to-t px-2 py-2 text-white">
       <TooltipAnchor
         side="right"
         description={toggleSidebarHint}
@@ -176,7 +179,8 @@ function ExpandedPanel({
       <NewChatButton setActive={setActive} switchToHistory={switchToHistory} />
       <AgentMarketplaceButton />
       <div className="mx-2 border-b border-white/20" />
-      <div className="flex flex-col gap-1 overflow-y-auto">
+      {/* 與上方按鈕同為 gap-2，整條圖示的間距才一致。 */}
+      <div className="flex flex-col gap-2 overflow-y-auto">
         {links.map((link) => (
           <NavIconButton
             key={link.id}
@@ -196,10 +200,11 @@ function ExpandedPanel({
         ))}
       </div>
 
-      <div className="mt-auto">
+      <div className="mt-auto flex flex-col gap-2">
         <Suspense fallback={<Skeleton className="h-10 w-10 rounded-lg" />}>
           <AccountSettings collapsed />
         </Suspense>
+        <Logout placement="rail" />
       </div>
     </div>
   );

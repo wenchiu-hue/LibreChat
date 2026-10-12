@@ -51,7 +51,7 @@ export const darkTheme: IThemeRGB = {
   'rgb-surface-secondary-alt': '33 33 33', // #212121 (gray-800)
   'rgb-surface-tertiary': '47 47 47', // #2f2f2f (gray-700); visual tint via --color-surface-tertiary
   'rgb-surface-tertiary-alt': '47 47 47', // #2f2f2f (gray-700)
-  'rgb-surface-dialog': '18 18 18', // #121212 (legacy dark dialog)
+  'rgb-surface-dialog': '49 49 49', // #313131 — 燈箱底色
   'rgb-dialog-title': '236 236 236', // #ececec (gray-100, matching text-primary)
   'rgb-surface-overlay': '0 0 0', // #000 (black)
   'rgb-surface-media-overlay': '0 0 0', // #000 (black, over the user's media in both modes)
@@ -79,6 +79,7 @@ export const darkTheme: IThemeRGB = {
 
   // Border colors
   'rgb-border-light': '33 33 33', // #212121 (gray-800)
+  'rgb-border-card': '65 65 65', // 卡片框線（工具庫等燈箱）
   'rgb-border-medium': '57 57 57', // #393939 (gray-650)
   'rgb-border-medium-alt': '57 57 57', // #393939 (gray-650)
   'rgb-border-heavy': '89 89 89', // #595959 (gray-500)
@@ -148,7 +149,11 @@ export const darkTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '171 104 255', // #ab68ff
+  'rgb-border-composer': '97 191 188', // #61bfbc — message composer edge, used at 41%
+  'rgb-brand-rail-start': '23 54 76', // #17364c — left nav rail gradient start, used at 79%
+  'rgb-brand-rail-end': '23 98 86', // #176256 — left nav rail gradient end, used at 90%
   'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-text-on-brand-error': '252 165 165', // #fca5a5 — 品牌漸層底上的錯誤文字
   'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
   'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
   'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
@@ -205,7 +210,7 @@ export const darkTheme: IThemeRGB = {
   'rgb-switch-unchecked': '102 102 102', // #666666
   'rgb-switch-thumb': '13 13 13', // #0d0d0d (gray-900, matching surface-primary)
   'rgb-table-header-text': '205 205 205', // #cdcdcd (gray-300, matching text-secondary)
-  'rgb-table-header-fill': '18 18 18', // #121212 (matching surface-dialog)
+  'rgb-table-header-fill': '49 49 49', // #313131 (matching surface-dialog)
 
   // Presentation
   'rgb-presentation': '33 33 33', // #212121 (gray-800)

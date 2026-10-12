@@ -115,6 +115,7 @@ export const highContrastLightTheme: IThemeRGB = {
 
   // Border colors
   'rgb-border-light': '0 0 0', // #000000
+  'rgb-border-card': '0 0 0', // matching border-light
   'rgb-border-medium': '0 0 0', // #000000
   'rgb-border-medium-alt': '0 0 0', // #000000
   'rgb-border-heavy': '0 0 0', // #000000
@@ -173,7 +174,11 @@ export const highContrastLightTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '107 0 179', // #6b00b3
+  'rgb-border-composer': '97 191 188', // #61bfbc — message composer edge, used at 41%
+  'rgb-brand-rail-start': '23 54 76', // #17364c — left nav rail gradient start, used at 79%
+  'rgb-brand-rail-end': '23 98 86', // #176256 — left nav rail gradient end, used at 90%
   'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-text-on-brand-error': '252 165 165', // #fca5a5 — 品牌漸層底上的錯誤文字
   'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
   'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
   'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end
@@ -323,6 +328,7 @@ export const highContrastDarkTheme: IThemeRGB = {
 
   // Border colors
   'rgb-border-light': '255 255 255', // #ffffff
+  'rgb-border-card': '255 255 255', // matching border-light
   'rgb-border-medium': '255 255 255', // #ffffff
   'rgb-border-medium-alt': '255 255 255', // #ffffff
   'rgb-border-heavy': '255 255 255', // #ffffff
@@ -381,7 +387,11 @@ export const highContrastDarkTheme: IThemeRGB = {
 
   // Brand colors
   'rgb-brand-purple': '224 179 255', // #e0b3ff
+  'rgb-border-composer': '97 191 188', // #61bfbc — message composer edge, used at 41%
+  'rgb-brand-rail-start': '23 54 76', // #17364c — left nav rail gradient start, used at 79%
+  'rgb-brand-rail-end': '23 98 86', // #176256 — left nav rail gradient end, used at 90%
   'rgb-brand-highlight': '133 255 207', // #85ffcf — fluorescent highlight for glows and focus on the brand gradient
+  'rgb-text-on-brand-error': '252 165 165', // #fca5a5 — 品牌漸層底上的錯誤文字
   'rgb-brand-gradient-start': '7 21 51', // #071533 — brand gradient, deep navy end
   'rgb-brand-gradient-mid': '10 77 110', // #0a4d6e — brand gradient, ocean midpoint
   'rgb-brand-gradient-end': '13 107 92', // #0d6b5c — brand gradient, teal end

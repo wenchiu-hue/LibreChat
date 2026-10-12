@@ -1,7 +1,7 @@
 import { useId, useMemo, useState } from 'react';
 import * as Ariakit from '@ariakit/react';
-import { ArrowUpDown, Check } from 'lucide-react';
 import { DropdownPopup } from '@librechat/client';
+import { ArrowUpDown, Check, ChevronDown } from 'lucide-react';
 import type { MenuItemProps, RenderProp } from '~/common';
 import { useLocalize } from '~/hooks';
 import { cn } from '~/utils';
@@ -81,6 +81,7 @@ export default function ProjectsSortMenu({ sortBy, onSortChange }: ProjectsSortM
         >
           <ArrowUpDown className="size-3.5 shrink-0" aria-hidden="true" />
           <span className="truncate">{selectedSortLabel}</span>
+          <ChevronDown className="size-3.5 shrink-0" aria-hidden="true" />
         </Ariakit.MenuButton>
       }
       items={sortMenuItems}
