@@ -337,6 +337,15 @@
     0 10px 15px -3px rgb(0 0 0 / 0.1);
 }
 
+/* 光暈的靜止狀態：層數、位置與 glow-composer 完全相同，只把兩層光暈透明度設為 0。
+ * 兩邊結構一致，聚焦切換時瀏覽器只需漸變透明度，光暈才會平順浮現而不是跳出來。 */
+@utility glow-composer-rest {
+  box-shadow:
+    0 0 0 1px rgb(var(--border-composer) / 0),
+    0 0 18px 2px rgb(var(--border-composer) / 0),
+    0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
 /* 品牌漸層上的點陣紋理（登入頁背景）。 */
 @utility brand-dots {
   background-image:
@@ -344,6 +353,48 @@
     radial-gradient(rgb(var(--surface-on-brand) / 0.2) 1px, transparent 1px);
   background-size: 28px 28px, 48px 48px;
   background-position: 0 0, 12px 18px;
+}
+
+/* 單色 logo 以 mask 繪製，填色跟隨 currentColor；圖檔網址由使用端以 --brand-logo 傳入。
+ * 長寬比對應 logo.svg 的 viewBox（86.61 x 38.5）。 */
+@utility brand-logo-mask {
+  aspect-ratio: 86.61 / 38.5;
+  background-color: currentColor;
+  -webkit-mask: var(--brand-logo) center / contain no-repeat;
+  mask: var(--brand-logo) center / contain no-repeat;
+}
+
+/* 品牌漸層上的淺色橢圓交叉紋（左側 rail）：::before、::after 各畫一個半透明橢圓，
+ * 兩個橢圓中心都在 rail 右側之外，重疊處透明度相加而略亮，形成交叉的透鏡形。用背景漸層畫在 inset: 0 的偽元素上，
+ * 不會溢出容器，也不必加 overflow: hidden 去裁切裡面的選單。 */
+@utility brand-weave {
+  position: relative;
+  isolation: isolate;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  &::before {
+    background-image: radial-gradient(
+      ellipse 104% 18% at 143% 64%,
+      rgb(var(--surface-on-brand) / 0.05) 100%,
+      transparent 100%
+    );
+  }
+
+  &::after {
+    background-image: radial-gradient(
+      ellipse 170% 40% at 156% 100%,
+      rgb(var(--surface-on-brand) / 0.07) 99%,
+      transparent 100%
+    );
+  }
 }
 
 /* A theme whose `fieldFillStyle` is `fill` paints its fields in `field-fill` instead of leaving

@@ -253,7 +253,7 @@ export default function VirtualizedAgentGrid({
         width: rect.width,
         gap: parseFloat(style.rowGap) || 0,
         margin: rect.top - frame.getBoundingClientRect().top - frame.clientTop + frame.scrollTop,
-        estimate: fontSize * 18.75,
+        estimate: fontSize * 10.25,
       };
       const previous = layoutRef.current;
       if (
@@ -491,7 +491,7 @@ export default function VirtualizedAgentGrid({
             role="list"
             tabIndex={-1}
             ref={setListElement}
-            className="relative grid min-w-0 grid-cols-[repeat(auto-fill,minmax(min(100%,max(20rem,calc((100%_-_3.75rem)/4))),1fr))] gap-5"
+            className="relative grid min-w-0 grid-cols-[repeat(auto-fill,minmax(min(100%,max(20rem,calc((100%_-_1.25rem)/2))),1fr))] gap-5"
             style={windowed ? { height: virtualizer.getTotalSize() } : undefined}
             aria-label={label}
             onFocusCapture={handleFocus}

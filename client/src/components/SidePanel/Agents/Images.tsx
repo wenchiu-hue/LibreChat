@@ -6,7 +6,7 @@ import { useLocalize } from '~/hooks';
 
 export function NoImage() {
   return (
-    <div className="border-border-composer/41 flex h-full w-full items-center justify-center rounded-full border-2 border-dashed">
+    <div className="border-border-composer/80 dark:border-border-composer/41 flex h-full w-full items-center justify-center rounded-full border-2 border-dashed">
       <svg
         stroke="currentColor"
         fill="none"
@@ -14,7 +14,7 @@ export function NoImage() {
         viewBox="0 0 24 24"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-4xl"
+        className="text-surface-submit text-4xl dark:text-current"
         height="1em"
         width="1em"
         xmlns="http://www.w3.org/2000/svg"

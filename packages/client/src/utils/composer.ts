@@ -9,7 +9,9 @@ import { cn } from './utils';
  */
 export const composerSurfaceClasses = (): string =>
   cn(
-    'border border-border-composer/41 bg-surface-composer text-text-primary transition-all duration-200',
+    /* 邊色：平時中性邊框，滑過時同 filled 欄位用 border-composer 41%，聚焦時改用送出鈕的 surface-inverted */
+    'border border-border-heavy hover:border-border-composer/41 focus-within:border-surface-inverted',
+    'bg-surface-composer text-text-primary transition-all duration-300 ease-out motion-reduce:transition-none',
   );
 
 /** Elevation states for the composer surface. `within` is the CSS-only
@@ -18,8 +20,9 @@ export const composerSurfaceClasses = (): string =>
 export const composerSurfaceShadow = {
   /** 聚焦時以邊色光暈取代原本加深的落影，讓輸入中的狀態更明顯。 */
   focused: 'glow-composer',
-  blurred: 'shadow-md',
-  within: 'shadow-md focus-within:glow-composer',
+  /** 與 glow-composer 同結構、光暈透明度為 0，切換時才能平順漸變。 */
+  blurred: 'glow-composer-rest',
+  within: 'glow-composer-rest focus-within:glow-composer',
 } as const;
 
 /**

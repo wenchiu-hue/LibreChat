@@ -56,8 +56,8 @@ export const darkTheme: IThemeRGB = {
   'rgb-surface-overlay': '0 0 0', // #000 (black)
   'rgb-surface-media-overlay': '0 0 0', // #000 (black, over the user's media in both modes)
   'rgb-text-on-media': '255 255 255', // #fff (white)
-  'rgb-surface-submit': '4 120 87', // #047857 (green-700)
-  'rgb-surface-submit-hover': '6 95 70', // #065f46 (green-800)
+  'rgb-surface-submit': '36 124 137', // #247c89 — 品牌青綠，送出按鈕
+  'rgb-surface-submit-hover': '28 100 111', // #1c646f — 同色系暗一階
   'rgb-surface-destructive': '153 27 27', // #991b1b (red-800)
   'rgb-surface-destructive-hover': '127 29 29', // #7f1d1d (red-900)
   'rgb-surface-chat': '47 47 47', // #2f2f2f (gray-700)
@@ -67,11 +67,11 @@ export const darkTheme: IThemeRGB = {
   'rgb-prose-bullet': '57 57 57', // #393939 (gray-650)
   'rgb-prose-quote-bar': '57 57 57', // #393939 (gray-650)
   'rgb-surface-qr': '255 255 255', // #fff (white, so the code stays scannable)
-  'rgb-surface-inverted': '255 255 255', // #fff (white)
-  'rgb-surface-inverted-hover': '236 236 236', // #ececec (gray-100)
-  'rgb-surface-inverted-pressed': '236 236 236', // #ececec (gray-100), the hover fill
-  'rgb-button-primary': '255 255 255', // #fff (white, matching surface-inverted)
-  'rgb-button-primary-hover': '236 236 236', // #ececec (gray-100, matching surface-inverted-hover)
+  'rgb-surface-inverted': '119 219 223', // #77dbdf — 品牌青藍，主要按鈕與勾選狀態
+  'rgb-surface-inverted-hover': '95 196 200', // #5fc4c8 — 同色系暗一階
+  'rgb-surface-inverted-pressed': '95 196 200', // #5fc4c8, the hover fill
+  'rgb-button-primary': '119 219 223', // #77dbdf (matching surface-inverted)
+  'rgb-button-primary-hover': '95 196 200', // #5fc4c8 (matching surface-inverted-hover)
   'rgb-text-inverted': '23 23 23', // #171717 (gray-850)
   'rgb-surface-fixed': '255 255 255', // #fff (white) — same in light + dark
   'rgb-surface-fixed-hover': '236 236 236', // #ececec (gray-100) — same in light + dark
@@ -105,7 +105,7 @@ export const darkTheme: IThemeRGB = {
   'rgb-surface-menu': '33 33 33', // matching presentation
   'rgb-surface-popover': '33 33 33', // matching surface-secondary
   'rgb-border-menu': '33 33 33', // matching border-light
-  'rgb-surface-composer': '47 47 47', // matching surface-chat
+  'rgb-surface-composer': '42 42 42', // #2a2a2a — 聊天輸入框獨立底色，不再跟隨 surface-chat
   'rgb-surface-search': '33 33 33', // matching surface-secondary
   'rgb-surface-disabled': '47 47 47', // #2f2f2f (gray-700)
   'rgb-text-disabled': '153 150 150', // #999696 (gray-400)
@@ -206,7 +206,7 @@ export const darkTheme: IThemeRGB = {
   'rgb-series-8': '120 130 190', // #8082be (indigo)
 
   /** Unchecked switch track. 3.38:1 against the page and the `surface-primary`
-   *  thumb, 5.74:1 against the checked `surface-inverted` track. */
+   *  thumb, 3.6:1 against the checked `surface-inverted` track. */
   'rgb-switch-unchecked': '102 102 102', // #666666
   'rgb-switch-thumb': '13 13 13', // #0d0d0d (gray-900, matching surface-primary)
   'rgb-table-header-text': '205 205 205', // #cdcdcd (gray-300, matching text-secondary)

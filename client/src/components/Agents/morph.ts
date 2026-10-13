@@ -189,13 +189,3 @@ export const WORD_RETURN_MS = HANDOFF_MS;
  * until this elapses, so it is the whole of the close's perceived latency.
  */
 export const MORPH_HANDOFF_MS = HANDOFF_MS;
-
-/**
- * Card content with no counterpart in the dialog ("View details" and the footer
- * rule). It leaves early rather than pretending to become one of the dialog's
- * controls.
- */
-export const CARD_HANDOFF_VARIANTS = {
-  rest: { opacity: 1, transition: MORPH_CLOSE_TRANSITION },
-  handoff: { opacity: 0, transition: MORPH_OPEN_TRANSITION },
-} as const;

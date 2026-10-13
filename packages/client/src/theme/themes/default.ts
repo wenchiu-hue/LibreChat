@@ -56,8 +56,8 @@ export const defaultTheme: IThemeRGB = {
   'rgb-surface-overlay': '89 89 89', // #595959 (gray-500)
   'rgb-surface-media-overlay': '0 0 0', // #000 (black, over the user's media in both modes)
   'rgb-text-on-media': '255 255 255', // #fff (white)
-  'rgb-surface-submit': '4 120 87', // #047857 (green-700)
-  'rgb-surface-submit-hover': '6 95 70', // #065f46 (green-800)
+  'rgb-surface-submit': '75 159 177', // #4b9fb1 — 品牌青藍，送出按鈕與市場選中分類
+  'rgb-surface-submit-hover': '60 132 147', // #3c8493 — 同色系暗一階
   'rgb-surface-destructive': '185 28 28', // #b91c1c (red-700)
   'rgb-surface-destructive-hover': '153 27 27', // #991b1b (red-800)
   'rgb-surface-chat': '255 255 255', // #fff (white)
@@ -91,11 +91,11 @@ export const defaultTheme: IThemeRGB = {
   'rgb-focus-subtle': '153 150 150', // #999696 (gray-400, matching border-heavy)
   'rgb-field-fill': '255 255 255', // #fff (white, matching surface-primary)
   'rgb-field-text': '33 33 33', // #212121 (gray-800, matching text-primary)
-  'rgb-surface-tooltip': '255 255 255', // matching surface-primary
-  'rgb-text-tooltip': '33 33 33', // matching text-primary
+  'rgb-surface-tooltip': '13 13 13', // #0d0d0d (gray-900) — 淺色也用黑底白字，與深色版一致
+  'rgb-text-tooltip': '236 236 236', // #ececec (gray-100)
   'rgb-alert-error-fill': '254 242 242', // matching status-error-subtle
   'rgb-alert-error-border': '252 165 165', // matching status-error-border
-  'rgb-surface-canvas': '247 247 248', // matching surface-primary-alt
+  'rgb-surface-canvas': '227 227 227', // #e3e3e3 — 淺色聊天 canvas 與市場頁底色，和側邊面板區隔
   'rgb-surface-user-message': '236 236 236', // matching surface-tertiary
   'rgb-surface-card': '247 247 248', // matching surface-secondary
   'rgb-surface-card-hover': '236 236 236', // matching surface-tertiary

@@ -1,10 +1,9 @@
 import React, { forwardRef, memo, useId } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
 import type t from 'librechat-data-provider';
-import { agentMorphId, CARD_HANDOFF_VARIANTS, MORPH_CLOSE_TRANSITION } from './morph';
 import AgentContact, { resolveAgentContact } from './AgentContact';
 import { getPlainDescription } from '~/components/ui/Description';
+import { agentMorphId, MORPH_CLOSE_TRANSITION } from './morph';
 import { cn, renderAgentAvatar } from '~/utils';
 import AgentCategoryBadge from './Category';
 import { useLocalize } from '~/hooks';
@@ -84,7 +83,7 @@ const AgentCard = memo(
         className={cn(
           /* The article keeps a plain resting fill so the grid slot still reads as a
              card while the surface layer is away being the dialog. */
-          'group rounded-theme-surface bg-surface-card relative flex h-full min-h-[17.5rem] min-w-0 flex-col p-5',
+          'group rounded-theme-surface bg-surface-card relative flex h-full min-h-[9rem] min-w-0 px-6 py-4',
           className,
         )}
       >
@@ -116,96 +115,76 @@ const AgentCard = memo(
           onClick={() => onSelect(agent)}
         />
 
-        <motion.div
-          initial={false}
-          animate={expanded ? 'handoff' : 'rest'}
-          className="pointer-events-none relative z-20 flex min-h-0 flex-1 flex-col"
-        >
-          <div className="flex items-start justify-between gap-3">
+        <div className="pointer-events-none relative z-20 flex min-h-0 flex-1 items-center gap-5">
+          {agent.category != null && agent.category !== '' && (
             <motion.div
-              layoutId={agentMorphId('avatar', agent.id)}
-              className="shrink-0"
+              layout="position"
+              layoutId={agentMorphId('category', agent.id)}
+              className="absolute -end-2 -top-2 max-w-[40%] min-w-0 text-end"
               {...shared}
             >
-              {renderAgentAvatar(agent, {
-                size: 'sm',
-                showBorder: false,
-                className:
-                  'rounded-full bg-surface-tertiary ring-1 ring-border-chrome transition-colors duration-150 group-hover:ring-border-chrome-medium',
-              })}
+              <AgentCategoryBadge
+                category={agent.category}
+                className="bg-surface-hover rounded-md border-0 px-2 py-0.5 font-normal [&>span]:line-clamp-1"
+              />
             </motion.div>
-            {agent.category != null && agent.category !== '' && (
-              <motion.div
-                layout="position"
-                layoutId={agentMorphId('category', agent.id)}
-                className="max-w-[60%] min-w-0 shrink-0 text-end"
-                {...shared}
-              >
-                <AgentCategoryBadge
-                  category={agent.category}
-                  className="group-hover:border-border-medium transition-colors duration-150 [&>span]:line-clamp-2"
-                />
-              </motion.div>
-            )}
-          </div>
+          )}
 
-          {/* Full `layout` on the name so the type zooms between the two sizes
-              instead of snapping to the dialog's scale on the first frame. */}
-          <motion.h2
-            layout
-            layoutId={agentMorphId('title', agent.id)}
-            id={titleId}
-            className="text-text-primary mt-4 line-clamp-2 text-lg leading-6 font-semibold break-words"
-            {...shared}
-          >
-            {name}
-          </motion.h2>
+          <motion.div layoutId={agentMorphId('avatar', agent.id)} className="shrink-0" {...shared}>
+            {renderAgentAvatar(agent, {
+              size: 'sm',
+              showBorder: false,
+              className:
+                'rounded-full bg-surface-tertiary shadow-md ring-1 ring-border-chrome transition-colors duration-150 group-hover:ring-border-chrome-medium',
+            })}
+          </motion.div>
 
-          {/* The blurb is the same copy the dialog shows in full, so it is
-              handed over rather than dropped: the paragraph travels, the words
-              inside it re-wrap into the dialog's setting, and the lines this
-              clamp hid arrive behind them. */}
-          <motion.p
-            ref={descriptionRef}
-            layout="position"
-            layoutId={agentMorphId('description', agent.id)}
-            id={descriptionId}
-            style={{ willChange: morphing ? 'transform' : undefined }}
-            className="text-text-secondary mt-2 mb-5 line-clamp-3 text-sm leading-6 break-words"
-            {...shared}
-          >
-            {description}
-          </motion.p>
+          {/* 文字欄右側留白給右上角的類別標籤，名稱過長時不會壓到 */}
+          <div className="flex min-w-0 flex-1 flex-col justify-center pe-10">
+            {/* Full `layout` on the name so the type zooms between the two sizes
+                instead of snapping to the dialog's scale on the first frame. */}
+            <motion.h2
+              layout
+              layoutId={agentMorphId('title', agent.id)}
+              id={titleId}
+              className="text-text-primary line-clamp-2 text-base leading-6 font-semibold break-words md:text-lg"
+              {...shared}
+            >
+              {name}
+            </motion.h2>
 
-          <footer className="relative mt-auto flex min-w-0 items-end justify-between gap-3 pt-4">
-            <motion.span
-              aria-hidden="true"
-              variants={CARD_HANDOFF_VARIANTS}
-              className="bg-border-inset absolute inset-x-0 top-0 h-px"
-            />
+            {/* The blurb is the same copy the dialog shows in full, so it is
+                handed over rather than dropped: the paragraph travels, the words
+                inside it re-wrap into the dialog's setting, and the lines this
+                clamp hid arrive behind them. */}
+            <motion.p
+              ref={descriptionRef}
+              layout="position"
+              layoutId={agentMorphId('description', agent.id)}
+              id={descriptionId}
+              style={{ willChange: morphing ? 'transform' : undefined }}
+              className="text-text-secondary mt-0.5 line-clamp-2 text-sm leading-snug break-words"
+              {...shared}
+            >
+              {description}
+            </motion.p>
+
             {contact != null && (
               <motion.div
                 layout="position"
                 layoutId={agentMorphId('owner', agent.id)}
-                className="min-w-0 [&_a]:pointer-events-auto"
+                className="mt-1 min-w-0 [&_a]:pointer-events-auto"
                 {...shared}
               >
                 <AgentContact
                   agent={agent}
                   compact
-                  className="text-text-secondary [&_a]:text-text-primary max-w-full text-xs"
+                  className="text-text-secondary [&_a]:text-text-secondary max-w-full text-xs"
                 />
               </motion.div>
             )}
-            <motion.span
-              variants={CARD_HANDOFF_VARIANTS}
-              className="text-text-primary ms-auto flex shrink-0 items-center gap-1 text-sm font-medium"
-            >
-              {localize('com_agents_view_details')}
-              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </motion.span>
-          </footer>
-        </motion.div>
+          </div>
+        </div>
       </article>
     );
   }),

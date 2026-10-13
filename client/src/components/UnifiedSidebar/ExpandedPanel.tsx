@@ -154,7 +154,7 @@ function ExpandedPanel({
   const toggleSidebarAriaKey = useShortcutAriaKey('toggleSidebar');
 
   return (
-    <div className="from-brand-rail-start/79 via-brand-gradient-mid to-brand-rail-end/90 flex h-full shrink-0 flex-col gap-2 bg-gradient-to-t px-2 py-2 text-white">
+    <div className="from-brand-rail-start/79 via-brand-gradient-mid to-brand-rail-end/90 brand-weave flex h-full shrink-0 flex-col gap-2 bg-gradient-to-t px-2 py-2 text-white">
       <TooltipAnchor
         side="right"
         description={toggleSidebarHint}

@@ -66,11 +66,16 @@ describe('loading canvas', () => {
     expect(canvasFor('system', [DARK_SCHEME, FORCED_COLORS])).toBe('#000000');
   });
 
-  /** An unset or unrecognised value is what `getInitialTheme` resolves as
-   *  `system`, so the canvas has to resolve it the same way. */
-  it('treats an unset or unknown mode as system', () => {
-    expect(canvasFor(null, [DARK_SCHEME])).toBe('#0d0d0d');
-    expect(canvasFor(null, [DARK_SCHEME, MORE_CONTRAST])).toBe('#000000');
-    expect(canvasFor('sepia', [DARK_SCHEME, MORE_CONTRAST])).toBe('#000000');
+  /** 沒設定或無法辨識時，`getInitialTheme` 預設深色，載入畫面也要用深色，系統是淺色也一樣。 */
+  it('treats an unset or unknown mode as the dark default', () => {
+    expect(canvasFor(null, [])).toBe('#0d0d0d');
+    expect(canvasFor(null, [DARK_SCHEME, MORE_CONTRAST])).toBe('#0d0d0d');
+    expect(canvasFor('sepia', [])).toBe('#0d0d0d');
+  });
+
+  it('follows the OS when the stored mode is system', () => {
+    expect(canvasFor('system', [])).toBe('#ffffff');
+    expect(canvasFor('system', [DARK_SCHEME])).toBe('#0d0d0d');
+    expect(canvasFor('system', [DARK_SCHEME, MORE_CONTRAST])).toBe('#000000');
   });
 });

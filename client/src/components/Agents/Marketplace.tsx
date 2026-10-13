@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { PermissionTypes, Permissions } from 'librechat-data-provider';
 import { useSearchParams, useParams, useNavigate } from 'react-router-dom';
 import type t from 'librechat-data-provider';
+import type { TranslationKeys } from '~/hooks';
 import { useGetEndpointsQuery, useGetAgentCategoriesQuery } from '~/data-provider';
 import SortDropdown, { SORT_OPTIONS, DEFAULT_SORT_OPTION } from './SortDropdown';
 import { useDocumentTitle, useHasAccess, useLocalize } from '~/hooks';
@@ -13,6 +14,7 @@ import MineFilterToggle from './MineFilterToggle';
 import CategoryTabs from './CategoryTabs';
 import SearchBar from './SearchBar';
 import AgentGrid from './AgentGrid';
+import { cn } from '~/utils';
 
 interface AgentMarketplaceProps {
   className?: string;
@@ -49,6 +51,30 @@ const AgentMarketplace: React.FC<AgentMarketplaceProps> = ({ className = '' }) =
      promoted-and-mine intersection instead of the caller's agents. */
   const defaultCategory = hasPromotedCategory && mine !== 1 ? 'promoted' : 'all';
   const activeCategory = category || defaultCategory;
+
+  /** 分類標題與說明：精選、全部用固定文案，其餘取 API 回傳的 label／description（可能是翻譯鍵） */
+  const categoryHeader = useMemo(() => {
+    if (activeCategory === 'promoted') {
+      return {
+        name: localize('com_agents_top_picks'),
+        description: localize('com_agents_recommended'),
+      };
+    }
+    if (activeCategory === 'all') {
+      return {
+        name: localize('com_agents_all'),
+        description: localize('com_agents_all_description'),
+      };
+    }
+    const item = categoriesQuery.data?.find((cat) => cat.value === activeCategory);
+    const translate = (value?: string) =>
+      value?.startsWith('com_') ? localize(value as TranslationKeys) : value || '';
+    return {
+      name:
+        translate(item?.label) || activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1),
+      description: translate(item?.description),
+    };
+  }, [activeCategory, categoriesQuery.data, localize]);
 
   const handleTabChange = (value: string) => {
     if (value === activeCategory) {
@@ -125,58 +151,77 @@ const AgentMarketplace: React.FC<AgentMarketplaceProps> = ({ className = '' }) =
   }
 
   return (
-    <div
-      className={`bg-surface-primary-alt relative flex w-full grow overflow-hidden ${className}`}
-    >
+    /* 底色與聊天內容區同用 canvas，跟側邊面板（surface-primary-alt）區隔 */
+    <div className={`bg-surface-canvas relative flex w-full grow overflow-hidden ${className}`}>
       <SidePanelGroup>
         <main
           className="flex h-full min-w-0 flex-col overflow-hidden"
           aria-labelledby="marketplace-heading"
         >
-          {/* The compact header has no room for a visible title, but a landmark label is
-              not reachable by heading navigation: without this the document's outline
-              would start at an agent card. */}
-          <h1 id="marketplace-heading" className="sr-only">
-            {localize('com_agents_marketplace')}
-          </h1>
-          <div className="border-border-light shrink-0 border-b">
-            <div className="flex items-center gap-2 p-3">
-              {isSmallScreen && <OpenSidebar className="size-9 shrink-0 rounded-lg" />}
-              <SearchBar value={searchQuery} onSearch={handleSearch} className="min-w-0 flex-1" />
-              <MarketplaceAdminSettings />
-            </div>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 px-3 pb-3">
-              <div className="min-w-0 flex-1 basis-full lg:basis-0">
-                <CategoryTabs
-                  categories={categoriesQuery.data || []}
-                  activeTab={activeCategory}
-                  isLoading={categoriesQuery.isLoading}
-                  onChange={handleTabChange}
-                />
-              </div>
-              <div className="ms-auto flex shrink-0 items-center gap-1.5">
-                <MineFilterToggle checked={mine === 1} onCheckedChange={handleMineChange} />
-                <SortDropdown value={sort} onChange={handleSortChange} />
-              </div>
-            </div>
-          </div>
           <div
             ref={scrollContainerRef}
-            className="min-h-0 flex-1 scrollbar-gutter-stable overflow-x-hidden overflow-y-auto p-3"
+            className="min-h-0 flex-1 scrollbar-gutter-stable overflow-x-hidden overflow-y-auto"
           >
-            {/* Deliberately unkeyed: the grid's own `scopeKey` already carries the category,
-                so it replaces the results itself and hands focus back when the scope
-                changes. Remounting it on the category instead would destroy an open detail
-                dialog and its return target, and the replacement grid starts with an empty
-                `previousScopeKeyRef`, so it reads that render as a first mount and leaves
-                focus on the document. */}
-            <AgentGrid
-              category={activeCategory}
-              searchQuery={searchQuery}
-              scrollElementRef={scrollContainerRef}
-              sort={sort}
-              mine={mine}
-            />
+            <div className="mx-auto w-full max-w-4xl px-4 pb-8">
+              {/* 小螢幕沒有空間放大標題，h1 只留給輔助技術，避免文件大綱從 agent 卡片開始 */}
+              <div className={cn('text-center', isSmallScreen ? 'pt-3' : 'mt-12 mb-8')}>
+                <h1
+                  id="marketplace-heading"
+                  className={cn(
+                    isSmallScreen
+                      ? 'sr-only'
+                      : 'text-text-primary mb-3 text-3xl font-bold tracking-tight md:text-5xl',
+                  )}
+                >
+                  {localize('com_agents_marketplace')}
+                </h1>
+                {!isSmallScreen && (
+                  <p className="text-text-secondary mx-auto max-w-2xl text-lg">
+                    {localize('com_agents_marketplace_subtitle')}
+                  </p>
+                )}
+              </div>
+
+              <div className="mx-auto flex max-w-2xl items-center gap-2 pb-6">
+                {isSmallScreen && <OpenSidebar className="size-9 shrink-0 rounded-lg" />}
+                <SearchBar value={searchQuery} onSearch={handleSearch} className="min-w-0 flex-1" />
+                <MarketplaceAdminSettings />
+              </div>
+
+              <CategoryTabs
+                categories={categoriesQuery.data || []}
+                activeTab={activeCategory}
+                isLoading={categoriesQuery.isLoading}
+                onChange={handleTabChange}
+              />
+
+              <div className="mt-8 mb-6 flex flex-wrap items-end justify-between gap-x-3 gap-y-2">
+                <div className="min-w-0">
+                  <h2 className="text-text-primary text-2xl font-bold">{categoryHeader.name}</h2>
+                  {categoryHeader.description !== '' && (
+                    <p className="text-text-secondary mt-2">{categoryHeader.description}</p>
+                  )}
+                </div>
+                <div className="ms-auto flex shrink-0 items-center gap-1.5">
+                  <MineFilterToggle checked={mine === 1} onCheckedChange={handleMineChange} />
+                  <SortDropdown value={sort} onChange={handleSortChange} />
+                </div>
+              </div>
+
+              {/* Deliberately unkeyed: the grid's own `scopeKey` already carries the category,
+                  so it replaces the results itself and hands focus back when the scope
+                  changes. Remounting it on the category instead would destroy an open detail
+                  dialog and its return target, and the replacement grid starts with an empty
+                  `previousScopeKeyRef`, so it reads that render as a first mount and leaves
+                  focus on the document. */}
+              <AgentGrid
+                category={activeCategory}
+                searchQuery={searchQuery}
+                scrollElementRef={scrollContainerRef}
+                sort={sort}
+                mine={mine}
+              />
+            </div>
           </div>
         </main>
       </SidePanelGroup>

@@ -77,6 +77,25 @@ beforeEach(() => {
 });
 
 describe('ThemeProvider', () => {
+  it('沒選過外觀時預設深色，即使系統是淺色', () => {
+    render(
+      <ThemeProvider>
+        <Controls />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('resolved-mode')).toHaveTextContent('dark');
+  });
+
+  it('使用者選過「跟隨系統」時照系統設定', () => {
+    localStorage.setItem('color-theme', 'system');
+    render(
+      <ThemeProvider>
+        <Controls />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('resolved-mode')).toHaveTextContent('light');
+  });
+
   it('preserves CSS fallbacks for colors omitted by legacy RGB props', async () => {
     document.documentElement.style.setProperty('--text-primary', '9 9 9');
     render(

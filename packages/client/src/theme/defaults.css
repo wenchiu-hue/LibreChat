@@ -147,8 +147,8 @@ html {
   --surface-overlay: var(--gray-500);
   --surface-media-overlay: 0 0 0;
   --text-on-media: var(--white);
-  --surface-submit: var(--green-700);
-  --surface-submit-hover: var(--green-800);
+  --surface-submit: 75 159 177; /* #4b9fb1 — 品牌青藍，送出按鈕與市場選中分類 */
+  --surface-submit-hover: 60 132 147; /* #3c8493 — 同色系暗一階 */
   --surface-destructive: var(--red-700);
   --surface-destructive-hover: var(--red-800);
   --surface-chat: var(--white);
@@ -176,11 +176,11 @@ html {
   --focus-subtle: var(--border-heavy);
   --field-fill: var(--surface-primary);
   --field-text: var(--text-primary);
-  --surface-tooltip: var(--surface-primary);
-  --text-tooltip: var(--text-primary);
+  --surface-tooltip: var(--gray-900); /* 淺色也用黑底白字，與深色版一致 */
+  --text-tooltip: var(--gray-100);
   --alert-error-fill: var(--status-error-subtle);
   --alert-error-border: var(--status-error-border);
-  --surface-canvas: var(--surface-primary-alt);
+  --surface-canvas: 227 227 227; /* #e3e3e3 — 淺色聊天 canvas 與市場頁底色，和側邊面板區隔 */
   --surface-user-message: var(--surface-tertiary);
   --surface-card: var(--surface-secondary);
   --surface-card-hover: var(--surface-tertiary);
@@ -442,8 +442,8 @@ html {
   --surface-overlay: 0 0 0;
   --surface-media-overlay: 0 0 0;
   --text-on-media: var(--white);
-  --surface-submit: var(--green-700);
-  --surface-submit-hover: var(--green-800);
+  --surface-submit: 36 124 137; /* #247c89 — 品牌青綠，送出按鈕 */
+  --surface-submit-hover: 28 100 111; /* #1c646f — 同色系暗一階 */
   --surface-destructive: var(--red-800);
   --surface-destructive-hover: var(--red-900);
   --surface-chat: var(--gray-700);
@@ -482,7 +482,7 @@ html {
   --surface-menu: var(--presentation);
   --surface-popover: var(--surface-secondary);
   --border-menu: var(--border-light);
-  --surface-composer: var(--surface-chat);
+  --surface-composer: 42 42 42; /* #2a2a2a — 聊天輸入框獨立底色，不再跟隨 surface-chat */
   --surface-search: var(--surface-secondary);
   --focus-control: 103 187 173; /* #67bbad — brand teal */
   --border-disabled: var(--gray-650);
@@ -529,9 +529,9 @@ html {
   --syntax-attr: 223 48 121;
   --syntax-title: 242 44 61;
 
-  --surface-inverted: var(--white);
-  --surface-inverted-hover: var(--gray-100);
-  --surface-inverted-pressed: var(--gray-100);
+  --surface-inverted: 119 219 223; /* #77dbdf — 品牌青藍，主要按鈕與勾選狀態 */
+  --surface-inverted-hover: 95 196 200; /* #5fc4c8 — 同色系暗一階 */
+  --surface-inverted-pressed: 95 196 200; /* #5fc4c8 */
   --button-primary: var(--surface-inverted);
   --button-primary-hover: var(--surface-inverted-hover);
   --surface-disabled: var(--gray-700);

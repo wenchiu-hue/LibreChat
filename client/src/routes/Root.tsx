@@ -45,10 +45,12 @@ import useSidebarToggle from '~/hooks/Nav/useSidebarToggle';
 import useSidebarState from '~/hooks/Nav/useSidebarState';
 import { TermsAndConditionsModal } from '~/components/ui';
 import useDrawerSwipe from '~/hooks/Nav/useDrawerSwipe';
+import BrandBar from '~/components/Chat/BrandBar';
 import ChatSettingsProvider from './ChatSettings';
 import { useHealthCheck } from '~/data-provider';
 import Settings from '~/components/Nav/Settings';
 import { Banner } from '~/components/Banners';
+import { DEFAULT_APP_TITLE } from '~/utils';
 import store from '~/store';
 
 /** Isolates the unseen-reply subscription so its updates re-render only this node, not `Root`. */
@@ -226,7 +228,11 @@ function RootLayout() {
                         ready={isConfigReady && configError == null}
                         userId={user?.id}
                       >
-                        <Outlet />
+                        <BrandBar appTitle={config?.appTitle?.trim() || DEFAULT_APP_TITLE} />
+                        {/* 頁面區吃掉頂部列以外的高度，內頁的 h-full 才不會多出頂部列的高度而被裁掉 */}
+                        <div className="relative flex min-h-0 flex-1 flex-col">
+                          <Outlet />
+                        </div>
                       </MCPAppsPolicyProvider>
                     </div>
                     {/* Without the strip the scrim exists only for the travel:

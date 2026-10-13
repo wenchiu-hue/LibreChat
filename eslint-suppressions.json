@@ -39,7 +39,7 @@
   },
   "client/src/components/Agents/SearchBar.tsx": {
     "shadcn/no-restyle": {
-      "count": 7
+      "count": 4
     }
   },
   "client/src/components/Agents/VirtualizedAgentGrid.tsx": {

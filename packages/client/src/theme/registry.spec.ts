@@ -1113,9 +1113,18 @@ describe('theme registry', () => {
       for (const mode of ['light', 'dark'] as const) {
         const { colors } = resolveTheme(layerTheme({}), mode);
         layerRoleSources.forEach(([role, light, dark]) => {
-          /** 深色側邊面板改為 slate 後，聊天 canvas 刻意維持原本的 #2a2a2a。 */
-          if (mode === 'dark' && role === 'rgb-surface-canvas') {
+          /** 深色側邊面板改為 slate 後，聊天 canvas 刻意維持原本的 #2a2a2a；
+           *  聊天輸入框也獨立出來用同一個 #2a2a2a，不再跟隨 surface-chat。 */
+          if (
+            mode === 'dark' &&
+            (role === 'rgb-surface-canvas' || role === 'rgb-surface-composer')
+          ) {
             expect(colors[role]).toBe('42 42 42');
+            return;
+          }
+          /** 淺色 canvas 改為 #e3e3e3，不再跟隨 surface-primary-alt。 */
+          if (mode === 'light' && role === 'rgb-surface-canvas') {
+            expect(colors[role]).toBe('227 227 227');
             return;
           }
           expect([role, colors[role]]).toEqual([role, colors[mode === 'dark' ? dark : light]]);

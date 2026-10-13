@@ -124,6 +124,8 @@ describe('DeploymentTheme', () => {
   beforeEach(() => {
     localStorage.clear();
     localStorage.setItem('theme', 'light');
+    /* 預設外觀已改深色；這些測試驗證的是部署主題，固定淺色以維持原本的預期值 */
+    localStorage.setItem('color-theme', 'light');
     localStorage.setItem('theme-definition', JSON.stringify(storedDefinition));
     localStorage.setItem('theme-name', 'stored');
     localStorage.setItem('theme-source', 'definition');
@@ -430,6 +432,7 @@ describe('DeploymentTheme cache', () => {
 
   beforeEach(() => {
     localStorage.clear();
+    localStorage.setItem('color-theme', 'light');
     queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
     getStartupConfig = jest.spyOn(dataService, 'getStartupConfig');
     mockGetThemeFromEnv.mockReturnValue(undefined);

@@ -123,14 +123,15 @@ function AuthLayout({
           <div
             className={cn(
               'border-brand-glow-cool/40 bg-surface-on-brand/10 glow-brand-card relative w-full overflow-hidden rounded-3xl border backdrop-blur-xl',
-              !isTwoFactorSetup && 'md:grid md:grid-cols-2',
+              /* 表單要等 startup config 載入後才出現，先撐住最小高度，載入完成時主框才不會突然變高 */
+              !isTwoFactorSetup && 'md:grid md:min-h-144 md:grid-cols-2',
             )}
           >
             {showWelcomePanel && <WelcomePanel startupConfig={startupConfig} />}
             <div
               className={cn(
                 'flex flex-col justify-center px-6 py-8 sm:px-10 sm:py-10',
-                isTwoFactorSetup ? 'w-full' : '',
+                isTwoFactorSetup ? 'w-full' : 'min-h-112 md:min-h-0',
               )}
             >
               <AuthBrand startupConfig={startupConfig} />

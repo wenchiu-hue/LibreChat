@@ -146,7 +146,8 @@ describe('CategoryTabs', () => {
     );
 
     const tabs = screen.getAllByRole('tab');
-    expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
+    expect(tabs[1]).toHaveAttribute('aria-selected', 'true');
+    expect(tabs[0]).toHaveAttribute('aria-selected', 'false');
     expect(tabs[2]).toHaveAttribute('aria-selected', 'false');
   });
 
@@ -215,9 +216,10 @@ describe('CategoryTabs', () => {
     const tabs = screen.getAllByRole('tab');
     const tabTexts = tabs.map((tab) => tab.textContent);
 
-    // Check that promoted is first and all is second
-    expect(tabTexts[0]).toBe('Top Picks');
-    expect(tabTexts[1]).toBe('All');
+    // 「全部」固定在最左邊，其餘維持 API 順序
+    expect(tabTexts[0]).toBe('All');
+    expect(tabTexts[1]).toBe('Top Picks');
+    expect(tabTexts[2]).toBe('General');
     expect(tabTexts.length).toBe(5);
   });
 });

@@ -128,14 +128,14 @@ describe('AgentGrid pagination', () => {
     renderGrid();
     const status = await screen.findByRole('status', { name: 'com_agents_loading' });
     const skeletons = status.querySelector('[aria-hidden="true"]') as HTMLElement;
-    /** 1400x600 viewport: 4 resolved columns, 2 rows of 300px reach the fold. */
+    /** 1400x600 viewport: 2 resolved columns, rows of 164px (144px card + 20px gap) put 4 rows in reach. */
     await waitFor(() => expect(skeletons.children).toHaveLength(8));
     act(() => layout.resize(700, 400));
-    await waitFor(() => expect(skeletons.children).toHaveLength(4));
+    await waitFor(() => expect(skeletons.children).toHaveLength(6));
     act(() => layout.resize(360, 700));
-    await waitFor(() => expect(skeletons.children).toHaveLength(3));
-    /** 980px leaves 80px of a fourth row: too thin to read as a card, so it is dropped. */
-    act(() => layout.resize(1400, 980));
+    await waitFor(() => expect(skeletons.children).toHaveLength(5));
+    /** 1000px leaves 16px of a seventh row: too thin to read as a card, so it is dropped. */
+    act(() => layout.resize(1400, 1000));
     await waitFor(() => expect(skeletons.children).toHaveLength(12));
     await act(async () => pending.resolve(page(makeAgents(1))));
     expect(await screen.findByRole('button', { name: 'Agent 0' })).toBeInTheDocument();

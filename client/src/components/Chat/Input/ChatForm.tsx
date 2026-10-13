@@ -1062,6 +1062,7 @@ const ChatForm = memo(function ChatForm({
             answerModeActive={answerMode.active}
             uploadingCount={uploadingCount}
             idleActions={idleActions}
+            showTip={isLandingPage}
           />
         </div>
       </div>

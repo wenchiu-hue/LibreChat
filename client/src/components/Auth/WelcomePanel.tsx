@@ -14,24 +14,24 @@ function WelcomePanel({ startupConfig }: { startupConfig: TStartupConfig | null 
 
   return (
     <div className="relative flex flex-col justify-between gap-4 border-b border-white/15 px-8 py-10 md:border-r md:border-b-0 md:px-10 md:pt-8 md:pb-12">
-      {/* 底圖上半部是明亮天空，上方疊淡白漸層，深藍標題與說明才看得清楚 */}
+      {/* 夜景底圖偏暗，上方疊深藍漸層配白字 */}
       <img
-        src="assets/login_bg.png"
+        src="assets/login_bg_dark.png"
         alt=""
         aria-hidden
         className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center select-none"
       />
       <div
         aria-hidden
-        className="from-surface-on-brand/50 via-surface-on-brand/10 to-surface-on-brand/0 pointer-events-none absolute inset-0 bg-gradient-to-b"
+        className="from-brand-gradient-start/60 via-brand-gradient-start/10 to-brand-gradient-start/0 pointer-events-none absolute inset-0 bg-gradient-to-b"
       />
       {/* 靠上排列：避開底圖下半部的機器人 */}
       <div className="relative flex flex-1 flex-col justify-start gap-4">
-        <h2 className="text-brand-gradient-start text-2xl font-bold tracking-tight select-none sm:text-3xl">
+        <h2 className="text-text-on-brand text-2xl font-bold tracking-tight select-none sm:text-3xl">
           {localize('com_auth_hello_welcome')}
         </h2>
         <p
-          className="text-brand-gradient-start/85 max-w-md text-base leading-relaxed"
+          className="text-text-on-brand/85 max-w-md text-base leading-relaxed"
           aria-label={welcomeBody}
         >
           <TypewriterText text={welcomeBody} />

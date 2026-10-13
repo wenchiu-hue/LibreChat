@@ -232,17 +232,18 @@ describe('Accessibility Improvements', () => {
       const promotedTab = screen.getByRole('tab', { name: /Top Picks category/ });
 
       // Test arrow key navigation
+      // 顯示順序：全部、精選、productivity
       fireEvent.keyDown(promotedTab, { key: 'ArrowRight' });
-      expect(onChange).toHaveBeenCalledWith('all');
+      expect(onChange).toHaveBeenLastCalledWith('productivity');
 
       fireEvent.keyDown(promotedTab, { key: 'ArrowLeft' });
-      expect(onChange).toHaveBeenCalledWith('productivity');
-
-      fireEvent.keyDown(promotedTab, { key: 'Home' });
-      expect(onChange).toHaveBeenCalledWith('promoted');
+      expect(onChange).toHaveBeenLastCalledWith('all');
 
       fireEvent.keyDown(promotedTab, { key: 'End' });
-      expect(onChange).toHaveBeenCalledWith('productivity');
+      expect(onChange).toHaveBeenLastCalledWith('productivity');
+
+      fireEvent.keyDown(promotedTab, { key: 'Home' });
+      expect(onChange).toHaveBeenLastCalledWith('all');
     });
 
     it('manages focus correctly', () => {

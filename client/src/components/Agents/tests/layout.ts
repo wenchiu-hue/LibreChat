@@ -127,7 +127,7 @@ export function installVirtualLayout(initialWidth = 1400, initialHeight = 600): 
       get(target, property) {
         if (element === document.documentElement && property === 'fontSize') return '16px';
         if (isCardGrid(element) && element.closest('[data-testid="viewport"]')) {
-          const columns = Math.max(1, Math.min(4, Math.floor((width + 20) / 340)));
+          const columns = Math.max(1, Math.min(2, Math.floor((width + 20) / 340)));
           if (property === 'gridTemplateColumns')
             return Array(columns)
               .fill(`${width / columns}px`)

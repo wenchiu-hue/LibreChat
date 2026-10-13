@@ -4,8 +4,10 @@ describe('composerSurfaceClasses', () => {
   it('draws the composer surface from semantic roles', () => {
     const classes = composerSurfaceClasses();
 
-    /** 輸入框專用邊色 rgb(97 191 188)，以 41% 透明度畫出。 */
-    expect(classes).toContain('border-border-composer/41');
+    /** 平時中性邊框；滑過時換成輸入框專用邊色 rgb(97 191 188) 41%（與 filled 欄位一致），聚焦時改用送出鈕的 surface-inverted。 */
+    expect(classes).toContain('border-border-heavy');
+    expect(classes).toContain('hover:border-border-composer/41');
+    expect(classes).toContain('focus-within:border-surface-inverted');
     expect(classes).toContain('bg-surface-composer');
     expect(classes).toContain('text-text-primary');
   });

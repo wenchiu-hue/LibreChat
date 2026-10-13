@@ -250,9 +250,12 @@ const writeStorage = (key: string, value?: string): void => {
   }
 };
 
+/** 沒選過外觀的使用者預設深色；選過（含「跟隨系統」）就照他存的設定。 */
+const DEFAULT_APPEARANCE: AppearanceMode = 'dark';
+
 const getInitialTheme = (): AppearanceMode => {
   const stored = readStorage(THEME_KEY);
-  return stored && isAppearanceMode(stored) ? stored : 'system';
+  return stored && isAppearanceMode(stored) ? stored : DEFAULT_APPEARANCE;
 };
 
 const getStoredThemeState = (): InitialThemeState => {

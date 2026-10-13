@@ -29,7 +29,7 @@ export default function MCPIcon({ icon, onIconChange, errorId }: MCPIconProps) {
         onClick={handleClick}
         aria-label={localize('com_ui_upload_icon')}
         aria-describedby={errorId}
-        className="border-border-composer/41 bg-surface-secondary hover:bg-surface-hover focus-visible:ring-ring-primary flex h-16 w-16 shrink-0 cursor-pointer items-center justify-center rounded-xl border-2 border-dashed transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
+        className="border-border-composer/80 dark:border-border-composer/41 bg-surface-secondary hover:bg-surface-hover focus-visible:ring-ring-primary flex h-16 w-16 shrink-0 cursor-pointer items-center justify-center rounded-xl border-2 border-dashed transition-colors focus-visible:ring-2 focus-visible:outline-hidden"
       >
         {icon ? (
           <CustomIcon

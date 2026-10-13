@@ -14,13 +14,32 @@ export const composerHintId = (index: number) => `composer-hint-${index}`;
  * every keystroke as the hint flips between idle and typing, so the description
  * channel carries it instead.
  */
-function Hints({ index, enterToSend, ...state }: ComposerHintState & { index: number }) {
+function Hints({
+  index,
+  enterToSend,
+  showTip = false,
+  ...state
+}: ComposerHintState & {
+  index: number;
+  /** 首頁（landing）在輸入框下方顯示閒置提示（`/` 使用提示詞等），讓隱藏的快捷功能被看見。
+   *  只在輸入框為空時顯示 `tip`；開始打字或有狀態提示時隱藏，那些仍只給輔助技術。 */
+  showTip?: boolean;
+}) {
   const hint = useComposerHint({ ...state, enterToSend });
+  const visibleTip = showTip && !state.hasText && hint.kind === 'tip' && hint.text !== '';
 
   return (
-    <span id={composerHintId(index)} className="sr-only">
-      {hint.text}
-    </span>
+    <>
+      <span id={composerHintId(index)} className="sr-only">
+        {hint.text}
+      </span>
+      {/* 文字已由上面的 aria-describedby 描述提供，這裡只給視覺，避免螢幕閱讀器讀兩次 */}
+      {visibleTip && (
+        <p aria-hidden="true" className="text-text-secondary mt-2 text-center text-xs select-none">
+          {hint.text}
+        </p>
+      )}
+    </>
   );
 }
 

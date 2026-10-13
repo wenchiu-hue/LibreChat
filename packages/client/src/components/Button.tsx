@@ -96,7 +96,7 @@ const buttonVariantRecipe = cva(
           'text-text-on-brand/85 hover:bg-surface-on-brand/15 hover:text-text-on-brand aria-pressed:bg-surface-on-brand/20 aria-pressed:text-text-on-brand',
         /** 品牌漸層上的主要動作（登入、送出）：白色實心膠囊，hover 浮起並帶螢光光暈。 */
         'glass-submit':
-          'h-theme-field-lg w-full rounded-full border-0 bg-linear-to-r from-surface-on-brand via-surface-on-brand to-brand-glow-cool/35 font-semibold text-brand-gradient-start shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:glow-brand active:translate-y-0 active:scale-98 active:shadow-sm focus-visible:ring-brand-highlight focus-visible:ring-offset-transparent disabled:opacity-60',
+          'h-theme-field-lg w-full rounded-full border-0 bg-surface-on-brand font-semibold text-brand-gradient-start shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:glow-brand active:translate-y-0 active:scale-98 active:shadow-sm focus-visible:ring-brand-highlight focus-visible:ring-offset-transparent disabled:opacity-60',
         /** 品牌漸層上的文字動作（返回登入、改用備用碼）：白字，hover 出現底線。 */
         'glass-link':
           'h-auto p-1 text-sm font-medium text-text-on-brand/90 underline decoration-transparent transition-all duration-200 hover:text-text-on-brand hover:decoration-text-on-brand focus-visible:rounded-sm focus-visible:ring-surface-on-brand/50 focus-visible:ring-offset-0',

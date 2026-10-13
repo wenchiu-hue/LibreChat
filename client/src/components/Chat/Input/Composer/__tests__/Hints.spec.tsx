@@ -81,4 +81,19 @@ describe('composer hints', () => {
     expect(description(0)).toHaveTextContent('Uploading 1 file');
     expect(description(1)).toHaveTextContent('Uploading 2 files');
   });
+
+  it('首頁閒置時在輸入框下方顯示 / 等快捷提示', () => {
+    render(<Hints {...baseState} hasText={false} index={0} showTip />);
+    const tip = screen.getByText(/\/ for prompts/, { selector: 'p' });
+    expect(tip).toBeVisible();
+    expect(tip).toHaveAttribute('aria-hidden', 'true');
+  });
+
+  it.each([{ hasText: true }, { hasText: false, uploadingCount: 1 }])(
+    '首頁輸入中或有狀態提示時不顯示快捷提示 (%j)',
+    (state) => {
+      const { container } = render(<Hints {...baseState} {...state} index={0} showTip />);
+      expect(container.querySelector('p')).not.toBeInTheDocument();
+    },
+  );
 });

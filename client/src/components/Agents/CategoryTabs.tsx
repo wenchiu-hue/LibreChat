@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useMediaQuery } from '@librechat/client';
 import type t from 'librechat-data-provider';
 import { useLocalize, TranslationKeys } from '~/hooks';
@@ -21,13 +21,18 @@ interface CategoryTabsProps {
 
 /** Keyboard-accessible category filters with immediate selection feedback. */
 const CategoryTabs: React.FC<CategoryTabsProps> = ({
-  categories,
+  categories: sourceCategories,
   activeTab,
   isLoading,
   onChange,
 }) => {
   const localize = useLocalize();
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
+  /** API 把「全部」放在最後，畫面上移到最左邊；鍵盤左右切換也照這個順序 */
+  const categories = useMemo(() => {
+    const all = sourceCategories.filter((category) => category.value === 'all');
+    return [...all, ...sourceCategories.filter((category) => category.value !== 'all')];
+  }, [sourceCategories]);
 
   /** Helper function to get category display name from database data */
   const getCategoryDisplayName = (category: t.TCategory) => {
@@ -47,9 +52,9 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({
 
   const loadingSkeleton = (
     <div className="w-full">
-      <div className="flex flex-wrap justify-start gap-1.5">
+      <div className="flex flex-wrap justify-center gap-1.5">
         {[...Array(6)].map((_, i) => (
-          <div key={i} className="bg-surface-tertiary h-8 min-w-[5rem] rounded-full" />
+          <div key={i} className="bg-surface-tertiary h-8 min-w-[3.5rem] rounded-md" />
         ))}
       </div>
     </div>
@@ -118,7 +123,7 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({
         className={cn(
           isSmallScreen
             ? 'hide-scrollbar flex gap-1.5 overflow-x-auto'
-            : 'flex flex-wrap justify-start gap-1.5',
+            : 'flex flex-wrap justify-center gap-1.5',
         )}
         role="tablist"
         aria-label={localize('com_agents_category_tabs_label')}
@@ -140,11 +145,12 @@ const CategoryTabs: React.FC<CategoryTabsProps> = ({
             onClick={() => onChange(category.value)}
             onKeyDown={(e) => handleKeyDown(e, category.value)}
             className={cn(
-              'focus-visible:ring-text-primary inline-flex h-8 cursor-pointer items-center justify-center rounded-full border px-2.5 text-xs font-medium whitespace-nowrap select-none focus-visible:ring-2 focus-visible:outline-hidden focus-visible:ring-inset',
+              'focus-visible:ring-ring-primary inline-flex h-8 cursor-pointer items-center justify-center rounded-md px-3 text-sm font-medium whitespace-nowrap transition-colors duration-150 select-none focus-visible:ring-2 focus-visible:outline-hidden',
               isSmallScreen ? 'min-w-fit shrink-0' : '',
+              /* 選中的分類用品牌綠實心底；未選中用明顯比卡片亮的灰底配主文字色 */
               activeTab === category.value
-                ? 'border-border-chrome-heavy bg-surface-active-alt text-text-primary'
-                : 'border-border-chrome bg-surface-secondary text-text-secondary hover:bg-surface-hover hover:text-text-primary',
+                ? 'bg-surface-submit text-text-on-status hover:bg-surface-submit-hover'
+                : 'bg-surface-hover text-text-primary hover:bg-surface-active',
             )}
             role="tab"
             aria-selected={activeTab === category.value}

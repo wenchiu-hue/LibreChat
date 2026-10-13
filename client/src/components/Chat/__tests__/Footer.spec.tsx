@@ -37,7 +37,9 @@ describe('Footer', () => {
     expect(link).toHaveAttribute('href', 'https://www.tynesys.com');
     expect(link).toHaveAttribute('target', '_blank');
     expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    expect(link.querySelector('img')).toHaveAttribute('src', 'assets/logo.svg');
+    const logo = screen.getByTestId('brand-logo');
+    expect(link).toContainElement(logo);
+    expect(logo.style.getPropertyValue('--brand-logo')).toContain('/assets/logo.svg');
     expect(link).toHaveTextContent('TYNE AI');
   });
 

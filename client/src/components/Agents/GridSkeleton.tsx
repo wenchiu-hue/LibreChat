@@ -1,8 +1,8 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Skeleton } from '@librechat/client';
 
-/** Card height (`min-h-[17.5rem]` on AgentCard), resolved against the root font size. */
-const CARD_REM = 17.5;
+/** Card height (`min-h-[9rem]` on AgentCard), resolved against the root font size. */
+const CARD_REM = 9;
 /** One request's worth of cards; a placeholder past the first page is never informative. */
 const MAX_CARDS = 32;
 /**
@@ -18,18 +18,11 @@ interface GridSkeletonProps {
 
 const card = (
   <>
-    <div className="flex items-start justify-between gap-3">
-      <Skeleton className="size-12 rounded-full sm:size-14" />
-      <Skeleton className="h-6 w-16 rounded-full" />
-    </div>
-    <Skeleton className="mt-4 h-6 w-3/4" />
-    <div className="mt-3 mb-5 space-y-2">
-      <Skeleton className="h-4 w-full" />
+    <Skeleton className="size-12 shrink-0 rounded-full sm:size-14" />
+    <div className="flex min-w-0 flex-1 flex-col gap-2">
+      <Skeleton className="h-5 w-1/2" />
       <Skeleton className="h-4 w-5/6" />
-    </div>
-    <div className="border-border-inset mt-auto flex justify-between gap-3 border-t pt-4">
-      <Skeleton className="h-4 w-24" />
-      <Skeleton className="h-4 w-20" />
+      <Skeleton className="h-3 w-24" />
     </div>
   </>
 );
@@ -87,12 +80,12 @@ export default function GridSkeleton({ scrollElementRef, label }: GridSkeletonPr
       <div
         ref={setGridElement}
         aria-hidden="true"
-        className="grid min-w-0 grid-cols-[repeat(auto-fill,minmax(min(100%,max(20rem,calc((100%_-_3.75rem)/4))),1fr))] gap-5"
+        className="grid min-w-0 grid-cols-[repeat(auto-fill,minmax(min(100%,max(20rem,calc((100%_-_1.25rem)/2))),1fr))] gap-5"
       >
         {Array.from({ length: count }, (_, index) => (
           <div
             key={index}
-            className="border-border-light bg-surface-card rounded-theme-surface flex min-h-[17.5rem] min-w-0 flex-col border p-5"
+            className="border-border-light bg-surface-card rounded-theme-surface flex min-h-[9rem] min-w-0 items-center gap-5 border px-6 py-4"
           >
             {card}
           </div>

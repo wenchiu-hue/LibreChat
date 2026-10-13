@@ -10,7 +10,7 @@ export interface FilterInputProps
   /** Container className for custom styling */
   containerClassName?: string;
   /** Surface behind the floating label, matching the input's surrounding panel. */
-  surface?: 'primary' | 'presentation' | 'dialog';
+  surface?: 'primary' | 'presentation' | 'dialog' | 'composer';
 }
 
 /**
@@ -33,6 +33,17 @@ const SURFACE_CLASSES: Record<NonNullable<FilterInputProps['surface']>, string> 
   primary: 'bg-surface-primary-alt',
   presentation: 'bg-presentation',
   dialog: 'bg-surface-dialog',
+  /** 比照聊天輸入框：surface-composer 底色，容器同圓角，淺色 canvas 上不露出直角 */
+  composer: 'bg-surface-composer rounded-lg',
+};
+
+/** 欄位邊框依 surface 而定；composer 平時中性，滑過與聚焦時換成輸入框專用邊色，與 filled 欄位一致。 */
+const FIELD_BORDER_CLASSES: Record<NonNullable<FilterInputProps['surface']>, string> = {
+  primary: 'border-border-control',
+  presentation: 'border-border-control',
+  dialog: 'border-border-control',
+  composer:
+    'border-border-medium hover:border-border-composer/41 focus:border-border-composer/41 transition-colors duration-200 motion-reduce:transition-none',
 };
 
 const FilterInput: React.ForwardRefExoticComponent<
@@ -47,7 +58,8 @@ const FilterInput: React.ForwardRefExoticComponent<
           placeholder=" "
           aria-label={label}
           className={cn(
-            'peer border-border-control text-text-primary ring-offset-surface-primary placeholder:text-text-secondary flex h-9 w-full rounded-lg border bg-transparent px-3 py-2 text-sm focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
+            FIELD_BORDER_CLASSES[surface],
+            'peer text-text-primary ring-offset-surface-primary placeholder:text-text-secondary flex h-9 w-full rounded-lg border bg-transparent px-3 py-2 text-sm focus-visible:outline-hidden disabled:cursor-not-allowed disabled:opacity-50',
             disabledFillClasses,
             className,
           )}

@@ -76,7 +76,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ value, onSearch, className = '' }
         ref={inputRef}
         value={searchTerm}
         onChange={handleChange}
-        className="focus-visible:ring-text-primary pe-10 focus-visible:ring-2 focus-visible:ring-inset"
+        surface="composer"
+        className="pe-10"
         aria-describedby="search-instructions search-results-count"
         autoComplete="off"
         spellCheck="false"
